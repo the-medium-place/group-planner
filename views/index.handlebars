@@ -1,0 +1,26 @@
+{{!-- <h1>{{lunch}}</h1> --}}
+
+<h2>Create an event</h2>
+<form class="create-form">
+
+  <div class="form-group">
+    <label for="event">Name your event:</label>
+    <input type="text" id="event-name" name="name">
+  </div>
+  <div class="form-group">
+    <label for="date">When will it be?</label>
+    <input type="text" id="event-date" name="name">
+  </div>
+
+  <div class="form-group">
+    <label for="count">How many people are invited?</label><br>
+    <select name="people" id="invitees">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+  </div>
+
+  <button type="submit">Create event</button>
+</form>
