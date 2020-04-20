@@ -19,6 +19,6 @@
   "homepage": "https://github.com/the-medium-place/group-planner#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "express-handlebars": "^4.0.3"
+    "express-handlebars": "^4.0.3",
   }
 }
