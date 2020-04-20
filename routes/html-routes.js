@@ -29,8 +29,12 @@ module.exports = function (app) {
     res.render("view-events", { test: "dion connected" });
   });
 
-  app.get("/new-events", function (req, res) {
-    res.render("create-event", { test: "dion connected" });
+  app.get("/new-event", function (req, res) {
+    res.render("new-event", { test: "dion connected" });
+  });
+
+  app.get("/aboutus", function (req, res) {
+    res.render("about-us", { test: "dion connected" });
   });
 
   //   // Route to the cms page

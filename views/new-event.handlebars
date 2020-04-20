@@ -1,23 +1,22 @@
 <h2>Create an event</h2>
 <form class="create-form">
-
   <div class="form-group">
-    <label for="event">Name your event:</label>
-    <input type="text" id="event-name" name="name">
+    <label for="event-name">Name your event: </label>
+    <input type="text" id="event-name" name="new-event" required>
   </div>
   <div class="form-group">
-    <label for="date">When will it be?</label>
-    <input type="text" id="event-date" name="name">
+    <label for="event-date">When will it be?: </label>
+    <input type="date" id="event-date" name="new-event" required>
   </div>
-
   <div class="form-group">
-    <label for="count">How many people are invited?</label><br>
-    <select name="people" id="invitees">
+    <label for="invitees">How many people are invited?: </label>
+    <input type="number" id="invitees" name="new-event" min="1">
+    {{!-- <select name="people" id="invitees" name="new-event">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
-        </select>
+        </select> --}}
   </div>
 
   <button type="submit">Create event</button>
