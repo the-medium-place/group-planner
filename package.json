@@ -2,15 +2,15 @@
   "name": "group-planner",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/the-medium-place/group-planner.git"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
