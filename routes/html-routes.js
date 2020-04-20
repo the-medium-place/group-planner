@@ -27,15 +27,10 @@ module.exports = function (app) {
 
   app.get("/view-events", function (req, res) {
     res.render("view-events", { test: "dion connected" });
-    //   res.send("connected dionnnnnnnnnnn");
-    //   cat.all(function(data) {
-    //     var hbsObject = {
-    //       cats: data
-    //     };
-    //     console.log(hbsObject);
-    //     res.render("index", hbsObject);
-    //   });
-    // res.sendFile(path.join(__dirname, "../public/blog.html"));
+  });
+
+  app.get("/new-events", function (req, res) {
+    res.render("create-event", { test: "dion connected" });
   });
 
   //   // Route to the cms page
