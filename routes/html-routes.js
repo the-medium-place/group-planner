@@ -27,15 +27,14 @@ module.exports = function (app) {
 
   app.get("/view-events", function (req, res) {
     res.render("view-events", { test: "dion connected" });
-    //   res.send("connected dionnnnnnnnnnn");
-    //   cat.all(function(data) {
-    //     var hbsObject = {
-    //       cats: data
-    //     };
-    //     console.log(hbsObject);
-    //     res.render("index", hbsObject);
-    //   });
-    // res.sendFile(path.join(__dirname, "../public/blog.html"));
+  });
+
+  app.get("/new-event", function (req, res) {
+    res.render("new-event", { test: "dion connected" });
+  });
+
+  app.get("/aboutus", function (req, res) {
+    res.render("about-us", { test: "dion connected" });
   });
 
   //   // Route to the cms page

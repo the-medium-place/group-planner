@@ -1,46 +1,42 @@
-{{!-- <h1>{{lunch}}</h1> --}}
-
-<h2>Create an event</h2>
-<form class="create-form">
+<h2>Login to get started</h2>
+<form class="login-form">
 
   <div class="form-group">
-    <label for="event">Name your event:</label>
-    <input type="text" id="event-name" name="name">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="login" required>
   </div>
   <div class="form-group">
-    <label for="date">When will it be?</label>
-    <input type="text" id="event-date" name="name">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="login" required>
   </div>
 
-  <div class="form-group">
-    <label for="count">How many people are invited?</label><br>
-    <select name="people" id="invitees">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
-  </div>
-
-  <button type="submit">Create event</button>
+  <button type="submit">Login</button>
 </form>
 
 
-{{!-- <style media="screen">
-  li {
-    background-color: wheat;
-    margin-bottom: 10px;
-    padding: 10px;
-    width: 50%;
-    font-family: sans-serif;
-  }
-</style>
+<h4>Don't have an account? Create one below:</h4>
+<form class="create-form">
 
-<h1>Lunches for {{eater}}</h1>
-
-<ul>
-{{#each foods }}
-  <li>{{lunch}}</li>
-{{/each}}
-</ul>
- --}}
+  <div class="form-group">
+    <label for="new-user">New username: </label>
+    <input type="text" id="new-user" name="create-account" required>
+  </div>
+  <div class="form-group">
+    <label for="new-pass">Create a password: </label>
+    <input type="password" id="new-pass" name="create-account" required>
+  </div>
+  <div class="form-group">
+    <label for="new-pass-confirm">Confirm your password: </label>
+    <input type="password" id="new-pass-confirm" name="create-account" required>
+  </div>
+  <div class="form-group">
+    <label for="new-email">Enter your email: </label>
+    <input type="email" id="new-email" name="create-account" required>
+  </div>
+  <div class="form-group">
+    <label for="new-phone">Enter your phone number (optional)</label>
+    <input type="tel" placeholder="678-999-8212" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="new-phone" name="create-account">
+  </div>
+  <button type="submit">Create account</button>
+  <button type="reset">Clear all fields</button>
+</form>
