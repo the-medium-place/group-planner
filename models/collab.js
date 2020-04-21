@@ -21,6 +21,14 @@ module.exports = function (sequelize, DataTypes) {
         last_name: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        phone: {
+            type: DataTypes.STRING,
+            // allowNull: false
         }
     });
 
@@ -37,7 +45,6 @@ module.exports = function (sequelize, DataTypes) {
             }
         });
     };
-
 
     // foreign key task id - each event has multiple tasks
     Collab.associate = function (models) {

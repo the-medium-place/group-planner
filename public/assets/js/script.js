@@ -1,7 +1,7 @@
 // console.log("connected");
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
-  $("#login").on("submit", function(){
+  $("#login").on("submit", function () {
     const username = $("#username").val();
     const password = $("#password").val();
 
@@ -15,25 +15,45 @@ $(function () {
     // $.ajax()
   });
 
-  $("#newAccount").on("submit", function(){
-    const newUser = $("#new-user").val();
-    const newPass = $("#new-pass").val();
-    const newPassConfirm = $("#new-pass-confirm").val();
-    const newEmail = $("#new-email").val();
-    const newPhone = $("#new-phone").val();
+  $("#newAccount").on("submit", function (event) {
+    event.preventDefault();
+    const newUser = $("#new-user").val().trim();
+    const newFirst = $("#new-first").val().trim();
+    const newLast = $("#new-last").val().trim();
+    
+    const newPass = $("#new-pass").val().trim();
+    // const newPassConfirm = $("#new-pass-confirm").val().trim();
+    const newEmail = $("#new-email").val().trim();
+    const newPhone = $("#new-phone").val().trim();
 
     const newAccount = {
       username: newUser,
+      first_name: newFirst,
+      last_name: newLast,
       password: newPass,
-      confirm: newPassConfirm,
+      // confirm: newPassConfirm,
       email: newEmail,
       phone: newPhone
     }
+    console.log(newAccount);
 
-    console.log(newAccount)
+    // check if password matches confirm value
+    // if yes send data request
+    // if no alert/modal
+
+    $.ajax({
+      url: "/signup",
+      method: "POST",
+      data: newAccount
+    }).then((response) => {
+      console.log(response);
+      window.location.replace("/view-events");
+
+    })
+
   });
 
-  $("#create-event").on("submit", function(){
+  $("#create-event").on("submit", function () {
     const eventName = $("#event-name").val();
     const eventDate = $("#event-date").val();
     const invitees = $("#invitees").val();

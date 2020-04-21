@@ -29,6 +29,8 @@ module.exports = function (app) {
       password: req.body.password,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
+      email: req.body.email,
+      phone: req.body.phone
       // costId: req.body.costId,
       // taskId: req.body.taskId,
       // eventId: req.body.eventId
