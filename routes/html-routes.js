@@ -26,15 +26,29 @@ module.exports = function (app) {
   });
 
   app.get("/view-events", function (req, res) {
-    res.render("view-events", { test: "dion connected" });
+
+    if (req.session.user) {
+      res.render("view-events", { test: "dion connected" });
+    } else {
+      res.render("index");
+    }
+
   });
 
   app.get("/new-event", function (req, res) {
-    res.render("new-event", { test: "dion connected" });
+    if (req.session.user) {
+      res.render("new-events", { test: "dion connected" });
+    } else {
+      res.render("index");
+    }
   });
 
   app.get("/aboutus", function (req, res) {
-    res.render("about-us", { test: "dion connected" });
+    if (req.session.user) {
+      res.render("aboutus", { test: "dion connected" });
+    } else {
+      res.render("index");
+    }
   });
 
   //   // Route to the cms page
