@@ -28,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
     // each cost can have up to one collaborator (null allowed)
     Cost.associate = (models) => {
         Cost.hasOne(models.collab, {
-            onDelete: "cascade"
+            onDelete: "SET NULL"
         });
     };
 
