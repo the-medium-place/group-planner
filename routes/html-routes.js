@@ -13,7 +13,7 @@ module.exports = function (app) {
 
   // index route loads view.html
   app.get("/", function (req, res) {
-    res.render("index", { test: "dion connected" });
+    res.render("index");
     //   res.send("connected dionnnnnnnnnnn");
     //   cat.all(function(data) {
     //     var hbsObject = {
@@ -25,16 +25,24 @@ module.exports = function (app) {
     // res.sendFile(path.join(__dirname, "../public/blog.html"));
   });
 
+  app.get("/login-success", function (req, res) {
+    res.render("index", { welcome: "Welcome, valued user" });
+  });
+
   app.get("/view-events", function (req, res) {
     res.render("view-events", { test: "dion connected" });
   });
 
   app.get("/new-event", function (req, res) {
-    res.render("new-event", { test: "dion connected" });
+    res.render("new-event");
+  });
+
+  app.get("/update-event", function (req, res) {
+    res.render("update-event", { event });
   });
 
   app.get("/aboutus", function (req, res) {
-    res.render("about-us", { test: "dion connected" });
+    res.render("about-us");
   });
 
   //   // Route to the cms page

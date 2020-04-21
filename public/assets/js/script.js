@@ -1,4 +1,4 @@
-console.log("connected");
+// console.log("connected");
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
   $("#login").on("submit", function(){
@@ -33,7 +33,21 @@ $(function () {
     console.log(newAccount)
   });
 
+  $("#create-event").on("submit", function(){
+    const eventName = $("#event-name").val();
+    const eventDate = $("#event-date").val();
+    const invitees = $("#invitees").val();
 
+    const newEvent = {
+      eventName,
+      eventDate,
+      invitees
+    }
+
+    console.log(newEvent)
+
+    // $.ajax()
+  });
   /*
   $(".change-sleep").on("click", function (event) {
     var id = $(this).data("id");

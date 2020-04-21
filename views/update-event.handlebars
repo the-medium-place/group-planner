@@ -1,0 +1,43 @@
+<h2>Update {{name}}</h2>
+<form class="create-form" id="create-event">
+  <div class="form-group">
+    <label for="event-rename">Rename your event: </label>
+    <input type="text" id="event-rename" name="update-event">
+  </div>
+  <div class="form-group">
+    <label for="event-date-change">Change the date: </label>
+    <input type="date" id="event-date-change" name="update-event">
+  </div>
+  <div class="form-group">
+    <label for="invitees-update">How many people are invited?: </label>
+    <input type="number" id="invitees-update" name="update-event" min="1">
+    {{!-- <select name="people" id="invitees" name="new-event">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select> --}}
+  </div>
+
+  <button type="submit">Update event</button>
+</form>
+
+
+{{!-- <style media="screen">
+  li {
+    background-color: wheat;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 50%;
+    font-family: sans-serif;
+  }
+</style>
+
+<h1>Lunches for {{eater}}</h1>
+
+<ul>
+{{#each foods }}
+  <li>{{lunch}}</li>
+{{/each}}
+</ul>
+ --}}
