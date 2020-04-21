@@ -10,43 +10,38 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    // // foreign key event id
-    // Collab.associate = function (models) {
-    //     // We're saying that a Task should belong to an Event
-    //     // A Task can't be created without an Event due to the foreign key constraint
-    //     Collab.belongsTo(models.Event, {
-    //         foreignKey: {
-    //             allowNull: false
-    //         }
-    //     });
-    // };
+      // each collaborator can have many events
+      Collab.associate = function(models){
+        Collab.hasMany(models.event);
+    };
+
+    // foreign key event id - each event can have multiple collaborators
+    Collab.associate = function (models) {
+        Collab.belongsTo(models.event, {
+            foreignKey: {
+                allowNull: false
+            }
+        });
+    };
 
 
-    // // foreign key task id
-    // Collab.associate = function (models) {
-    //     // We're saying that a Task should belong to an Event
-    //     // A Task can't be created without an Event due to the foreign key constraint
-    //     Collab.belongsTo(models.Task, {
-    //         foreignKey: {
-    //             allowNull: true
-    //         }
-    //     });
-    // };
+    // foreign key task id - each event has multiple tasks
+    Collab.associate = function (models) {
+        Collab.belongsTo(models.task, {
+            foreignKey: {
+                allowNull: true
+            }
+        });
+    };
 
-
-    // //foreign key cost id
-    // Collab.associate = function (models) {
-    //     // We're saying that a Task should belong to an Event
-    //     // A Task can't be created without an Event due to the foreign key constraint
-    //     Collab.belongsTo(models.Cost, {
-    //         foreignKey: {
-    //             allowNull: true
-    //         }
-    //     });
-    // };
-
-
-
+    //foreign key cost id - each event has multiple cost values
+    Collab.associate = function (models) {
+       Collab.belongsTo(models.cost, {
+            foreignKey: {
+                allowNull: true
+            }
+        });
+    };
 
     return Collab;
 }

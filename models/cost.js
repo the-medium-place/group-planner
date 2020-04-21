@@ -16,26 +16,21 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
+    // associate to collab for foreign key - each cost belongs to an event
+    Cost.associate = function (models) {
+       Cost.belongsTo(models.event, {
+            foreignKey: {
+                allowNull: false
+            }
+        });
+    };
 
-    // // associate to collab for foreign key
-    // Cost.associate = function (models) {
-    //     // We're saying that a Task should belong to an Event
-    //     // A Task can't be created without an Event due to the foreign key constraint
-    //     Cost.belongsTo(models.Event, {
-    //         foreignKey: {
-    //             allowNull: false
-    //         }
-    //     });
-    // };
-
-    
-    // Cost.associate = (models) => {
-    //     Cost.hasOne(models.Collab, {
-    //         onDelete: "cascade"
-    //     });
-    // };
-
-
+    // each cost can have up to one collaborator (null allowed)
+    Cost.associate = (models) => {
+        Cost.hasOne(models.collab, {
+            onDelete: "cascade"
+        });
+    };
 
     return Cost;
 }
