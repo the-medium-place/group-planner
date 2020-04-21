@@ -6,22 +6,43 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>To-Gather</title>
 	{{!-- Zurb Foundation CSS --}}
-	{{!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous"> --}}
-    <script src="https://code.jquery.com/jquery.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+		integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+	{{!-- our CSS file --}}
 	<link rel="stylesheet" href="/assets/css/style.css">
 
 </head>
 
 <body>
-    <h1>TO-GATHER</h1>
-    <nav>Nav bar and nav bar items
-        <a href="../">Return to the home page</a>
-        <a href="../view-events">View events</a>
-        <a href="../new-event">Create an event</a>
-        <a href="../aboutus">About the developers</a>
-    </nav>
+
+	<div data-sticky-container>
+		<div class="title-bar" data-sticky data-options="marginTop:0;" style="width:100%">
+			<div class="title-bar-left">
+				<h4>To-Gather</h4>
+			</div>
+			<div class="top-bar-right">
+				<ul class="menu">
+					<li><a href="../">Home</a></li>
+					<li><a href="../view-events">Events</a></li>
+					<li><a href="../new-event">New Event</a></li>
+					<li><a href="../aboutus">About Us</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
 	{{{ body }}}
-<script src="/assets/js/script.js"></script>
+
+	{{!-- jQuery --}}
+	<script src="https://code.jquery.com/jquery.js"></script>
+	{{!-- our JS --}}
+	<script src="/assets/js/script.js"></script>
+	<!-- Compressed Zurb JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
+		integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+	{{!-- calling foundation js --}}
+	<script>$(document).foundation();</script>
 </body>
 
 </html>
