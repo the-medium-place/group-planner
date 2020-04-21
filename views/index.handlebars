@@ -1,44 +1,73 @@
-<h1>{{welcome}}</h1>
+<br>
+<br>
 
-<h2>Login to get started</h2>
-<form class="login-form" id="login">
-
-  <div class="form-group">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="login" required>
+<div class="grid-x">
+  <div class="cell small-1 medium-3 large-3 text-center"></div>
+  <div class="cell small-10 medium-6 large-6 text-center">
+    <h3>Login to get started!</h3>
   </div>
-  <div class="form-group">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="login" required>
-  </div>
-
-  <button type="submit">Login</button>
-</form>
+  <div class="cell small-1 medium-3 large-3 text-center"></div>
+</div>
 
 
-<h4>Don't have an account? Create one below:</h4>
-<form class="create-form" id="newAccount">
+<div class="grid-x">
+  <div class="cell small-1 medium-3 large-3 text-center"></div>
+  <div class="cell small-10 medium-6 large-6 ">
+    <form>
+      <div class="medium-6 cell">
+        <label>Username
+          <input type="text" id="username" placeholder="Mr Zappa">
+        </label>
+      </div>
+      <div class="medium-6 cell">
+        <label>Password
+          <input type="text" id="password" placeholder="your password">
+        </label>
+      </div>
+      <button class="button .submit" id="loginBTN">Login</button>
+    </form>
+  </div>
+  <div class="cell small-1 medium-3 large-3 text-center"></div>
+</div>
 
-  <div class="form-group">
-    <label for="new-user">New username: </label>
-    <input type="text" id="new-user" name="create-account" required>
+
+<div class="grid-x">
+  <div class="cell small-1 medium-3 large-3"></div>
+  <div class="cell small-10 medium-6 large-6">
+    <h4 class="text-center">Don't have an account? Create one below:</h4>
+    <form>
+      <div class="form-group">
+
+        <label for="new-user">New Username:
+      <input type="password" id="new-pass" name="create-account" placeholder="new user" required>
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="new-pass">Create a password:
+      <input type="password" id="new-pass" name="create-account" placeholder="tarzan123" required>
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="new-pass-confirm">Confirm your password:
+          <input type="password" id="new-pass-confirm" name="create-account" required>
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="new-email">Enter your email:
+          <input type="email" id="new-email" name="create-account" placeholder="tarzan@jungle.com" required>
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="new-phone">Enter your phone number (optional)
+          <input type="tel" placeholder="678-999-8212" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="new-phone">
+        </label>
+      </div>
+
+      <button class="button .submit" id="createACC">Create Account</button>
+      <button class="button" type="reset" id="resetBTN">Clear all fields</button>
+
+    </form>
+
   </div>
-  <div class="form-group">
-    <label for="new-pass">Create a password: </label>
-    <input type="password" id="new-pass" name="create-account" required>
-  </div>
-  <div class="form-group">
-    <label for="new-pass-confirm">Confirm your password: </label>
-    <input type="password" id="new-pass-confirm" name="create-account" required>
-  </div>
-  <div class="form-group">
-    <label for="new-email">Enter your email: </label>
-    <input type="email" id="new-email" name="create-account" required>
-  </div>
-  <div class="form-group">
-    <label for="new-phone">Enter your phone number (optional)</label>
-    <input type="tel" placeholder="678-999-8212" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="new-phone" name="create-account">
-  </div>
-  <button type="submit">Create account</button>
-  <button type="reset">Clear all fields</button>
-</form>
+  <div class="cell small-1 medium-3 large-3"></div>
+</div>
