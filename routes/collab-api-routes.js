@@ -4,7 +4,7 @@
 
 // Dependencies
 // =============================================================
-
+const bcrypt = require("bcrypt");
 // Grabbing our models
 
 var db = require("../models");
@@ -22,21 +22,70 @@ module.exports = function (app) {
     });
   });
 
-  // POST route for saving a new event.
-  app.post("/api/collabs", function (req, res) {
+  app.post("/signup", (req, res) => {
+  
     db.collab.create({
+      username: req.body.username,
+      password: req.body.password,
       first_name: req.body.first_name,
-      last_name: req.body.last_name
+      last_name: req.body.last_name,
+      // costId: req.body.costId,
+      // taskId: req.body.taskId,
+      // eventId: req.body.eventId
     }).then(function (dbCollab) {
-      // We have access to the new todo as an argument inside of the callback function
-      res.json(dbCollab);
+      res.status(200).json(dbCollab);
     });
   });
 
-  // DELETE route for deleting todos. You can access the todo's id in req.params.id
-  app.delete("/api/todos/:id", function (req, res) {
+  app.get("/login", (req, res) => {
+    db.collab.findOne({
+      where: {
+        username: req.body.username
+      }
+    }).then(dbCollab => {
+      if (bcrypt.compareSync(req.body.password, dbCollab.password)) {
+        req.session.username = dbCollab;
+        res.send("success")
+      } else {
+        res.send("You need to log in!");
+      }
+    })
+  })
+
+  //enable session storage
+  app.get("/readsessions", (req, res) => {
+  
+    res.json(req.session);
+
+  })
+
+  // Logout route for user info
+  app.delete("/logout", (req, res) => {
+    req.session.destroy(function(err){
+      if (err) throw err;
+      res.send("successful logout");
+    })
 
   });
+
+
+
+
+  // // POST route for saving a new collab.
+  // app.post("/api/collabs", function (req, res) {
+  //   db.collab.create({
+  //     first_name: req.body.first_name,
+  //     last_name: req.body.last_name,
+  //     costId: req.body.costId,
+  //     taskId: req.body.taskId,
+  //     eventId: req.body.eventId
+  //   }).then(function (dbCollab) {
+  //     // We have access to the new todo as an argument inside of the callback function
+  //     res.json(dbCollab);
+  //   });
+  // });
+
+
 
   // PUT route for updating todos. The updated todo will be available in req.body
   app.put("/api/todos", function (req, res) {

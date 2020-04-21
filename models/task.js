@@ -26,7 +26,7 @@ module.exports = function (sequelize, DataTypes) {
     // associate to collab for foreign key
     Task.associate = (models) => {
         Task.hasOne(models.collab, {
-            onDelete: "cascade"
+            onDelete: "SET NULL"
         });
     };
 
