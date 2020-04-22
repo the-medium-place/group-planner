@@ -5,3 +5,8 @@ body {
 #resetBTN {
     float: right;
 }
+
+#welcomeUser {
+    margin-right: 5px;
+    margin-top: 8px;
+}

@@ -12,13 +12,15 @@ $(function () {
       password: passwordInput
     }
 
-    console.log(userLogin)
-
     $.ajax({
       url: "/login",
       method: "POST",
       data: userLogin
+    }).then(function(results){
+
+      window.location.href = "/view-events";
     })
+
   });
 
   $("#newAccount").on("submit", function (event) {
@@ -68,12 +70,7 @@ $(function () {
       }).then(() => {
         location.href = "/view-events";
       })
-
-      
     })
-
-
-
   });
 
   $("#create-event").on("submit", function () {
