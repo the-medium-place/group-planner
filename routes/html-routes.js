@@ -63,7 +63,7 @@ module.exports = function (app) {
     }
   });
 
-  app.get("/aboutus", function (req, res) {
+  app.get("/about-us", function (req, res) {
     if (req.session.username) {
       res.render("about-us");
     } else {

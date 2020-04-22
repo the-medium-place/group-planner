@@ -3,6 +3,7 @@ body {
 }
 
 #resetBTN {
+<<<<<<< HEAD
   float: right;
 }
 
@@ -13,3 +14,12 @@ body {
 #title-text a:hover {
   color: green;
 }
+=======
+    float: right;
+}
+
+#welcomeUser {
+    margin-right: 5px;
+    margin-top: 8px;
+}
+>>>>>>> development
