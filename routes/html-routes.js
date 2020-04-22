@@ -46,7 +46,7 @@ module.exports = function (app) {
 
   app.get("/view-events", function (req, res) {
     if (req.session.username) {
-      res.render("view-events", { testEvents});
+      res.render("view-events", { testEvents });
     } else {
 
       res.render("index");
@@ -57,7 +57,7 @@ module.exports = function (app) {
   app.get("/new-event", function (req, res) {
 
     if (req.session.username) {
-      res.render("new-events", { test: "dion connected" });
+      res.render("new-event");
     } else {
       res.render("index");
     }
@@ -65,7 +65,7 @@ module.exports = function (app) {
 
   app.get("/aboutus", function (req, res) {
     if (req.session.username) {
-      res.render("aboutus", { test: "dion connected" });
+      res.render("about-us");
     } else {
       res.render("index");
     }
@@ -74,10 +74,19 @@ module.exports = function (app) {
 
   app.get("/update-event", function (req, res) {
     if(req.session.username) {
-    res.render("update-event", { event });
+    res.render("update-event", { testEvents });
     } else {
       res.render("index");
     }
+  });
+
+  app.get("/login-fail", function (req, res) {
+    res.render("login-fail")
+    // if(req.session.username) {
+    // res.render("update-event", { testEvents });
+    // } else {
+    //   res.render("index");
+    // }
   });
   
 

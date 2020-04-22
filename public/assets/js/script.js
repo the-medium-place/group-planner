@@ -88,8 +88,27 @@ $(function () {
     }
 
     console.log(newEvent)
+    $.ajax({
+      url: "/signup",
+      method: "POST",
+      data: newAccount
+    }).then(() => {
+      // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
+      const newObj = {
+        username: newUser,
+        password: newPass
+      };
+      $.ajax({
+        // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT (GET CANNOT ACCEPT OBJECT - NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
+        url: "/login",
+        method: "POST",
+        data: newObj
+      }).then(() => {
+        location.href = "/view-events";
+      })
 
-    // $.ajax()
+      
+    })
   });
   /*
   $(".change-sleep").on("click", function (event) {
