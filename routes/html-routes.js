@@ -34,28 +34,31 @@ module.exports = function (app) {
       name: "Flying like Hinata",
       location: "Karasuno High School",
       date: "Spring tournament",
-      host: "Aoba Josai"
+      host: "Aoba Josai",
+      collaborators: "Nobody",
+      tasks: "No tasks",
+      costs: "Free"
     },
     event2: {
       name: "UA school festival",
       location: "UA High School",
       date: "End of November",
-      host: "UA Class 1-A"
-    }
-  }
+      host: "UA Class 1-A",
+      collaborators: "Everybody",
+      tasks: "Always busy",
+      costs: "$200,000"
+    },
+  };
 
   app.get("/view-events", function (req, res) {
     if (req.session.username) {
       res.render("view-events", { testEvents });
     } else {
-
       res.render("index");
     }
-
   });
 
   app.get("/new-event", function (req, res) {
-
     if (req.session.username) {
       res.render("new-event");
     } else {
@@ -65,30 +68,29 @@ module.exports = function (app) {
 
   app.get("/about-us", function (req, res) {
     if (req.session.username) {
-      res.render("about-us");
+      // console.log(req.session.username.username)
+      res.render("about-us", req.session.username);
     } else {
       res.render("index");
     }
-
   });
 
   app.get("/update-event", function (req, res) {
-    if(req.session.username) {
-    res.render("update-event", { testEvents });
+    if (req.session.username) {
+      res.render("update-event", { testEvents });
     } else {
       res.render("index");
     }
   });
 
   app.get("/login-fail", function (req, res) {
-    res.render("login-fail")
+    res.render("login-fail");
     // if(req.session.username) {
     // res.render("update-event", { testEvents });
     // } else {
     //   res.render("index");
     // }
   });
-  
 
   //   // Route to the cms page
   //   app.get("/cms", function(req, res) {
