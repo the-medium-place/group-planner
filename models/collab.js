@@ -34,8 +34,19 @@ module.exports = function (sequelize, DataTypes) {
 
     // each collaborator can have many events
     Collab.associate = function (models) {
-        Collab.hasMany(models.event);
+        Collab.hasMany(models.event, {through: "collab-events"});
     };
+
+       // foreign key event id - each event can have multiple collaborators
+       Collab.associate = function (models) {
+        Collab.belongsToMany(models.event, {
+            through: "collab-events",
+            foreignKey: {
+                allowNull: false
+            }
+        });
+    };
+
 
     // each collab can have one task
     Collab.associate = function (models) {
@@ -47,15 +58,14 @@ module.exports = function (sequelize, DataTypes) {
         Collab.hasOne(models.cost);
     };
 
-    // foreign key event id - each event can have multiple collaborators
     Collab.associate = function (models) {
-        Collab.belongsToMany(models.event, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
+        Collab.belongsToMany(models.event,
+            {
+                through: "collabEvents"
+            });
     };
 
+ 
     // foreign key task id - each collab has one task
     Collab.associate = function (models) {
         Collab.belongsTo(models.task, {

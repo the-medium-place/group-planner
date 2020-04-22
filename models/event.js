@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     const Event = sequelize.define("event", {
         name: {
             type: DataTypes.STRING,
@@ -18,45 +18,32 @@ module.exports = function(sequelize, DataTypes) {
 
     });
 
-        // each collab can be part of multiple events
-        Event.associate = function (models) {
-            Event.belongsToMany(models.collab, {
-                foreignKey: {
-                    allowNull: true
-                }
-            });
-        };
-    
-        //    // each collab can be part of multiple costs
-        //    Event.associate = function (models) {
-        //     Event.belongsToMany(models.cost, {
-        //         foreignKey: {
-        //             allowNull: true
-        //         }
-        //     });
-        // };
+    // each collab can be part of multiple events - junction table of "collab-events"
+    Event.associate = function (models) {
+        Event.belongsToMany(models.collab,{through: "collabEvents"});
+    };
 
     // associate to task for foreign key
-    Event.associate = function(models){
+    Event.associate = function (models) {
         Event.hasMany(models.task, {
-            onDelete: "CASCADE"
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: true
+            }
         });
     };
- 
+
     // associate to cost for foreign key
     Event.associate = (models) => {
         Event.hasMany(models.cost, {
-            onDelete: "CASCADE"
+            onDelete: "CASCADE",
+            foreignKey: {
+                allowNull: true
+            }
         });
     };
 
-    // associate to collab for foreign key
-    Event.associate = (models) => {
-        Event.hasMany(models.collab, {
-            onDelete: "CASCADE"
-        });
-    };
-
+  
 
 
     return Event;
