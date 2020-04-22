@@ -23,12 +23,14 @@ module.exports = function (app) {
   });
 
   app.post("/signup", (req, res) => {
-  
+
     db.collab.create({
       username: req.body.username,
       password: req.body.password,
       first_name: req.body.first_name,
       last_name: req.body.last_name,
+      email: req.body.email,
+      phone: req.body.phone
       // costId: req.body.costId,
       // taskId: req.body.taskId,
       // eventId: req.body.eventId
@@ -37,7 +39,10 @@ module.exports = function (app) {
     });
   });
 
-  app.get("/login", (req, res) => {
+  app.post("/login", (req, res) => {
+    console.log("start of login route");
+    console.log(req.body);
+    console.log(req.body.username);
     db.collab.findOne({
       where: {
         username: req.body.username
@@ -45,19 +50,20 @@ module.exports = function (app) {
     }).then(dbCollab => {
       if (bcrypt.compareSync(req.body.password, dbCollab.password)) {
         req.session.username = dbCollab;
-        res.send("success")
+        console.log("success");
+        // res.redirect('/view-events');
+        res.redirect("/view-events");
       } else {
-        res.send("You need to log in!");
+        console.log("unsuccess");
+        // res.redirect('/');
       }
-    })
-  })
+    });
+  });
 
   //enable session storage
   app.get("/readsessions", (req, res) => {
-  
     res.json(req.session);
-
-  })
+  });
 
   // Logout route for user info
   app.delete("/logout", (req, res) => {
@@ -68,27 +74,4 @@ module.exports = function (app) {
 
   });
 
-
-
-
-  // // POST route for saving a new collab.
-  // app.post("/api/collabs", function (req, res) {
-  //   db.collab.create({
-  //     first_name: req.body.first_name,
-  //     last_name: req.body.last_name,
-  //     costId: req.body.costId,
-  //     taskId: req.body.taskId,
-  //     eventId: req.body.eventId
-  //   }).then(function (dbCollab) {
-  //     // We have access to the new todo as an argument inside of the callback function
-  //     res.json(dbCollab);
-  //   });
-  // });
-
-
-
-  // PUT route for updating todos. The updated todo will be available in req.body
-  app.put("/api/todos", function (req, res) {
-
-  });
 };

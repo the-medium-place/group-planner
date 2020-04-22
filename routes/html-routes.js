@@ -31,9 +31,10 @@ module.exports = function (app) {
 
   app.get("/view-events", function (req, res) {
 
-    if (req.session.user) {
+    if (req.session.username) {
       res.render("view-events", { test: "dion connected" });
     } else {
+
       res.render("index");
     }
 
@@ -41,7 +42,7 @@ module.exports = function (app) {
 
   app.get("/new-event", function (req, res) {
 
-    if (req.session.user) {
+    if (req.session.username) {
       res.render("new-events", { test: "dion connected" });
     } else {
       res.render("index");
@@ -49,7 +50,7 @@ module.exports = function (app) {
   });
 
   app.get("/aboutus", function (req, res) {
-    if (req.session.user) {
+    if (req.session.username) {
       res.render("aboutus", { test: "dion connected" });
     } else {
       res.render("index");
@@ -58,13 +59,13 @@ module.exports = function (app) {
   });
 
   app.get("/update-event", function (req, res) {
-    if(req.session.user) {
+    if(req.session.username) {
     res.render("update-event", { event });
     } else {
       res.render("index");
     }
   });
-  
+
 
   //   // Route to the cms page
   //   app.get("/cms", function(req, res) {
