@@ -43,15 +43,15 @@ module.exports = function (app) {
   app.get("/new-event", function (req, res) {
 
     if (req.session.username) {
-      res.render("new-events", { test: "dion connected" });
+      res.render("new-event", { test: "dion connected" });
     } else {
       res.render("index");
     }
   });
 
-  app.get("/aboutus", function (req, res) {
+  app.get("/about-us", function (req, res) {
     if (req.session.username) {
-      res.render("aboutus", { test: "dion connected" });
+      res.render("about-us", { test: "dion connected" });
     } else {
       res.render("index");
     }
