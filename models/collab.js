@@ -32,6 +32,7 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
+
     // each collab can have one task
     Collab.associate = function (models) {
         Collab.belongsTo(models.task);
@@ -40,7 +41,7 @@ module.exports = function (sequelize, DataTypes) {
             {
                 through: "collabEvents"
             });
- 
+
     };
 
 

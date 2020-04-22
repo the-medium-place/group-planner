@@ -29,10 +29,24 @@ module.exports = function (app) {
     res.render("index", { welcome: "Welcome, valued user" });
   });
 
-  app.get("/view-events", function (req, res) {
+  const testEvents = {
+    event1: {
+      name: "Flying like Hinata",
+      location: "Karasuno High School",
+      date: "Spring tournament",
+      host: "Aoba Josai"
+    },
+    event2: {
+      name: "UA school festival",
+      location: "UA High School",
+      date: "End of November",
+      host: "UA Class 1-A"
+    }
+  }
 
+  app.get("/view-events", function (req, res) {
     if (req.session.username) {
-      res.render("view-events", { test: "dion connected" });
+      res.render("view-events", { testEvents });
     } else {
 
       res.render("index");
@@ -43,7 +57,7 @@ module.exports = function (app) {
   app.get("/new-event", function (req, res) {
 
     if (req.session.username) {
-      res.render("new-event", { test: "dion connected" });
+      res.render("new-event");
     } else {
       res.render("index");
     }
@@ -51,7 +65,7 @@ module.exports = function (app) {
 
   app.get("/about-us", function (req, res) {
     if (req.session.username) {
-      res.render("about-us", { test: "dion connected" });
+      res.render("about-us");
     } else {
       res.render("index");
     }
@@ -60,12 +74,21 @@ module.exports = function (app) {
 
   app.get("/update-event", function (req, res) {
     if(req.session.username) {
-    res.render("update-event", { event });
+    res.render("update-event", { testEvents });
     } else {
       res.render("index");
     }
   });
 
+  app.get("/login-fail", function (req, res) {
+    res.render("login-fail")
+    // if(req.session.username) {
+    // res.render("update-event", { testEvents });
+    // } else {
+    //   res.render("index");
+    // }
+  });
+  
 
   //   // Route to the cms page
   //   app.get("/cms", function(req, res) {

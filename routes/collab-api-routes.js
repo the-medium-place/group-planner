@@ -43,11 +43,15 @@ module.exports = function (app) {
     console.log("start of login route");
     console.log(req.body);
     console.log(req.body.username);
+    // console.log(req.body.password);
     db.collab.findOne({
       where: {
         username: req.body.username
       }
     }).then(dbCollab => {
+      if (dbCollab.username === null){
+        console.log("could not find user")
+      }
       if (bcrypt.compareSync(req.body.password, dbCollab.password)) {
         req.session.username = dbCollab;
         console.log("success");
@@ -55,6 +59,7 @@ module.exports = function (app) {
         res.redirect("/view-events");
       } else {
         console.log("unsuccess");
+        res.redirect("/login-fail");
         // res.redirect('/');
       }
     });

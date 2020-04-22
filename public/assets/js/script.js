@@ -84,7 +84,6 @@ $(function () {
     console.log(eventDate + eventTime);
 
 
-
     const newEvent = {
       name: eventName,
       description: eventDescription,
