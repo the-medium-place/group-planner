@@ -14,20 +14,14 @@ module.exports = function (sequelize, DataTypes) {
     });
 
     Task.associate = function (models) {
-        Task.belongsToOne(models.event, {
+        Task.belongsTo(models.event, {
             foreignKey: {
                 allowNull: false
             }
         });
-    };
 
-    // associate to collab for foreign key
-    Task.associate = (models) => {
-        Task.hasOne(models.collab, {
-            onDelete: "SET NULL"
-        });
+        Task.hasOne(models.collab);
     };
-
 
     return Task;
 
