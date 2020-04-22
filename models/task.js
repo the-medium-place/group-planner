@@ -12,16 +12,14 @@ module.exports = function (sequelize, DataTypes) {
             defaultValue: false
         }
     });
-    
+
     Task.associate = function (models) {
-       Task.belongsTo(models.event, {
+        Task.belongsToOne(models.event, {
             foreignKey: {
                 allowNull: false
-
             }
         });
     };
-
 
     // associate to collab for foreign key
     Task.associate = (models) => {

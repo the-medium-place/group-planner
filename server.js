@@ -41,10 +41,10 @@ app.use(express.static("public"));
 // Routes
 // =============================================================
 
-require("./routes/cost-api-routes.js")(app);
-require("./routes/collab-api-routes.js")(app);
 require("./routes/event-api-routes.js")(app);
 // require("./routes/task-api-routes.js")(app);
+require("./routes/cost-api-routes.js")(app);
+require("./routes/collab-api-routes.js")(app);
 require("./routes/html-routes.js")(app);
 
 

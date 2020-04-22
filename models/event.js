@@ -18,14 +18,23 @@ module.exports = function(sequelize, DataTypes) {
 
     });
 
-    // each collab can be part of multiple events
-      Event.associate = function (models) {
-        Event.belongsTo(models.collab, {
-            foreignKey: {
-                allowNull: true
-            }
-        });
-    };
+        // each collab can be part of multiple events
+        Event.associate = function (models) {
+            Event.belongsToMany(models.collab, {
+                foreignKey: {
+                    allowNull: true
+                }
+            });
+        };
+    
+        //    // each collab can be part of multiple costs
+        //    Event.associate = function (models) {
+        //     Event.belongsToMany(models.cost, {
+        //         foreignKey: {
+        //             allowNull: true
+        //         }
+        //     });
+        // };
 
     // associate to task for foreign key
     Event.associate = function(models){
@@ -47,6 +56,8 @@ module.exports = function(sequelize, DataTypes) {
             onDelete: "CASCADE"
         });
     };
+
+
 
     return Event;
 }

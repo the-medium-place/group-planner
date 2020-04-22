@@ -1,41 +1,82 @@
 // console.log("connected");
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
-  $("#login").on("submit", function(){
-    const username = $("#username").val();
-    const password = $("#password").val();
+  $("#login").on("submit", function (event) {
+    event.preventDefault();
+
+    const usernameInput = $("#username").val().trim();
+    const passwordInput = $("#password").val().trim();
 
     const userLogin = {
-      username,
-      password
+      username: usernameInput,
+      password: passwordInput
     }
 
     console.log(userLogin)
 
-    // app.post("/login", function(req, res){
-
-    // })
+    $.ajax({
+      url: "/login",
+      method: "POST",
+      data: userLogin
+    })
   });
 
-  $("#newAccount").on("submit", function(){
-    const newUser = $("#new-user").val();
-    const newPass = $("#new-pass").val();
-    const newPassConfirm = $("#new-pass-confirm").val();
-    const newEmail = $("#new-email").val();
-    const newPhone = $("#new-phone").val();
+  $("#newAccount").on("submit", function (event) {
+    event.preventDefault();
 
+    // CAPTURE USER INPUT
+    const newUser = $("#new-user").val().trim();
+    const newFirst = $("#new-first").val().trim();
+    const newLast = $("#new-last").val().trim();
+    
+    const newPass = $("#new-pass").val().trim();
+    // const newPassConfirm = $("#new-pass-confirm").val().trim();
+    const newEmail = $("#new-email").val().trim();
+    const newPhone = $("#new-phone").val().trim();
+
+    // CREATE OBJECT OF USER INPUT
     const newAccount = {
       username: newUser,
+      first_name: newFirst,
+      last_name: newLast,
       password: newPass,
-      confirm: newPassConfirm,
+      // confirm: newPassConfirm,
       email: newEmail,
       phone: newPhone
     }
 
-    console.log(newAccount)
+    // check if password matches confirm value
+    // if yes send data request
+    // if no alert/modal
+
+    // SEND POST REQUEST TO API-ROUTES PAGE
+    $.ajax({
+      url: "/signup",
+      method: "POST",
+      data: newAccount
+    }).then(() => {
+      // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
+      const newObj = {
+        username: newUser,
+        password: newPass
+      };
+      $.ajax({
+        // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT (GET CANNOT ACCEPT OBJECT - NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
+        url: "/login",
+        method: "POST",
+        data: newObj
+      }).then(() => {
+        location.href = "/view-events";
+      })
+
+      
+    })
+
+
+
   });
 
-  $("#create-event").on("submit", function(){
+  $("#create-event").on("submit", function () {
     const eventName = $("#event-name").val();
     const eventDate = $("#event-date").val();
     const invitees = $("#invitees").val();
