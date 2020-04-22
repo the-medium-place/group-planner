@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
                 }
             });
         };
-    
+
         //    // each collab can be part of multiple costs
         //    Event.associate = function (models) {
         //     Event.belongsToMany(models.cost, {
@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
             onDelete: "CASCADE"
         });
     };
- 
+
     // associate to cost for foreign key
     Event.associate = (models) => {
         Event.hasMany(models.cost, {

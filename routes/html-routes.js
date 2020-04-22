@@ -65,7 +65,7 @@ module.exports = function (app) {
       res.render("index");
     }
   });
-  
+
 
   //   // Route to the cms page
   //   app.get("/cms", function(req, res) {
