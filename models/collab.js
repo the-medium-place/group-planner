@@ -32,32 +32,16 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-    // // each collaborator can have many events
-    // Collab.associate = function (models) {
-    //     Collab.hasMany(models.event, { through: "collab-events" });
-    // };
-
-    // // foreign key event id - each event can have multiple collaborators
-    // Collab.associate = function (models) {
-    //     Collab.belongsToMany(models.event, {
-    //         through: "collab-events",
-    //         foreignKey: {
-    //             allowNull: false
-    //         }
-    //     });
-    // };
-
 
     // each collab can have one task
     Collab.associate = function (models) {
-        Collab.belongsToMany(models.event, {
-            through: "collabEvents",
-            foreignKey: {
-                allowNull: false
-            }
-        });
         Collab.belongsTo(models.task);
         Collab.belongsTo(models.cost);
+        Collab.belongsToMany(models.event,
+            {
+                through: "collabEvents"
+            });
+
     };
 
 
