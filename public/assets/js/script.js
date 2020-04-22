@@ -76,17 +76,38 @@ $(function () {
   $("#create-event").on("submit", function () {
     const eventName = $("#event-name").val();
     const eventDate = $("#event-date").val();
-    const invitees = $("#invitees").val();
+    // const invitees = $("#invitees").val();
 
     const newEvent = {
       eventName,
       eventDate,
-      invitees
+      // invitees
     }
 
     console.log(newEvent)
+    $.ajax({
+      url: "/newEvent",
+      method: "POST",
+      data: newEvent
+    }).then(() => {
+      // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
+      location.href = "/view-events"
+      // const newObj = {
+      //   username: newUser,
+      //   password: newPass
+      // };
 
-    // $.ajax()
+      // $.ajax({
+      //   // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT (GET CANNOT ACCEPT OBJECT - NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
+      //   url: "/login",
+      //   method: "POST",
+      //   data: newObj
+      // }).then(() => {
+      //   location.href = "/view-events";
+      // })
+
+      
+    })
   });
   /*
   $(".change-sleep").on("click", function (event) {
