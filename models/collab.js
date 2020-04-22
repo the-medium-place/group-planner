@@ -31,10 +31,8 @@ module.exports = function (sequelize, DataTypes) {
 
     // foreign key event id - each event can have multiple collaborators
     Collab.associate = function (models) {
-        Collab.belongsTo(models.event, {
-            foreignKey: {
-                allowNull: false
-            }
+        Collab.belongsToMany(models.event, {
+            through: 
         });
     };
 
