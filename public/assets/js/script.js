@@ -73,74 +73,35 @@ $(function () {
     })
   });
 
-  $("#create-event").on("submit", function () {
-    const eventName = $("#event-name").val();
-    const eventDate = $("#event-date").val();
-    const invitees = $("#invitees").val();
-
-    const newEvent = {
-      eventName,
-      eventDate,
-      invitees
-    }
-
-    console.log(newEvent)
-
-    // $.ajax()
-  });
-  /*
-  $(".change-sleep").on("click", function (event) {
-    var id = $(this).data("id");
-    var newSleep = $(this).data("newsleep");
-
-    var newSleepState = {
-      sleepy: newSleep,
-    };
-
-    // Send the PUT request.
-    $.ajax("/api/cats/" + id, {
-      type: "PUT",
-      data: newSleepState,
-    }).then(function () {
-      console.log("changed sleep to", newSleep);
-      // Reload the page to get the updated list
-      location.reload();
-    });
-  });
-
-  $(".create-form").on("submit", function (event) {
-    // Make sure to preventDefault on a submit event.
+  $("#create-event").on("submit", function (event) {
     event.preventDefault();
 
-    var newCat = {
-      name: $("#ca").val().trim(),
-      sleepy: $("[name=sleepy]:checked").val().trim(),
-    };
+    const eventName = $("#event-name").val().trim();
+    const eventDescription = $("#event-desc").val().trim();
+    const eventLocation = $("#event-location").val().trim();
+    const eventDate = $("#event-date").val().trim();
+    const eventTime = $("#event-time").val().trim();
+    console.log(eventDate + eventTime);
 
-    // Send the POST request.
-    $.ajax("/api/cats", {
-      type: "POST",
-      data: newCat,
-    }).then(function () {
-      console.log("created new cat");
-      // Reload the page to get the updated list
-      location.reload();
-    });
+
+
+    const newEvent = {
+      name: eventName,
+      description: eventDescription,
+      location: eventLocation,
+      date_time: `${eventDate} ${eventTime}`
+    }
+
+    // console.log(newEvent)
+    // console.log(document.cookie);
+
+    $.ajax({
+      // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT (GET CANNOT ACCEPT OBJECT - NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
+      url: "/api/events",
+      method: "POST",
+      data: newEvent
+    }).then(() => {
+      location.href = "/view-events";
+    })
   });
-
-  $(".delete-cat").on("click", function (event) {
-    var id = $(this).data("id");
-
-    // Send the DELETE request.
-    $.ajax("/api/cats/" + id, {
-      type: "DELETE",
-    }).then(function () {
-      console.log("deleted cat", id);
-      // Reload the page to get the updated list
-      location.reload();
-    });
-  });
-
-
-  */
 });
