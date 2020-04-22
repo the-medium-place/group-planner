@@ -23,7 +23,7 @@ module.exports = function (app) {
   });
 
   app.post("/signup", (req, res) => {
-  
+
     db.collab.create({
       username: req.body.username,
       password: req.body.password,
@@ -57,14 +57,12 @@ module.exports = function (app) {
         console.log("unsuccess");
         // res.redirect('/');
       }
-    });  
+    });
   });
 
   //enable session storage
   app.get("/readsessions", (req, res) => {
-  
     res.json(req.session);
-
   });
 
   // Logout route for user info
