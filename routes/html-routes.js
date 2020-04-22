@@ -29,8 +29,23 @@ module.exports = function (app) {
     res.render("index", { welcome: "Welcome, valued user" });
   });
 
+  const testEvents = {
+    event1: {
+      name: "Flying like Hinata",
+      location: "Karasuno High School",
+      date: "Spring tournament",
+      host: "Aoba Josai"
+    },
+    event2: {
+      name: "UA school festival",
+      location: "UA High School",
+      date: "End of November",
+      host: "UA Class 1-A"
+    }
+  }
+
   app.get("/view-events", function (req, res) {
-    res.render("view-events", { test: "dion connected" });
+    res.render("view-events", {testEvents});
   });
 
   app.get("/new-event", function (req, res) {

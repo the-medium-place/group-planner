@@ -12,7 +12,9 @@ $(function () {
 
     console.log(userLogin)
 
-    // $.ajax()
+    // app.post("/login", function(req, res){
+
+    // })
   });
 
   $("#newAccount").on("submit", function(){

@@ -1,7 +1,15 @@
 body {
-    background-color: rgb(187, 41, 25);
+  background-color: rgb(187, 41, 25);
 }
 
 #resetBTN {
-    float: right;
+  float: right;
+}
+
+#title-text a {
+  color: white;
+}
+
+#title-text a:hover {
+  color: green;
 }
