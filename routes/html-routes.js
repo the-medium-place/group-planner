@@ -30,20 +30,42 @@ module.exports = function (app) {
   });
 
   app.get("/view-events", function (req, res) {
-    res.render("view-events", { test: "dion connected" });
+
+    if (req.session.username) {
+      res.render("view-events", { test: "dion connected" });
+    } else {
+
+      res.render("index");
+    }
+
   });
 
   app.get("/new-event", function (req, res) {
-    res.render("new-event");
-  });
 
-  app.get("/update-event", function (req, res) {
-    res.render("update-event", { event });
+    if (req.session.username) {
+      res.render("new-events", { test: "dion connected" });
+    } else {
+      res.render("index");
+    }
   });
 
   app.get("/aboutus", function (req, res) {
-    res.render("about-us");
+    if (req.session.username) {
+      res.render("aboutus", { test: "dion connected" });
+    } else {
+      res.render("index");
+    }
+
   });
+
+  app.get("/update-event", function (req, res) {
+    if(req.session.username) {
+    res.render("update-event", { event });
+    } else {
+      res.render("index");
+    }
+  });
+  
 
   //   // Route to the cms page
   //   app.get("/cms", function(req, res) {
