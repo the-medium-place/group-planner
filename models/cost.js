@@ -18,19 +18,12 @@ module.exports = function (sequelize, DataTypes) {
 
     // associate to collab for foreign key - each cost belongs to an event
     Cost.associate = function (models) {
-       Cost.belongsToOne(models.event, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
+  
+        Cost.hasOne(models.collab);
+        Cost.belongsTo(models.event);
     };
 
-    // each cost can have up to one collaborator (null allowed)
-    Cost.associate = (models) => {
-        Cost.hasOne(models.collab, {
-            onDelete: "SET NULL"
-        });
-    };
+
 
     return Cost;
 }

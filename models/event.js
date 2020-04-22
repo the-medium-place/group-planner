@@ -21,20 +21,12 @@ module.exports = function (sequelize, DataTypes) {
     // each collab can be part of multiple events - junction table of "collab-events"
     Event.associate = function (models) {
         Event.belongsToMany(models.collab,{through: "collabEvents"});
-    };
-
-    // associate to task for foreign key
-    Event.associate = function (models) {
         Event.hasMany(models.task, {
             onDelete: "CASCADE",
             foreignKey: {
                 allowNull: true
             }
         });
-    };
-
-    // associate to cost for foreign key
-    Event.associate = (models) => {
         Event.hasMany(models.cost, {
             onDelete: "CASCADE",
             foreignKey: {
@@ -42,6 +34,8 @@ module.exports = function (sequelize, DataTypes) {
             }
         });
     };
+
+  
 
   
 
