@@ -32,21 +32,31 @@ module.exports = function (sequelize, DataTypes) {
         }
     });
 
-      // each collaborator can have many events
-      Collab.associate = function(models){
+    // each collaborator can have many events
+    Collab.associate = function (models) {
         Collab.hasMany(models.event);
+    };
+
+    // each collab can have one task
+    Collab.associate = function (models) {
+        Collab.hasOne(models.task);
+    };
+
+      // each collab can have one task
+      Collab.associate = function (models) {
+        Collab.hasOne(models.cost);
     };
 
     // foreign key event id - each event can have multiple collaborators
     Collab.associate = function (models) {
-        Collab.belongsTo(models.event, {
+        Collab.belongsToMany(models.event, {
             foreignKey: {
                 allowNull: false
             }
         });
     };
 
-    // foreign key task id - each event has multiple tasks
+    // foreign key task id - each collab has one task
     Collab.associate = function (models) {
         Collab.belongsTo(models.task, {
             foreignKey: {
@@ -57,7 +67,7 @@ module.exports = function (sequelize, DataTypes) {
 
     //foreign key cost id - each event has multiple cost values
     Collab.associate = function (models) {
-       Collab.belongsTo(models.cost, {
+        Collab.belongsTo(models.cost, {
             foreignKey: {
                 allowNull: true
             }
@@ -65,7 +75,7 @@ module.exports = function (sequelize, DataTypes) {
     };
 
     // encrypt user password before creation of user model
-    Collab.beforeCreate(function(user){
+    Collab.beforeCreate(function (user) {
         user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
     })
 
