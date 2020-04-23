@@ -32,39 +32,28 @@ module.exports = function (app) {
     res.render("index", { welcome: `Welcome, ${username}!` });
   });
 
-  // const testEvents = {
-  //   event1: {
-  //     name: "Flying like Hinata",
-  //     location: "Karasuno High School",
-  //     date: "Spring tournament",
-  //     host: "Aoba Josai"
-  //   },
-  //   event2: {
-  //     name: "UA school festival",
-  //     location: "UA High School",
-  //     date: "End of November",
-  //     host: "UA Class 1-A"
-  //   }
-  // }
-
+ 
 
   app.get("/view-events", function (req, res) {
     db.event.findAll({
       include: [db.cost, db.task, db.collab]
     }).then((dbEvent) => {
       const eventArr = [];
+   
 
       for (i=0; i<dbEvent.length; i++){
         const newObj = {};
+ 
         newObj.name = dbEvent[i].name;
         newObj.location = dbEvent[i].location;
         newObj.date_time = dbEvent[i].date_time;
         newObj.description = dbEvent[i].description;
         eventArr.push(newObj);
-
       }    
       if (req.session.username) {
-        res.render("view-events", {events: eventArr});
+        res.render("view-events", {
+          events: eventArr
+        });
       } else {
         res.render("index");
       }

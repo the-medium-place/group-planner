@@ -9,11 +9,14 @@ const bcrypt = require("bcrypt");
 
 var db = require("../models");
 
+var rug = require("random-username-generator");
+var passGen = require("generate-password");
+
 // Routes
 // =============================================================
 module.exports = function (app) {
 
-  // GET route for getting all of the events
+  // GET route for getting all of the collabs
   app.get("/api/collabs", function (req, res) {
     console.log(typeof db.event);
     db.collab.findAll({}).then((dbCollab) => {
@@ -49,7 +52,7 @@ module.exports = function (app) {
         username: req.body.username
       }
     }).then(dbCollab => {
-      if (dbCollab.username === null){
+      if (dbCollab.username === null) {
         console.log("could not find user")
       }
       if (bcrypt.compareSync(req.body.password, dbCollab.password)) {
@@ -72,11 +75,30 @@ module.exports = function (app) {
 
   // Logout route for user info
   app.delete("/logout", (req, res) => {
-    req.session.destroy(function(err){
+    req.session.destroy(function (err) {
       if (err) throw err;
       res.send("successful logout");
     })
 
   });
 
+
+  // add collab form submit route - add random info
+  app.post("/add-collab", (req, res) => {
+    const tempPass = passGen.generate({ length: 10 });
+    const tempUsername = rug.generate();
+
+    db.collab.create({
+      username: tempUsername,
+      password: tempPass,
+      first_name: req.body.new_name,
+      last_name: "Update User Info!",
+      email: req.body.email,
+    }).then(function (dbCollab) {
+
+      // HERE IS WHERE THE EMAIL CLIENT WOULD PROBABLY DO ITS THING
+
+    })
+
+  })
 };
