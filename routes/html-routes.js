@@ -40,15 +40,23 @@ module.exports = function (app) {
     }).then((dbEvent) => {
       const eventArr = [];
    
-
       for (i=0; i<dbEvent.length; i++){
+        console.log(dbEvent[i].collabs[0].username)
         const newObj = {};
- 
-        newObj.name = dbEvent[i].name;
-        newObj.location = dbEvent[i].location;
-        newObj.date_time = dbEvent[i].date_time;
-        newObj.description = dbEvent[i].description;
-        eventArr.push(newObj);
+        for (j=0; j<dbEvent[i].collabs.length; j++){
+          console.log(req.session.username.id);
+          console.log(dbEvent[i].collabs[j].id);
+          if (req.session.username.id === dbEvent[i].collabs[j].id){
+            newObj.host = dbEvent[i].collabs[0].username;
+            newObj.name = dbEvent[i].name;
+            newObj.location = dbEvent[i].location;
+            newObj.date_time = dbEvent[i].date_time;
+            newObj.description = dbEvent[i].description;
+            eventArr.push(newObj);
+          }
+        }
+          
+
       }    
       if (req.session.username) {
         res.render("view-events", {
@@ -96,8 +104,5 @@ module.exports = function (app) {
     //   res.render("index");
     // }
   });
-
- 
-
 
 };

@@ -76,7 +76,7 @@ module.exports = function (app) {
 
     // get event by user id
 app.get("/api/events/collabs/:id", function (req, res) {
-    // console.log(req.session.username)
+    console.log(req.session)
         db.event.findOne({
             where: {
                 collabId: req.session.username.id
