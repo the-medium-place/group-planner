@@ -52,6 +52,8 @@ module.exports = function (app) {
 
   app.get("/view-events", function (req, res) {
     if (req.session.username) {
+      // res.render("view-events", { testEvents });
+      console.log(res)
       res.render("view-events", { testEvents });
     } else {
       res.render("index");
