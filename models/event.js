@@ -18,7 +18,7 @@ module.exports = function (sequelize, DataTypes) {
 
     });
 
-    // each collab can be part of multiple events - junction table of "collab-events"
+    // each collab can be part of multiple events - junction table of "collabEvents"
     Event.associate = function (models) {
         Event.belongsToMany(models.collab,{through: "collabEvents"});
         Event.hasMany(models.task, {
