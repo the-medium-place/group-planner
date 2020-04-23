@@ -4,7 +4,8 @@
 
 // Dependencies
 // =============================================================
-// const path = require("path");
+var db = require("../models");
+const moment = require("moment");
 
 // Routes
 // =============================================================
@@ -26,38 +27,50 @@ module.exports = function (app) {
   });
 
   app.get("/login-success", function (req, res) {
-    res.render("index", { welcome: "Welcome, valued user" });
+    const username = req.session.username.username;
+
+    res.render("index", { welcome: `Welcome, ${username}!` });
   });
 
-  const testEvents = {
-    event1: {
-      name: "Flying like Hinata",
-      location: "Karasuno High School",
-      date: "Spring tournament",
-      host: "Aoba Josai",
-      collaborators: "Nobody",
-      tasks: "No tasks",
-      costs: "Free"
-    },
-    event2: {
-      name: "UA school festival",
-      location: "UA High School",
-      date: "End of November",
-      host: "UA Class 1-A",
-      collaborators: "Everybody",
-      tasks: "Always busy",
-      costs: "$200,000"
-    },
-  };
+
+  // const testEvents = {
+  //   event1: {
+  //     name: "Flying like Hinata",
+  //     location: "Karasuno High School",
+  //     date: "Spring tournament",
+  //     host: "Aoba Josai"
+  //   },
+  //   event2: {
+  //     name: "UA school festival",
+  //     location: "UA High School",
+  //     date: "End of November",
+  //     host: "UA Class 1-A"
+  //   }
+  // }
+
 
   app.get("/view-events", function (req, res) {
-    if (req.session.username) {
-      // res.render("view-events", { testEvents });
-      console.log(res)
-      res.render("view-events", { testEvents });
-    } else {
-      res.render("index");
-    }
+    db.event.findAll({
+      include: [db.cost, db.task, db.collab]
+    }).then((dbEvent) => {
+      const eventArr = [];
+
+      for (i=0; i<dbEvent.length; i++){
+        const newObj = {};
+        newObj.name = dbEvent[i].name;
+        newObj.location = dbEvent[i].location;
+        newObj.date_time = dbEvent[i].date_time;
+        newObj.description = dbEvent[i].description;
+        eventArr.push(newObj);
+
+      }    
+      if (req.session.username) {
+        res.render("view-events", {events: eventArr});
+      } else {
+        res.render("index");
+      }
+
+    });
   });
 
   app.get("/new-event", function (req, res) {
@@ -94,13 +107,4 @@ module.exports = function (app) {
     // }
   });
 
-  //   // Route to the cms page
-  //   app.get("/cms", function(req, res) {
-  //     res.sendFile(path.join(__dirname, "../public/cms.html"));
-  //   });
-
-  //   // blog route loads blog.html
-  //   app.get("/blog", function(req, res) {
-  //     res.sendFile(path.join(__dirname, "../public/blog.html"));
-  //   });
 };

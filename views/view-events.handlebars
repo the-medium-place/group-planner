@@ -10,9 +10,10 @@
 <br>
 <br>
 
-<div id="events-container">
-  {{#each testEvents}}
-  {{> event-entry}}
+<div id="events-container" style="display: flex; align-items: center; flex-direction: column;">
+  {{#each events}}
+
+{{> event-entry}}
   {{/each}}
 </div>
 
