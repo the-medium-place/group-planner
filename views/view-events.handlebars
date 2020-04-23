@@ -9,7 +9,20 @@
 
 <br>
 
-<div id="events-container" style="display: flex; align-items: center; flex-direction: column;">
+<div class="grid-x">
+  <div class="cell small-1 medium-1 large-1"></div>
+  <div class="cell small-10 medium-10 large-10">
+
+    {{#each events}}
+    {{> event-entry}}
+    {{/each}}
+    <br>
+
+  </div>
+  <div class="cell small-1 medium-1 large-1"></div>
+</div>
+
+{{!-- <div id="events-container" style="display: flex; align-items: center; flex-direction: column;">
   {{#each events}}
 
 {{> event-entry}}
@@ -20,9 +33,9 @@
     {{#each testEvents}}
     {{> event-entry}}
     {{/each}}
-  </div>
+  </div> --}}
 
-  {{!-- 
+{{!-- 
 <table class="hover">
   <tr>
     <th>Event</th>
@@ -37,7 +50,7 @@
   </tr> --}}
 
 
-  {{!-- <tr>
+{{!-- <tr>
     <td>Running like Naruto</td>
     <td>5/2/2020</td>
     <td>John Doe</td>
@@ -47,10 +60,10 @@
     <td>12/11/2020</td>
     <td>Jane Doe</td>
   </tr> --}}
-  </table>
+{{!-- </table> --}}
 
 
-  {{!-- 
+{{!-- 
 <h2>Cats that are not sleepy!</h2>
 
 <ul>
@@ -72,6 +85,4 @@
 </ul> --}}
 
 
-  {{!-- events table --}}
- 
-
+{{!-- events table --}}
