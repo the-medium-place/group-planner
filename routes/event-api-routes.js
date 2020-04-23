@@ -36,12 +36,23 @@ module.exports = function (app) {
 
     // POST route for saving a new event. You can create an event using the data on req.body
     app.post("/api/events", function (req, res) {
+        const userID = req.session.username.id;
+        console.log(userID);
+
         db.event.create({
             name: req.body.name,
             description: req.body.description,
             location: req.body.location,
             date_time: req.body.date_time
-        }).then(dbEvent => res.json(dbEvent));
+        }).then((dbEvent) => {
+            console.log(dbEvent)
+            console.log(dbEvent.collabevents)
+
+
+
+
+            res.json(dbEvent)
+        });
     });
 
     // DELETE route for deleting events
@@ -59,7 +70,8 @@ module.exports = function (app) {
             name: req.body.name,
             description: req.body.description,
             location: req.body.location,
-            date_time: req.body.date_time
+            date_time: req.body.date_time,
+            collabId: req.session.username.id
         }, {
             where: {
                 id: req.params.id
