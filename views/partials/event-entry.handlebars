@@ -5,19 +5,49 @@
   <td>{{host}}</td>
 </tr> --}}
 
-<div class="card" style="width: 33.33333%">
-  <div class="card-divider">
-    Event: {{name}}
+<div class="grid-x">
+  <div class="cell small-1 medium-1 large-1"></div>
+  <div class="cell small-10 medium-10 large-10">
+    <div class="card event-card">
+      <div class="card-divider" class="eventName">
+        {{name}}
+      </div>
+      <div class="grid-x">
+        <div class="cell small-3 medium-3 large-3">
+          <div class="card-section">
+            <img src="https://media.pitchfork.com/photos/5929b349b1335d7bf169a583/1:1/w_600/2a09604e.jpg"
+              class="thumbnail" alt="bowie">
+          </div>
+        </div>
+        <div class="cell small-9 medium-9 large-9">
+          <br>
+          <div class="grid-x">
+            <div class="cell small-6 medium-6 large-6" class="eventLocation">Location: {{location}}</div>
+            <div class="cell small-2 medium-2 large-2"></div>
+            <div class="cell small-4 medium-4 large-4" class="eventDate">Date: {{date}}</div>
+          </div>
+          <br>
+          <div class="grid-x">
+            <div class="cell small-6 medium-6 large-6" class="eventHost">Host: {{host}}</div>
+            <div class="cell small-2 medium-2 large-2"></div>
+            <div class="cell small-4 medium-4 large-4" class="eventTime">Time: {{host}}</div>
+          </div>
+          <br>
+          <div class="grid-x">
+            <div class="cell auto" class="eventDescription">Description: {{description}}</div>
+          </div>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="grid-x">
+            <div class="cell auto" class="eventCollabs">Collabs: {{collabs}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  {{!-- <img src="assets/img/generic/rectangle-1.jpg"> --}}
-  <div class="card-section">
-    <h4>Location: {{location}}</h4>
-    <h4>Date: {{date_time}}</h4>
-    <h4>Host: {{id}}</h4>
-    <p>{{description}}</p>
-  </div>
-</div>
-
+  <div class="cell small-1 medium-1 large-1"></div>
 
 
 {{!-- 
