@@ -45,13 +45,9 @@ module.exports = function (app) {
             location: req.body.location,
             date_time: req.body.date_time
         }).then((dbEvent) => {
-            console.log(dbEvent)
-            console.log(dbEvent.collabevents)
-
-
-
-
-            res.json(dbEvent)
+    
+            dbEvent.addCollab(userID);
+            // res.json(dbEvent)
         });
     });
 
