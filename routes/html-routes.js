@@ -32,6 +32,25 @@ module.exports = function (app) {
     res.render("index", { welcome: `Welcome, ${username}!` });
   });
 
+  const testEvents = {
+    event1: {
+      name: "Flying like Hinata",
+      location: "Karasuno High School",
+      date: "Spring tournament",
+      host: "Aoba Josai",
+      description: "I don't know",
+      collabs: "Joe, Denis"
+    },
+    event2: {
+      name: "UA school festival",
+      location: "UA High School",
+      date: "End of November",
+      host: "UA Class 1-A",
+      description: "I don't know",
+      collabs: "Joe, Denis, Clint"
+
+    }
+  }
 
   // const testEvents = {
   //   event1: {
