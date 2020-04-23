@@ -32,7 +32,7 @@ module.exports = function (app) {
     res.render("index", { welcome: `Welcome, ${username}!` });
   });
 
- 
+
 
   app.get("/view-events", function (req, res) {
     db.event.findAll({
@@ -62,7 +62,6 @@ module.exports = function (app) {
   });
 
   app.get("/new-event", function (req, res) {
-
     if (req.session.username) {
       res.render("new-event");
     } else {
@@ -72,11 +71,11 @@ module.exports = function (app) {
 
   app.get("/about-us", function (req, res) {
     if (req.session.username) {
-      res.render("about-us");
+      // console.log(req.session.username.username)
+      res.render("about-us", req.session.username);
     } else {
       res.render("index");
     }
-
   });
 
   app.get("/update-event", function (req, res) {
@@ -90,7 +89,7 @@ module.exports = function (app) {
   });
 
   app.get("/login-fail", function (req, res) {
-    res.render("login-fail")
+    res.render("login-fail");
     // if(req.session.username) {
     // res.render("update-event", { testEvents });
     // } else {

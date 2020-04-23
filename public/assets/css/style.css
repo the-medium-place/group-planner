@@ -13,3 +13,33 @@ body {
 #title-text a:hover {
   color: green;
 }
+
+
+
+
+#events-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* .card {
+  display: inline;
+  margin: 5px;
+} */
+
+#welcomeUser {
+  margin-right: 5px;
+  margin-top: 8px;
+}
+
+.topbarItens {
+  margin-top: 5px;
+  color: white;
+}
+
+.thumbnail {
+  width: 250px;
+  height: 250px;
+}
+
