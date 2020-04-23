@@ -103,3 +103,15 @@ $(function () {
     })
   });
 });
+
+$("#update-event").on("submit", (event) => {
+  event.preventDefault();
+
+
+});
+
+$("add-collab").on("submit", (event) => {
+  event.preventDefault();
+
+
+});

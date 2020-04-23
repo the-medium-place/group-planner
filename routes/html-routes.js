@@ -91,8 +91,10 @@ module.exports = function (app) {
   });
 
   app.get("/update-event", function (req, res) {
+    // ajax query for all event info from user id
+
     if (req.session.username) {
-      res.render("update-event", { testEvents });
+      res.render("update-event");
     } else {
       res.render("index");
     }
@@ -106,5 +108,8 @@ module.exports = function (app) {
     //   res.render("index");
     // }
   });
+
+ 
+
 
 };

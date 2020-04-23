@@ -37,7 +37,6 @@ module.exports = function (app) {
     // POST route for saving a new event. You can create an event using the data on req.body
     app.post("/api/events", function (req, res) {
         const userID = req.session.username.id;
-        console.log(userID);
 
         db.event.create({
             name: req.body.name,
@@ -47,7 +46,7 @@ module.exports = function (app) {
         }).then((dbEvent) => {
             console.log(dbEvent)
             console.log(dbEvent.collabevents)
-
+            dbEvent.addCollab(userID);
 
 
 
@@ -78,4 +77,26 @@ module.exports = function (app) {
             }
         }).then(dbEvent => res.json(dbEvent));
     });
+
+    // get event by user id
+app.get("/api/events/collabs/:id", function (req, res) {
+    // console.log(req.session.username)
+        db.event.findOne({
+            where: {
+                collabId: req.session.username.id
+            },
+            include: [db.cost, db.task, db.collab]
+        }).then(dbEvent => res.json(dbEvent));
+    });
+
+
+
+
+
+
+
+
 };
+
+
+
