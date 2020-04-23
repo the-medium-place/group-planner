@@ -74,6 +74,59 @@ $(function () {
       })
     })
   });
+
+  $("#invitedUser").on("submit", function (event) {
+    event.preventDefault();
+    // CAPTURE USER INPUT
+    const newUser = $("#new-user").val().trim();
+    const newFirst = $("#new-first").val().trim();
+    const newLast = $("#new-last").val().trim();
+    const newPass = $("#new-pass").val().trim();
+    const newPassConfirm = $("#new-pass-confirm").val().trim();
+    const newEmail = $("#new-email").val().trim();
+    const newPhone = $("#new-phone").val().trim();
+    
+    // check if password matches confirm value
+    // if yes send data request
+    // if no alert/modal
+    let checkPass = newPass === newPassConfirm ? true : false;
+    if (checkPass===false){
+      alert("Passwords did not match, please try again");
+      // location.reload();
+      return;
+    }
+
+    // CREATE OBJECT OF USER INPUT
+    const newAccount = {
+      username: newUser,
+      first_name: newFirst,
+      last_name: newLast,
+      password: newPass,
+      email: newEmail,
+      phone: newPhone
+    }
+    
+    // SEND POST REQUEST TO API-ROUTES PAGE
+    $.ajax({
+      url: "/signup",
+      method: "POST",
+      data: newAccount
+    }).then(() => {
+      // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
+      const newObj = {
+        username: newUser,
+        password: newPass
+      };
+      $.ajax({
+        // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT (GET CANNOT ACCEPT OBJECT - NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
+        url: "/login",
+        method: "POST",
+        data: newObj
+      }).then(() => {
+        location.href = "/view-events";
+      })
+    })
+  });
   
   
   // Initiates post request to database to create an event
