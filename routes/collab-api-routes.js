@@ -9,9 +9,13 @@ const bcrypt = require("bcrypt");
 
 var db = require("../models");
 
+var rug = require("random-username-generator");
+var passGen = require("generate-password");
+
 // Routes
 // =============================================================
 module.exports = function (app) {
+
 
     // GET route for getting all of the collaborators
     app.get("/api/collabs", function (req, res) {
@@ -52,6 +56,7 @@ module.exports = function (app) {
         });
     });
 
+
     app.post("/login", (req, res) => {
         console.log("start of login route");
         console.log(req.body);
@@ -76,6 +81,7 @@ module.exports = function (app) {
                 // res.redirect('/');
             }
         });
+
     });
 
     //enable session storage
@@ -90,6 +96,26 @@ module.exports = function (app) {
             res.send("successful logout");
         })
 
+
     });
 
+
+  // add collab form submit route - add random info
+  app.post("/add-collab", (req, res) => {
+    const tempPass = passGen.generate({ length: 10 });
+    const tempUsername = rug.generate();
+
+    db.collab.create({
+      username: tempUsername,
+      password: tempPass,
+      first_name: req.body.new_name,
+      last_name: "Update User Info!",
+      email: req.body.email,
+    }).then(function (dbCollab) {
+
+      // HERE IS WHERE THE EMAIL CLIENT WOULD PROBABLY DO ITS THING
+
+    })
+
+  })
 };
