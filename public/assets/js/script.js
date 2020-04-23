@@ -39,7 +39,7 @@ $(function () {
     let checkPass = newPass === newPassConfirm ? true : false;
     if (checkPass===false){
       alert("Passwords did not match, please try again");
-      location.reload();
+      // location.reload();
       return;
     }
 
