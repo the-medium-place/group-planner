@@ -81,7 +81,6 @@ $(function () {
     const eventLocation = $("#event-location").val().trim();
     const eventDate = $("#event-date").val().trim();
     const eventTime = $("#event-time").val().trim();
-    console.log(eventDate + eventTime);
 
 
     const newEvent = {
@@ -91,16 +90,16 @@ $(function () {
       date_time: `${eventDate} ${eventTime}`
     }
 
-    // console.log(newEvent)
-    // console.log(document.cookie);
-
     $.ajax({
-      // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT (GET CANNOT ACCEPT OBJECT - NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
+      // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT 
+      // (GET CANNOT ACCEPT OBJECT - 
+      // NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
       url: "/api/events",
       method: "POST",
       data: newEvent
     }).then(() => {
       location.href = "/view-events";
+ 
     })
   });
 });
