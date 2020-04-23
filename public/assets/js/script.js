@@ -1,40 +1,47 @@
 // console.log("connected");
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
+  // Initiates post request to database to login
+  // Attaches submit listener to the login form (not the button click)
   $("#login").on("submit", function (event) {
     event.preventDefault();
-
     const usernameInput = $("#username").val().trim();
     const passwordInput = $("#password").val().trim();
-
     const userLogin = {
       username: usernameInput,
       password: passwordInput
     }
-
     $.ajax({
       url: "/login",
       method: "POST",
       data: userLogin
     }).then(function(results){
-
       window.location.href = "/view-events";
     })
-
   });
-
+  
+  // Initiates post request to database to create an account
+  // Attaches submit listener to the new account form (not the button click)
   $("#newAccount").on("submit", function (event) {
     event.preventDefault();
-
     // CAPTURE USER INPUT
     const newUser = $("#new-user").val().trim();
     const newFirst = $("#new-first").val().trim();
     const newLast = $("#new-last").val().trim();
-    
     const newPass = $("#new-pass").val().trim();
-    // const newPassConfirm = $("#new-pass-confirm").val().trim();
+    const newPassConfirm = $("#new-pass-confirm").val().trim();
     const newEmail = $("#new-email").val().trim();
     const newPhone = $("#new-phone").val().trim();
+    
+    // check if password matches confirm value
+    // if yes send data request
+    // if no alert/modal
+    let checkPass = newPass === newPassConfirm ? true : false;
+    if (checkPass===false){
+      alert("Passwords did not match, please try again");
+      // location.reload();
+      return;
+    }
 
     // CREATE OBJECT OF USER INPUT
     const newAccount = {
@@ -42,15 +49,10 @@ $(function () {
       first_name: newFirst,
       last_name: newLast,
       password: newPass,
-      // confirm: newPassConfirm,
       email: newEmail,
       phone: newPhone
     }
-
-    // check if password matches confirm value
-    // if yes send data request
-    // if no alert/modal
-
+    
     // SEND POST REQUEST TO API-ROUTES PAGE
     $.ajax({
       url: "/signup",
@@ -72,16 +74,18 @@ $(function () {
       })
     })
   });
-
+  
+  
+  // Initiates post request to database to create an event
+  // Attaches submit listener to the new account form (not the button click)
   $("#create-event").on("submit", function (event) {
     event.preventDefault();
-
     const eventName = $("#event-name").val().trim();
     const eventDescription = $("#event-desc").val().trim();
     const eventLocation = $("#event-location").val().trim();
     const eventDate = $("#event-date").val().trim();
     const eventTime = $("#event-time").val().trim();
-
+    console.log(eventDate + eventTime);
 
     const newEvent = {
       name: eventName,
@@ -89,6 +93,8 @@ $(function () {
       location: eventLocation,
       date_time: `${eventDate} ${eventTime}`
     }
+    // console.log(newEvent)
+    // console.log(document.cookie);
 
     $.ajax({
       // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT 
