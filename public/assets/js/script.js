@@ -24,6 +24,11 @@ $(function () {
     })
   });
   
+  // shows the create account form upon click
+  $("#newaccBTN").on("click", () => {
+    $("#newAccount").css("display","block")
+    // $("#openCreateForm").text("here:")
+  })
   
   // Initiates post request to database to create an account
   // Attaches submit listener to the new account form (not the button click)
@@ -164,9 +169,8 @@ $(function () {
       url: "/api/events",
       method: "POST",
       data: newEvent
-    }).then(() => {
+    }).then((callback) => {
       location.href = "/view-events";
-
     })
   });
 });

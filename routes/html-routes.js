@@ -28,8 +28,6 @@ module.exports = function (app) {
     res.render("index", { welcome: `Welcome, ${username}!` });
   });
 
-
-
   app.get("/view-events", function (req, res) {
     db.event.findAll({
       include: [db.cost, db.task, db.collab]
@@ -69,17 +67,17 @@ module.exports = function (app) {
           eventList: eventNameList
         });
       } else {
-        res.render("index");
+        res.redirect("/");
       }
-
     });
   });
 
+  // redirects to create-event page
   app.get("/new-event", function (req, res) {
     if (req.session.username) {
       res.render("new-event");
     } else {
-      res.render("index");
+      res.redirect("/");
     }
   });
 
@@ -88,17 +86,26 @@ module.exports = function (app) {
       // console.log(req.session.username.username)
       res.render("about-us", req.session.username);
     } else {
-      res.render("index");
+      res.redirect("/");
     }
   });
 
   app.get("/update-event", function (req, res) {
     // ajax query for all event info from user id
-
+    let date_time = "2020-04-30 19:12:00"
+    let dateSplit = date_time.split(" ")[0]
+    let timeSplit = date_time.split(" ")[1]
+    let test = {
+        name: "Study hall",
+        description: "This is where I study",
+        location: "Homeroom",
+        date: dateSplit,
+        time: timeSplit
+    }
     if (req.session.username) {
-      res.render("update-event");
+      res.render("update-event", test);
     } else {
-      res.render("index");
+      res.redirect("/");
     }
   });
 
