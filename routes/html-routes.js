@@ -39,28 +39,38 @@ module.exports = function (app) {
       include: [db.cost, db.task, db.collab]
     }).then((dbEvent) => {
       const eventArr = [];
-   
+      const eventNameList = []
+
       for (i=0; i<dbEvent.length; i++){
-        console.log(dbEvent[i].collabs[0].username)
         const newObj = {};
+        const eventListObj = {};
+
+        // filter display to only logged in user's events
+        // works, but not efficient for large database?
         for (j=0; j<dbEvent[i].collabs.length; j++){
-          console.log(req.session.username.id);
-          console.log(dbEvent[i].collabs[j].id);
           if (req.session.username.id === dbEvent[i].collabs[j].id){
+            // create handlebars object for display card
             newObj.host = dbEvent[i].collabs[0].username;
             newObj.name = dbEvent[i].name;
             newObj.location = dbEvent[i].location;
             newObj.date_time = dbEvent[i].date_time;
             newObj.description = dbEvent[i].description;
             eventArr.push(newObj);
-          }
-        }
-          
 
-      }    
-      if (req.session.username) {
+            // create handlebars object for event selection list
+            eventListObj.event_name = dbEvent[i].name;
+            eventListObj.event_id = dbEvent[i].id;
+            eventNameList.push(eventListObj);
+
+
+          }
+        } 
+      } 
+      console.log(eventNameList);   
+      if (req.session.username) { 
         res.render("view-events", {
-          events: eventArr
+          events: eventArr,
+          eventList: eventNameList
         });
       } else {
         res.render("index");
