@@ -44,13 +44,9 @@ module.exports = function (app) {
             location: req.body.location,
             date_time: req.body.date_time
         }).then((dbEvent) => {
-            console.log(dbEvent)
-            console.log(dbEvent.collabevents)
+    
             dbEvent.addCollab(userID);
-
-
-
-            res.json(dbEvent)
+            // res.json(dbEvent)
         });
     });
 
@@ -80,7 +76,7 @@ module.exports = function (app) {
 
     // get event by user id
 app.get("/api/events/collabs/:id", function (req, res) {
-    // console.log(req.session.username)
+    console.log(req.session)
         db.event.findOne({
             where: {
                 collabId: req.session.username.id

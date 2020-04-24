@@ -1,51 +1,48 @@
 <h2>Update {{name}}</h2>
 <form class="create-form" id="update-event">
   <div class="form-group">
-    <label for="event-rename">Rename your event: </label>
-    <input type="text" id="new-name" name="update-event" placholder="{{name}}">
+    <label for="new-name">Rename your event: </label>
+    <input type="text" id="new-name" name="new-name" placholder="">
   </div>
     <div class="form-group">
-    <label for="event-desc">Edit Event Description: </label>
-    <textarea id="new-desc" name="update-event" rows="5" columns="40" placeholder="{{description}}"></textarea>
+    <label for="new-desc">Edit Event Description: </label>
+    <textarea id="new-desc" name="new-desc" rows="5" columns="40" placeholder=""></textarea>
   </div>
     <div class="form-group">
-    <label for="event-location">Edit Event Location: </label>
-    <input type="text" id="new-location" name="update-event" placeholder="{{location}}">
+    <label for="new-location">Edit Event Location: </label>
+    <input type="text" id="new-location" name="new-location" placeholder="">
   </div>
-  {{!-- <div class="form-group">
-    <label for="event-date-change">Change the date: </label>
-    <input type="date" id="event-date-change" name="update-event">
-  </div> --}}
    <div class="form-group" style="display: flex; justify-content: start;">
     <div style="width: 40%; margin-right: 5%;">
     <label for="event-date">Change Event Date: </label>
-    <input type="date" id="new-date" name="event-date">
+    <input type="date" id="event-date" name="event-date">
     </div>
     <div style="width: 40%;">
     <label for="event-time">Change Event Time: </label>
-    <input type="time" id="new-time" name="event-time">
+    <input type="time" id="event-time" name="event-time">
     </div>
   </div>
   
-  <button type="submit">Submit Changes</button>
+  <button type="submit">Update event</button>
 </form>
 <br>
-
-{{!-- <h2>Add Collaborators:</h2>
+{{!-- add collaborator --}}
 <form id="add-collab">
  <div class="form-group">
-    <label for="collab-first">What is their name?</label>
-    <input type="text" id="new-name" name="update-event" placholder="{{name}}">
+    <label for="new-name">New Collaborator Name: </label>
+    <input type="text" id="new-name" name="new-name" placholder="">
   </div>
-
- <div class="form-group">
-    <label for="collab-email">Enter Email: </label>
-    <input type="email" id="new-email" name="update-event" placholder="{{name}}">
+   <div class="form-group">
+    <label for="new-email">New Collaborator Email: </label>
+    <input type="email" id="new-email" name="new-email" placholder="">
   </div>
+ <button type="submit">Send Invitation!</button>
+
+</form>
 
 
 
-</form> --}}
+</form> 
 {{!-- <style media="screen">
   li {
     background-color: wheat;

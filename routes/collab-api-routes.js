@@ -7,10 +7,10 @@
 const bcrypt = require("bcrypt");
 // Grabbing our models
 
-var db = require("../models");
+const db = require("../models");
 
-var rug = require("random-username-generator");
-var passGen = require("generate-password");
+const rug = require("random-username-generator");
+const passGen = require("generate-password");
 
 // Routes
 // =============================================================

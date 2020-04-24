@@ -1,8 +1,19 @@
 {{!-- welcome --}}
+
+
 <div class="grid-x">
   <div class="cell small-1 medium-3 large-3 text-center"></div>
   <div class="cell small-10 medium-6 large-6 text-center">
     <h2>View the events!</h2>
+  </div>
+  <div class="grid-x">
+    <label for="event-list">Select an Event to Edit:</label>
+       <select id="event-list">
+        {{#each eventList}}
+        <option value="{{event_name}}">{{ event_name }} </option>
+        {{/each}}
+      </select>
+      
   </div>
   <div class="cell small-1 medium-3 large-3 text-center"></div>
 </div>
@@ -19,6 +30,7 @@
     <br>
 
   </div>
+ 
   <div class="cell small-1 medium-1 large-1"></div>
 </div>
 
