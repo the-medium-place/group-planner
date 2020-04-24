@@ -28,40 +28,6 @@ module.exports = function (app) {
     res.render("index", { welcome: `Welcome, ${username}!` });
   });
 
-  const testEvents = {
-    event1: {
-      name: "Flying like Hinata",
-      location: "Karasuno High School",
-      date: "Spring tournament",
-      host: "Aoba Josai",
-      description: "I don't know",
-      collabs: "Joe, Denis"
-    },
-    event2: {
-      name: "UA school festival",
-      location: "UA High School",
-      date: "End of November",
-      host: "UA Class 1-A",
-      description: "I don't know",
-      collabs: "Joe, Denis, Clint"
-
-    }
-  }
-
-  // const testEvents = {
-  //   event1: {
-  //     name: "Flying like Hinata",
-  //     location: "Karasuno High School",
-  //     date: "Spring tournament",
-  //     host: "Aoba Josai"
-  //   },
-  //   event2: {
-  //     name: "UA school festival",
-  //     location: "UA High School",
-  //     date: "End of November",
-  //     host: "UA Class 1-A"
-  //   }
-  // }
 
 
   app.get("/view-events", function (req, res) {
@@ -69,18 +35,39 @@ module.exports = function (app) {
       include: [db.cost, db.task, db.collab]
     }).then((dbEvent) => {
       const eventArr = [];
+      const eventNameList = []
 
       for (i=0; i<dbEvent.length; i++){
         const newObj = {};
-        newObj.name = dbEvent[i].name;
-        newObj.location = dbEvent[i].location;
-        newObj.date_time = dbEvent[i].date_time;
-        newObj.description = dbEvent[i].description;
-        eventArr.push(newObj);
+        const eventListObj = {};
 
-      }    
-      if (req.session.username) {
-        res.render("view-events", {events: eventArr});
+        // filter display to only logged in user's events
+        // works, but not efficient for large database?
+        for (j=0; j<dbEvent[i].collabs.length; j++){
+          if (req.session.username.id === dbEvent[i].collabs[j].id){
+            // create handlebars object for display card
+            newObj.host = dbEvent[i].collabs[0].username;
+            newObj.name = dbEvent[i].name;
+            newObj.location = dbEvent[i].location;
+            newObj.date_time = dbEvent[i].date_time;
+            newObj.description = dbEvent[i].description;
+            eventArr.push(newObj);
+
+            // create handlebars object for event selection list
+            eventListObj.event_name = dbEvent[i].name;
+            eventListObj.event_id = dbEvent[i].id;
+            eventNameList.push(eventListObj);
+
+
+          }
+        } 
+      } 
+      console.log(eventNameList);   
+      if (req.session.username) { 
+        res.render("view-events", {
+          events: eventArr,
+          eventList: eventNameList
+        });
       } else {
         res.render("index");
       }
@@ -106,8 +93,10 @@ module.exports = function (app) {
   });
 
   app.get("/update-event", function (req, res) {
+    // ajax query for all event info from user id
+
     if (req.session.username) {
-      res.render("update-event", { testEvents });
+      res.render("update-event");
     } else {
       res.render("index");
     }

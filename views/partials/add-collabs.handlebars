@@ -1,0 +1,25 @@
+<h2>Add Collaborators:</h2>
+
+
+<form id="add-collab">
+<label for="choose-event">Which Event?</label>
+
+<select id="event-list">
+    {{#each eventList}}
+    <option value="saab">{{ event_name }} </option>
+    {{/each}}
+</select>
+
+ <div class="form-group">
+    <label for="collab-first">What is their name?</label>
+    <input type="text" id="new-name" name="update-event" placholder="{{name}}">
+  </div>
+
+ <div class="form-group">
+    <label for="collab-email">Enter Email: </label>
+    <input type="email" id="new-email" name="update-event" placholder="{{name}}">
+  </div>
+
+
+
+</form>

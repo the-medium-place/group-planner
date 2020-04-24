@@ -1,28 +1,48 @@
 <h2>Update {{name}}</h2>
-<form class="create-form" id="create-event">
+<form class="create-form" id="update-event">
   <div class="form-group">
-    <label for="event-rename">Rename your event: </label>
-    <input type="text" id="event-rename" name="update-event">
+    <label for="new-name">Rename your event: </label>
+    <input type="text" id="new-name" name="new-name" placholder="">
   </div>
-  <div class="form-group">
-    <label for="event-date-change">Change the date: </label>
-    <input type="date" id="event-date-change" name="update-event">
+    <div class="form-group">
+    <label for="new-desc">Edit Event Description: </label>
+    <textarea id="new-desc" name="new-desc" rows="5" columns="40" placeholder=""></textarea>
   </div>
-  <div class="form-group">
-    <label for="invitees-update">How many people are invited?: </label>
-    <input type="number" id="invitees-update" name="update-event" min="1">
-    {{!-- <select name="people" id="invitees" name="new-event">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select> --}}
+    <div class="form-group">
+    <label for="new-location">Edit Event Location: </label>
+    <input type="text" id="new-location" name="new-location" placeholder="">
   </div>
-
+   <div class="form-group" style="display: flex; justify-content: start;">
+    <div style="width: 40%; margin-right: 5%;">
+    <label for="event-date">Change Event Date: </label>
+    <input type="date" id="event-date" name="event-date">
+    </div>
+    <div style="width: 40%;">
+    <label for="event-time">Change Event Time: </label>
+    <input type="time" id="event-time" name="event-time">
+    </div>
+  </div>
+  
   <button type="submit">Update event</button>
+</form>
+<br>
+{{!-- add collaborator --}}
+<form id="add-collab">
+ <div class="form-group">
+    <label for="new-name">New Collaborator Name: </label>
+    <input type="text" id="new-name" name="new-name" placholder="">
+  </div>
+   <div class="form-group">
+    <label for="new-email">New Collaborator Email: </label>
+    <input type="email" id="new-email" name="new-email" placholder="">
+  </div>
+ <button type="submit">Send Invitation!</button>
+
 </form>
 
 
+
+</form> 
 {{!-- <style media="screen">
   li {
     background-color: wheat;
