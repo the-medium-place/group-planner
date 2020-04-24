@@ -37,19 +37,33 @@ module.exports = function (app) {
       const eventArr = [];
       const eventNameList = []
 
-      for (i=0; i<dbEvent.length; i++){
+
+      
+      console.log(readyToInsert);
+
+
+
+
+      for (i = 0; i < dbEvent.length; i++) {
         const newObj = {};
         const eventListObj = {};
+     
 
         // filter display to only logged in user's events
         // works, but not efficient for large database?
-        for (j=0; j<dbEvent[i].collabs.length; j++){
-          if (req.session.username.id === dbEvent[i].collabs[j].id){
+        for (j = 0; j < dbEvent[i].collabs.length; j++) {
+          if (req.session.username.id === dbEvent[i].collabs[j].id) {
+            
+
+
+            var momentDate = moment(dbEvent[i].date_time);
+            var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
             // create handlebars object for display card
             newObj.host = dbEvent[i].collabs[0].username;
             newObj.name = dbEvent[i].name;
             newObj.location = dbEvent[i].location;
-            newObj.date_time = dbEvent[i].date_time;
+            newObj.date_time = moment(readyToInsert).format("lll"); //dbEvent[i].date_time; //
+            // newObj.timer-time = 
             newObj.description = dbEvent[i].description;
             eventArr.push(newObj);
 
@@ -57,13 +71,17 @@ module.exports = function (app) {
             eventListObj.event_name = dbEvent[i].name;
             eventListObj.event_id = dbEvent[i].id;
             eventNameList.push(eventListObj);
+            
 
-
+            // anotherTimer = timerTest;
+            // console.log(anotherTimer);
           }
-        } 
-      } 
-      console.log(eventNameList);   
-      if (req.session.username) { 
+        }
+      }
+
+      // console.log(eventArr);
+      // console.log(eventNameList);
+      if (req.session.username) {
         res.render("view-events", {
           events: eventArr,
           eventList: eventNameList
