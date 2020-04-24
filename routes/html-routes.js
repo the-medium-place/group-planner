@@ -29,47 +29,48 @@ module.exports = function (app) {
   });
 
   app.get("/view-events", function (req, res) {
-    db.event.findAll({
-      include: [db.cost, db.task, db.collab]
-    }).then((dbEvent) => {
-      const eventArr = [];
-      const eventNameList = []
+    db.event
+      .findAll({
+        include: [db.cost, db.task, db.collab],
+      })
+      .then((dbEvent) => {
+        const eventArr = [];
+        const eventNameList = [];
 
-      for (i=0; i<dbEvent.length; i++){
-        const newObj = {};
-        const eventListObj = {};
+        for (i = 0; i < dbEvent.length; i++) {
+          const newObj = {};
+          // const eventListObj = {};
 
-        // filter display to only logged in user's events
-        // works, but not efficient for large database?
-        for (j=0; j<dbEvent[i].collabs.length; j++){
-          if (req.session.username.id === dbEvent[i].collabs[j].id){
-            // create handlebars object for display card
-            newObj.host = dbEvent[i].collabs[0].username;
-            newObj.name = dbEvent[i].name;
-            newObj.location = dbEvent[i].location;
-            newObj.date_time = dbEvent[i].date_time;
-            newObj.description = dbEvent[i].description;
-            eventArr.push(newObj);
+          // filter display to only logged in user's events
+          // works, but not efficient for large database?
+          for (j = 0; j < dbEvent[i].collabs.length; j++) {
+            if (req.session.username.id === dbEvent[i].collabs[j].id) {
+              // create handlebars object for display card
+              newObj.host = dbEvent[i].collabs[0].username;
+              newObj.name = dbEvent[i].name;
+              newObj.location = dbEvent[i].location;
+              newObj.date_time = dbEvent[i].date_time;
+              newObj.description = dbEvent[i].description;
+              newObj.event_id = dbEvent[i].id;
+              eventArr.push(newObj);
 
-            // create handlebars object for event selection list
-            eventListObj.event_name = dbEvent[i].name;
-            eventListObj.event_id = dbEvent[i].id;
-            eventNameList.push(eventListObj);
-
-
+              // // create handlebars object for event selection list
+              // eventListObj.event_name = dbEvent[i].name;
+              // eventListObj.event_id = dbEvent[i].id;
+              // eventNameList.push(eventListObj);
+            }
           }
-        } 
-      } 
-      console.log(eventNameList);   
-      if (req.session.username) { 
-        res.render("view-events", {
-          events: eventArr,
-          eventList: eventNameList
-        });
-      } else {
-        res.redirect("/");
-      }
-    });
+        }
+        // console.log(eventArr);
+        if (req.session.username) {
+          res.render("view-events", {
+            events: eventArr,
+            // eventList: eventNameList
+          });
+        } else {
+          res.redirect("/");
+        }
+      });
   });
 
   // redirects to create-event page
@@ -90,23 +91,34 @@ module.exports = function (app) {
     }
   });
 
-  app.get("/update-event", function (req, res) {
+  app.get("/update-event/:id", function (req, res) {
     // ajax query for all event info from user id
-    let date_time = "2020-04-30 19:12:00"
-    let dateSplit = date_time.split(" ")[0]
-    let timeSplit = date_time.split(" ")[1]
-    let test = {
-        name: "Study hall",
-        description: "This is where I study",
-        location: "Homeroom",
-        date: dateSplit,
-        time: timeSplit
-    }
-    if (req.session.username) {
-      res.render("update-event", test);
-    } else {
-      res.redirect("/");
-    }
+    db.event
+      .findOne({
+        where: {
+          id: req.params.id,
+        },
+        include: [db.cost, db.task, db.collab],
+      })
+      .then((dbEvent) => {
+        console.log(dbEvent.dataValues)
+      // res.json(dbEvent)
+      // let date_time = "2020-04-30 19:12:00";
+      // let dateSplit = date_time.split(" ")[0];
+      // let timeSplit = date_time.split(" ")[1];
+      // let test = {
+      //   name: "Study hall",
+      //   description: "This is where I study",
+      //   location: "Homeroom",
+      //   date: dateSplit,
+      //   time: timeSplit,
+      // };
+      if (req.session.username) {
+        res.render("update-event", dbEvent.dataValues);
+      } else {
+        res.redirect("/");
+      }
+    })
   });
 
   app.get("/login-fail", function (req, res) {
@@ -126,5 +138,4 @@ module.exports = function (app) {
     //   res.render("index");
     // }
   });
-
 };
