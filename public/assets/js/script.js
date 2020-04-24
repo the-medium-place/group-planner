@@ -24,6 +24,10 @@ $(function () {
     })
   });
   
+  // shows the create account form upon click
+  $("#openCreateForm").on("click", () => {
+    $("#newAccount").css("display","block")
+  })
   
   // Initiates post request to database to create an account
   // Attaches submit listener to the new account form (not the button click)

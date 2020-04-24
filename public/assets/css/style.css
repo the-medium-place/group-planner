@@ -11,11 +11,13 @@ body {
 }
 
 #title-text a:hover {
-  color: green;
+  color: #1468a0;
 }
 
 
-
+#newAccount {
+  display: none;
+}
 
 #events-container {
   display: flex;
