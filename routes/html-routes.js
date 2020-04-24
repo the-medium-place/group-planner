@@ -14,16 +14,12 @@ module.exports = function (app) {
 
   // index route loads view.html
   app.get("/", function (req, res) {
-    res.render("index");
-    //   res.send("connected dionnnnnnnnnnn");
-    //   cat.all(function(data) {
-    //     var hbsObject = {
-    //       cats: data
-    //     };
-    //     console.log(hbsObject);
-    //     res.render("index", hbsObject);
-    //   });
-    // res.sendFile(path.join(__dirname, "../public/blog.html"));
+    if (req.session.username) {
+      const username = req.session.username.username;
+      res.render("index", { welcome: `Welcome, ${username}!` });
+    } else {
+      res.render("index");
+    }
   });
 
   app.get("/login-success", function (req, res) {
@@ -108,6 +104,15 @@ module.exports = function (app) {
 
   app.get("/login-fail", function (req, res) {
     res.render("login-fail");
+    // if(req.session.username) {
+    // res.render("update-event", { testEvents });
+    // } else {
+    //   res.render("index");
+    // }
+  });
+
+  app.get("/invited-user", function (req, res) {
+    res.render("invited-user");
     // if(req.session.username) {
     // res.render("update-event", { testEvents });
     // } else {
