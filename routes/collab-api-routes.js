@@ -12,7 +12,6 @@ var db = require("../models");
 // Routes
 // =============================================================
 module.exports = function (app) {
-
   // GET route for getting all of the events
   app.get("/api/collabs", function (req, res) {
     console.log(typeof db.event);
@@ -23,20 +22,41 @@ module.exports = function (app) {
   });
 
   app.post("/signup", (req, res) => {
+    db.collab
+      .create({
+        username: req.body.username,
+        password: req.body.password,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        phone: req.body.phone,
+        // costId: req.body.costId,
+        // taskId: req.body.taskId,
+        // eventId: req.body.eventId
+      })
+      .then(function (dbCollab) {
+        res.status(200).json(dbCollab);
+      });
+  });
 
-    db.collab.create({
-      username: req.body.username,
-      password: req.body.password,
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      email: req.body.email,
-      phone: req.body.phone
-      // costId: req.body.costId,
-      // taskId: req.body.taskId,
-      // eventId: req.body.eventId
-    }).then(function (dbCollab) {
-      res.status(200).json(dbCollab);
-    });
+  app.put("/signup", (req, res) => {
+    db.collab
+      .update(
+        {
+          username: req.body.username,
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          password: req.body.password,
+          phone: req.body.phone,
+          email: req.session.username.email,
+        },
+        {
+          where: {
+            id: req.session.username.id
+          },
+        }
+      )
+      .then((dbCollab) => res.json(dbCollab));
   });
 
   app.post("/login", (req, res) => {
@@ -44,25 +64,27 @@ module.exports = function (app) {
     console.log(req.body);
     console.log(req.body.username);
     // console.log(req.body.password);
-    db.collab.findOne({
-      where: {
-        username: req.body.username
-      }
-    }).then(dbCollab => {
-      if (dbCollab.username === null){
-        console.log("could not find user")
-      }
-      if (bcrypt.compareSync(req.body.password, dbCollab.password)) {
-        req.session.username = dbCollab;
-        console.log("success");
-        // res.redirect('/view-events');
-        res.redirect("/view-events");
-      } else {
-        console.log("unsuccess");
-        res.redirect("/login-fail");
-        // res.redirect('/');
-      }
-    });
+    db.collab
+      .findOne({
+        where: {
+          username: req.body.username,
+        },
+      })
+      .then((dbCollab) => {
+        if (dbCollab.username === null) {
+          console.log("could not find user");
+        }
+        if (bcrypt.compareSync(req.body.password, dbCollab.password)) {
+          req.session.username = dbCollab;
+          console.log("success");
+          // res.redirect('/view-events');
+          res.redirect("/view-events");
+        } else {
+          console.log("unsuccess");
+          res.redirect("/login-fail");
+          // res.redirect('/');
+        }
+      });
   });
 
   //enable session storage
@@ -72,10 +94,9 @@ module.exports = function (app) {
 
   // Logout route for user info
   app.delete("/logout", (req, res) => {
-    req.session.destroy(function(err){
+    req.session.destroy(function (err) {
       if (err) throw err;
       res.send("successful logout");
-    })
+    });
   });
-
 };

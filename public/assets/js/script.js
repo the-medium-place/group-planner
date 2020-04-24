@@ -20,6 +20,7 @@ $(function () {
     })
   });
   
+  
   // Initiates post request to database to create an account
   // Attaches submit listener to the new account form (not the button click)
   $("#newAccount").on("submit", function (event) {
@@ -75,16 +76,18 @@ $(function () {
     })
   });
 
+  // Initiates put request to database to update an account associated with an email
+  // Attaches submit listener to the new account form (not the button click)
   $("#invitedUser").on("submit", function (event) {
     event.preventDefault();
     // CAPTURE USER INPUT
-    const newUser = $("#new-user").val().trim();
-    const newFirst = $("#new-first").val().trim();
-    const newLast = $("#new-last").val().trim();
-    const newPass = $("#new-pass").val().trim();
-    const newPassConfirm = $("#new-pass-confirm").val().trim();
-    const newEmail = $("#new-email").val().trim();
-    const newPhone = $("#new-phone").val().trim();
+    const newUser = $("#invited-user").val().trim();
+    const newFirst = $("#invited-first").val().trim();
+    const newLast = $("#invited-last").val().trim();
+    const newPass = $("#invited-pass").val().trim();
+    const newPassConfirm = $("#invited-pass-confirm").val().trim();
+    // const newEmail = $("#new-email").val().trim();
+    const newPhone = $("#invited-phone").val().trim();
     
     // check if password matches confirm value
     // if yes send data request
@@ -97,20 +100,20 @@ $(function () {
     }
 
     // CREATE OBJECT OF USER INPUT
-    const newAccount = {
+    const invitedAccount = {
       username: newUser,
       first_name: newFirst,
       last_name: newLast,
       password: newPass,
-      email: newEmail,
+      // email: newEmail,
       phone: newPhone
     }
     
     // SEND POST REQUEST TO API-ROUTES PAGE
     $.ajax({
       url: "/signup",
-      method: "POST",
-      data: newAccount
+      method: "PUT",
+      data: invitedAccount
     }).then(() => {
       // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
       const newObj = {
