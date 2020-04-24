@@ -25,9 +25,9 @@ $(function () {
   });
   
   // shows the create account form upon click
-  $("#openCreateForm").on("click", () => {
+  $("#newaccBTN").on("click", () => {
     $("#newAccount").css("display","block")
-    $("#openCreateForm").text("here:")
+    // $("#openCreateForm").text("here:")
   })
   
   // Initiates post request to database to create an account
