@@ -1,6 +1,5 @@
 // console.log("connected");
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
-// const moment = require("moment");
 
 $(function () {
   // Initiates post request to database to login
@@ -11,19 +10,22 @@ $(function () {
     const passwordInput = $("#password").val().trim();
     const userLogin = {
       username: usernameInput,
-      password: passwordInput
-    }
+      password: passwordInput,
+    };
     $.ajax({
       url: "/login",
       method: "POST",
-      data: userLogin
-
+      data: userLogin,
     }).then(function (results) {
-
       window.location.href = "/view-events";
-    })
+    });
   });
 
+  // shows the create account form upon click
+  $("#newaccBTN").on("click", () => {
+    $("#newAccount").css("display", "block");
+    // $("#openCreateForm").text("here:")
+  });
 
   // Initiates post request to database to create an account
   // Attaches submit listener to the new account form (not the button click)
@@ -56,29 +58,29 @@ $(function () {
       last_name: newLast,
       password: newPass,
       email: newEmail,
-      phone: newPhone
-    }
+      phone: newPhone,
+    };
 
     // SEND POST REQUEST TO API-ROUTES PAGE
     $.ajax({
       url: "/signup",
       method: "POST",
-      data: newAccount
+      data: newAccount,
     }).then(() => {
       // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
       const newObj = {
         username: newUser,
-        password: newPass
+        password: newPass,
       };
       $.ajax({
         // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT (GET CANNOT ACCEPT OBJECT - NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
         url: "/login",
         method: "POST",
-        data: newObj
+        data: newObj,
       }).then(() => {
         location.href = "/view-events";
-      })
-    })
+      });
+    });
   });
 
   // Initiates put request to database to update an account associated with an email
@@ -111,31 +113,30 @@ $(function () {
       last_name: newLast,
       password: newPass,
       // email: newEmail,
-      phone: newPhone
-    }
+      phone: newPhone,
+    };
 
     // SEND POST REQUEST TO API-ROUTES PAGE
     $.ajax({
       url: "/signup",
       method: "PUT",
-      data: invitedAccount
+      data: invitedAccount,
     }).then(() => {
       // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
       const newObj = {
         username: newUser,
-        password: newPass
+        password: newPass,
       };
       $.ajax({
         // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT (GET CANNOT ACCEPT OBJECT - NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
         url: "/login",
         method: "POST",
-        data: newObj
+        data: newObj,
       }).then(() => {
         location.href = "/view-events";
-      })
-    })
+      });
+    });
   });
-
 
   // Initiates post request to database to create an event
   // Attaches submit listener to the new account form (not the button click)
@@ -152,76 +153,77 @@ $(function () {
       name: eventName,
       description: eventDescription,
       location: eventLocation,
-      date_time: `${eventDate} ${eventTime}`
-    }
+      date_time: `${eventDate} ${eventTime}`,
+    };
     // console.log(newEvent)
     // console.log(document.cookie);
 
     $.ajax({
-      // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT 
-      // (GET CANNOT ACCEPT OBJECT - 
+      // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT
+      // (GET CANNOT ACCEPT OBJECT -
       // NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
       url: "/api/events",
       method: "POST",
-      data: newEvent
-    }).then(() => {
+      data: newEvent,
+    }).then((callback) => {
       location.href = "/view-events";
-
-    })
+    });
   });
-});
 
-
-// update events submit
-$("#update-event").on("submit", (event) => {
-  event.preventDefault();
-
-  const updateObj = {};
-  const newName = $("#new-name").val().trim();
-  const newDesc = $("#new-desc").val().trim();
-  const newLocation = $("#new-location").val().trim();
-  const newDate = $("#new-date").val().trim();
-  const newTime = $("#new-time").val().trim();
-  updateObj.name = newName;
-  updateObj.description = newDesc;
-  updateObj.location = newLocation;
-  if ((newDate) && (newTime)) {
-    updateObj.date_time = `${newDate} ${newTime}`;
-  }
-
-  $.ajax({
-    url: "/api/events/:id",
-    method: "PUT",
-    data: updateObj
-  }).then((response) => {
-
+  $(".edit-event-button").on("click", function(){
+    const eventToUpdate = $(this).attr("id");
+    location.href = `/update-event/${eventToUpdate}`
+    // $.ajax({
+    //   url: `/api/events/${eventToUpdate}`,
+    //   method: "GET"
+    // }).then(function(err, data){
+    //   if (err) throw err;
+    //   console.log(data)
+    //   render("update-event",data)
+    // })
   })
 
+  // update events submit
+  $("#update-event").on("submit", (event) => {
+    event.preventDefault();
 
-});
+    const updateObj = {};
+    const newName = $("#new-name").val().trim();
+    const newDesc = $("#new-desc").val().trim();
+    const newLocation = $("#new-location").val().trim();
+    const newDate = $("#new-date").val().trim();
+    const newTime = $("#new-time").val().trim();
+    updateObj.name = newName;
+    updateObj.description = newDesc;
+    updateObj.location = newLocation;
+    if (newDate && newTime) {
+      updateObj.date_time = `${newDate} ${newTime}`;
+    }
 
+    $.ajax({
+      url: "/api/events/:id",
+      method: "PUT",
+      data: updateObj,
+    }).then((response) => {});
 
-// add collab submit
-$("#add-collab").on("submit", (event) => {
-  event.preventDefault();
-  const collabObj = {};
+    // add collab submit
+    $("#add-collab").on("submit", (event) => {
+      event.preventDefault();
+      const collabObj = {};
 
-  const newName = $("#new-name").val().trim();
-  const newEmail = $("#new-email").val().trim();
+      const newName = $("#new-name").val().trim();
+      const newEmail = $("#new-email").val().trim();
 
-  collabObj.new_name = newName;
-  collabObj.email = newEmail;
+      collabObj.new_name = newName;
+      collabObj.email = newEmail;
 
-  $.ajax({
-    url: "/add-collab",
-    method: "POST",
-    data: collabObj
-  }).then((response) => {
-
-
-  })
-
-
+      $.ajax({
+        url: "/add-collab",
+        method: "POST",
+        data: collabObj,
+      }).then((response) => {});
+    });
+  });
 });
 
 

@@ -2,28 +2,28 @@
 <form class="create-form" id="update-event">
   <div class="form-group">
     <label for="new-name">Rename your event: </label>
-    <input type="text" id="new-name" name="new-name" placholder="">
+    <input type="text" id="new-name" name="new-name" placeholder="{{name}}">
   </div>
     <div class="form-group">
     <label for="new-desc">Edit Event Description: </label>
-    <textarea id="new-desc" name="new-desc" rows="5" columns="40" placeholder=""></textarea>
+    <textarea id="new-desc" name="new-desc" rows="5" columns="40" placeholder="{{description}}"></textarea>
   </div>
     <div class="form-group">
     <label for="new-location">Edit Event Location: </label>
-    <input type="text" id="new-location" name="new-location" placeholder="">
+    <input type="text" id="new-location" name="new-location" placeholder="{{location}}">
   </div>
    <div class="form-group" style="display: flex; justify-content: start;">
     <div style="width: 40%; margin-right: 5%;">
-    <label for="event-date">Change Event Date: </label>
+    <label for="event-date">Change Event Date (currently on {{date}}):  </label>
     <input type="date" id="event-date" name="event-date">
     </div>
     <div style="width: 40%;">
-    <label for="event-time">Change Event Time: </label>
+    <label for="event-time">Change Event Time (currently at {{time}}): </label>
     <input type="time" id="event-time" name="event-time">
     </div>
   </div>
   
-  <button type="submit">Update event</button>
+  <button class="button" type="submit">Update event</button>
 </form>
 <br>
 {{!-- add collaborator --}}
@@ -36,7 +36,7 @@
     <label for="new-email">New Collaborator Email: </label>
     <input type="email" id="new-email" name="new-email" placholder="">
   </div>
- <button type="submit">Send Invitation!</button>
+ <button class="button" type="submit">Send Invitation!</button>
 
 </form>
 
