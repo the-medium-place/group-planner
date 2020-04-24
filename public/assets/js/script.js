@@ -27,6 +27,7 @@ $(function () {
   // shows the create account form upon click
   $("#openCreateForm").on("click", () => {
     $("#newAccount").css("display","block")
+    $("#openCreateForm").text("here:")
   })
   
   // Initiates post request to database to create an account
@@ -168,9 +169,8 @@ $(function () {
       url: "/api/events",
       method: "POST",
       data: newEvent
-    }).then(() => {
+    }).then((callback) => {
       location.href = "/view-events";
-
     })
   });
 });
