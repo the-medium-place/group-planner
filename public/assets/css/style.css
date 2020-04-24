@@ -15,10 +15,14 @@ body {
   color: #1468a0;
 }
 
+label {
+  color: white;
+}
 
 #newAccount {
   display: none;
 }
+
 #newaccBTN {
   /* float: right; */
 }
