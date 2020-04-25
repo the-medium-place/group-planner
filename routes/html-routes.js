@@ -44,7 +44,7 @@ module.exports = function (app) {
 
       for (i = 0; i < dbEvent.length; i++) {
         const newObj = {};
-        const eventListObj = {};
+        // const eventListObj = {};
      
 
         // filter display to only logged in user's events
@@ -62,9 +62,9 @@ module.exports = function (app) {
             newObj.location = dbEvent[i].location;
             newObj.date_time = moment(readyToInsert).format("lll"); //dbEvent[i].date_time; //
             // newObj.timer-time = 
-            newObj.description = dbEvent[i].description;
-            newObj.event_id = dbEvent[i].id;
-            eventArr.push(newObj);
+            // newObj.description = dbEvent[i].description;
+            // newObj.event_id = dbEvent[i].id;
+            // eventArr.push(newObj);
 
             // create handlebars object for event selection list
             // eventListObj.event_name = dbEvent[i].name;
