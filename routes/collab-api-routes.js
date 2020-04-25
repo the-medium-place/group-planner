@@ -167,21 +167,10 @@ module.exports = function (app) {
       res.send("successful logout");
     });
   });
-  //enable session storage
-  app.get("/readsessions", (req, res) => {
-    res.json(req.session);
-  });
-
-  // Logout route for user info
-  app.delete("/logout", (req, res) => {
-    req.session.destroy(function (err) {
-      if (err) throw err;
-      res.send("successful logout");
-    });
-  });
 
   // add collab form submit route - add random info
   app.post("/add-collab", (req, res) => {
+    console.log("api route log");
     const tempPass = passGen.generate({ length: 10 });
     const tempUsername = rug.generate();
 

@@ -172,6 +172,7 @@ $(function () {
 
   $(".edit-event-button").on("click", function(){
     const eventToUpdate = $(this).attr("id");
+    console.log(eventToUpdate);
     location.href = `/update-event/${eventToUpdate}`
     // $.ajax({
     //   url: `/api/events/${eventToUpdate}`,
@@ -211,6 +212,7 @@ $(function () {
       event.preventDefault();
       const collabObj = {};
 
+      
       const newName = $("#new-name").val().trim();
       const newEmail = $("#new-email").val().trim();
 
@@ -225,16 +227,6 @@ $(function () {
     });
   });
 });
-
-
-
-
-// $('[data-countdown]').each(function() {
-//   var $this = $(this), finalDate = $(this).data('countdown');
-//   $this.countdown(finalDate, function(event) {
-//     $this.html(event.strftime('%D days %H:%M:%S'));
-//   });
-// });
 
 
 $('.timerSpan').each(function () {
@@ -274,63 +266,3 @@ $('.timerSpan').each(function () {
   // Nov 11, 2111 11:11 AM
 });
 
-
-// $('[data-countdown]').each(setInterval(function () {
-//   // const countdown = 
-//   // Get today's date and time
-
-//   console.log($("#timerSpan").data("countdown"))
-//   // console.log($(this).data("countdown"));
-//   const now = new Date().getTime();
-
-//   // Find the distance between now and the count down date
-//   const distance = countDownDate - now;
-
-//   // Time calculations for days, hours, minutes and seconds
-//   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-//   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-//   if (distance >= 0){
-//     $this.html = days + "d " + hours + "h "
-//       + minutes + "m " + seconds + "s ";
-
-//   } else {
-//     clearInterval(timerFunc);
-//     $this.html = "PARTY TIME!!";   
-//   }
-//   console.log(distance);
-// }, 1000));
-
-
-
-            // // Set the date we're counting down to
-            // const countDownDate = new Date(document.getElementById("date-time").innerText).getTime();
-
-            // // Update the count down every 1 second
-            // const timerFunc = setInterval(function () {
-
-            //   // Get today's date and time
-            //   const now = new Date().getTime();
-
-            //   // Find the distance between now and the count down date
-            //   const distance = countDownDate - now;
-
-            //   // Time calculations for days, hours, minutes and seconds
-            //   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            //   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            //   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            //   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            //   if (distance >= 0){
-            //     document.getElementById("timer-span").innerHTML = days + "d " + hours + "h "
-            //       + minutes + "m " + seconds + "s ";
-            //       // console.log(timerOutput);
-
-
-            //   } else {
-            //     clearInterval(timerFunc);
-            //     document.getElementById("timer-span").innerHTML = "PARTY TIME!!";   
-            //   }
-            // }, 1000); 
