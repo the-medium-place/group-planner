@@ -33,10 +33,11 @@ module.exports = function (sequelize, DataTypes) {
     });
 
 
-    // each collab can have one task
     Collab.associate = function (models) {
-        Collab.belongsTo(models.task);
-        Collab.belongsTo(models.cost);
+        Collab.belongsToMany(models.task, {
+            through: "collabTasks"
+        });
+
         Collab.belongsToMany(models.event,
             {
                 through: "collabEvents"
