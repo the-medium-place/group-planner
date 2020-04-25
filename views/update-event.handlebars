@@ -14,15 +14,15 @@
   </div>
   <div class="form-group" style="display: flex; justify-content: start;">
     <div style="width: 40%; margin-right: 5%;">
-      <label for="update-date">Change Event Date (currently on {{date}}): </label>
+      <label for="update-date">Change Event Date (currently on {{event_date}}): </label>
       <input type="date" id="update-date" name="update-event">
     </div>
     <div style="width: 40%;">
-      <label for="update-time">Change Event Time (currently at {{time}}): </label>
+      <label for="update-time">Change Event Time (currently at {{event_time}}): </label>
       <input type="time" id="update-time" name="update-event">
     </div>
   </div>
-  <button class="button" type="submit">Update event</button>
+  <button class="button" type="submit" id={{id}}>Update event</button>
 </form>
 <br>
 

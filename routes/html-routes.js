@@ -33,8 +33,7 @@ module.exports = function (app) {
       include: [db.cost, db.task, db.collab]
     }).then((dbEvent) => {
       const eventArr = [];
-      // const eventNameList = []
-      // console.log(readyToInsert);
+      console.log(readyToInsert);
       for (i = 0; i < dbEvent.length; i++) {
         const newObj = {};
         // const eventListObj = {};
@@ -44,30 +43,23 @@ module.exports = function (app) {
           if (req.session.username.id === dbEvent[i].collabs[j].id) {
             var momentDate = moment(dbEvent[i].date_time);
             var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
+            var readyToInsertSplit = moment(readyToInsert).format("lll").split(" ");
             // create handlebars object for display card
             newObj.host = dbEvent[i].collabs[0].username;
             newObj.name = dbEvent[i].name;
+            newObj.event_id = dbEvent[i].id;
             newObj.location = dbEvent[i].location;
             newObj.date_time = moment(readyToInsert).format("lll"); //dbEvent[i].date_time; //
-            newObj.event_id = dbEvent[i].id;
-            // newObj.timer-time = 
-            // newObj.description = dbEvent[i].description;
-            // eventArr.push(newObj);
-
-            // create handlebars object for event selection list
-            // eventListObj.event_name = dbEvent[i].name;
-            // eventNameList.push(eventListObj);
-            // anotherTimer = timerTest;
-            // console.log(anotherTimer);
+            newObj.date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`
+            newObj.time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`
+            newObj.description = dbEvent[i].description;
+            eventArr.push(newObj);
           }
         }
       }
-      console.log(eventArr);
-      // console.log(eventNameList);
       if (req.session.username) {
         res.render("view-events", {
           events: eventArr,
-          // eventList: eventNameList
         });
       } else {
         res.render("index");
@@ -103,18 +95,13 @@ module.exports = function (app) {
         include: [db.cost, db.task, db.collab],
       })
       .then((dbEvent) => {
-        console.log(dbEvent.dataValues)
-      // res.json(dbEvent)
-      // let date_time = "2020-04-30 19:12:00";
-      // let dateSplit = date_time.split(" ")[0];
-      // let timeSplit = date_time.split(" ")[1];
-      // let test = {
-      //   name: "Study hall",
-      //   description: "This is where I study",
-      //   location: "Homeroom",
-      //   date: dateSplit,
-      //   time: timeSplit,
-      // };
+        const dateTimeObj = dbEvent.dataValues.date_time;
+        var momentDate = moment(dateTimeObj);
+        var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
+        var readyToInsertSplit = moment(readyToInsert).format("lll").split(" ");
+        console.log(readyToInsertSplit)
+        dbEvent.dataValues.event_date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`
+        dbEvent.dataValues.event_time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`
       if (req.session.username) {
         res.render("update-event", dbEvent.dataValues);
       } else {

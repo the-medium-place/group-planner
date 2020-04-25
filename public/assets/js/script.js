@@ -172,6 +172,7 @@ $(function () {
 
   $(".edit-event-button").on("click", function(){
     const eventToUpdate = $(this).attr("id");
+    // console.log(eventToUpdate)
     location.href = `/update-event/${eventToUpdate}`
     // $.ajax({
     //   url: `/api/events/${eventToUpdate}`,
