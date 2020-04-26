@@ -1,4 +1,3 @@
-
 $(function () {
   // Initiates post request to database to login
   // Attaches submit listener to the login form (not the button click)
@@ -136,6 +135,60 @@ $(function () {
     });
   });
 
+
+  $("#editAccount").on("submit", function (event) {
+    event.preventDefault();
+    // CAPTURE USER INPUT
+    const editUser = $("#current-user").val().trim();
+    const editFirst = $("#update-first").val().trim();
+    const editLast = $("#update-last").val().trim();
+    // const editPass = $("#current-pass").val().trim();
+    // const editPassConfirm = $("#invited-pass-confirm").val().trim();
+    const editEmail = $("#update-email").val().trim();
+    const editPhone = $("#update-phone").val().trim();
+
+    // check if password matches confirm value
+    // if yes send data request
+    // if no alert/modal
+    // let checkPass = newPass === newPassConfirm ? true : false;
+    // if (checkPass === false) {
+    //   alert("Passwords did not match, please try again");
+    //   // location.reload();
+    //   return;
+    // }
+
+    // CREATE OBJECT OF USER INPUT
+    const editedAccount = {
+      username: editUser,
+      first_name: editFirst,
+      last_name: editLast,
+      // password: editPass,
+      email: editEmail,
+      phone: editPhone,
+    };
+
+    // SEND POST REQUEST TO API-ROUTES PAGE
+    $.ajax({
+      url: "/signup",
+      method: "PUT",
+      data: editedAccount,
+    }).then(() => {
+      // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
+      const newObj = {
+        username: editUser,
+        // password: editPass,
+      };
+      $.ajax({
+        // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT (GET CANNOT ACCEPT OBJECT - NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
+        url: "/login",
+        method: "POST",
+        data: newObj,
+      }).then(() => {
+        location.href = "/view-events";
+      });
+    });
+  });
+
   // Initiates post request to database to create an event
   // Attaches submit listener to the new account form (not the button click)
   $("#create-event").on("submit", function (event) {
@@ -231,9 +284,8 @@ $(function () {
         url: "/add-collab",
         method: "POST",
         data: collabObj,
-      }).then((response) => { });
+      }).then((response) => {});
     });
-
   });
 
   // create tasks
@@ -260,11 +312,11 @@ $(function () {
   // edit tasks
   $(".edit-task-button").on("click", function () {
     const taskId = $(this).attr("id");
-    location.href = `/update-task/${taskId}`
+    location.href = `/update-task/${taskId}`;
   });
 
   // update tasks submit
-  $(".update-task").on("submit", function(event) {
+  $(".update-task").on("submit", function (event) {
     event.preventDefault();
     console.log("edit this task bitch");
     const taskId = $(this).attr("id");
@@ -284,7 +336,7 @@ $(function () {
       method: "PUT",
       data: taskObj,
     }).then((response) => {
-      location.href = "/view-events"
+      location.href = "/view-events";
     });
   });
 
@@ -337,11 +389,11 @@ $(function () {
   $(".edit-cost-button").on("click", function () {
     const costId = $(this).attr("id");
     // console.log(costId)
-    location.href = `/update-cost/${costId}`
+    location.href = `/update-cost/${costId}`;
   });
 
   // update costs submit
-  $(".update-cost").on("submit", function(event) {
+  $(".update-cost").on("submit", function (event) {
     event.preventDefault();
     console.log("edit this cost bitch");
     const costId = $(this).attr("id");
@@ -352,7 +404,12 @@ $(function () {
     const updateCostPurchased = $("[name=update-purchased]:checked")
       .val()
       .trim();
-    if (updateCostName && updateCostDesc && updateCostAmount && updateCostPurchased) {
+    if (
+      updateCostName &&
+      updateCostDesc &&
+      updateCostAmount &&
+      updateCostPurchased
+    ) {
       costObj.name = updateCostName;
       costObj.description = updateCostDesc;
       costObj.cost = updateCostAmount;
@@ -363,60 +420,67 @@ $(function () {
       method: "PUT",
       data: costObj,
     }).then((response) => {
-      location.href = "/view-events"
+      location.href = "/view-events";
     });
   });
 
-// <<<<<<< zgs-bug-checks
-$('.timerSpan').each(function () {
-  // capture event time
-  const eventTime = $(this).data("countdown");
-  var countDownDate = new Date(eventTime).getTime()
-  console.log(eventTime);
+  // <<<<<<< zgs-bug-checks
+  $(".timerSpan").each(function () {
+    // capture event time
+    const eventTime = $(this).data("countdown");
+    var countDownDate = new Date(eventTime).getTime();
+    console.log(eventTime);
 
-  const countdownTimer = setInterval(() => {
-    const now = new Date().getTime();
+    const countdownTimer = setInterval(() => {
+      const now = new Date().getTime();
 
-    // Find the distance between now and the count down date
-    let distance = countDownDate - now;
+      // Find the distance between now and the count down date
+      let distance = countDownDate - now;
 
-    // Time calculations for days, hours, minutes and seconds
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      // Time calculations for days, hours, minutes and seconds
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    if (distance >= 0) {
-      $(this).text(days + "Days " + hours + "Hours "
-        + minutes + "m " + seconds + "s ");
-    } else {
-      clearInterval(countdownTimer);
-      $(this).text("PARTY TIME!!");
-    }
-
-  }, 1000)
-});
-
-
-//   if (distance >= 0){
-//     document.getElementById("timer-span").innerHTML = days + "d " + hours + "h "
-//       + minutes + "m " + seconds + "s ";
-//       // console.log(timerOutput);
-
-// limit phone number input to numbers and auto format
-$(function () {
-  $('#new-phone').keydown(function (e) {
-    var key = e.charCode || e.keyCode || 0;
-    $text = $(this);
-    if (key !== 8 && key !== 9) {
-      if ($text.val().length === 3) {
-        $text.val($text.val() + '-');
+      if (distance >= 0) {
+        $(this).text(
+          days + "Days " + hours + "Hours " + minutes + "m " + seconds + "s "
+        );
+      } else {
+        clearInterval(countdownTimer);
+        $(this).text("PARTY TIME!!");
       }
-      if ($text.val().length === 7) {
-        $text.val($text.val() + '-');
+    }, 1000);
+  });
+
+  //   if (distance >= 0){
+  //     document.getElementById("timer-span").innerHTML = days + "d " + hours + "h "
+  //       + minutes + "m " + seconds + "s ";
+  //       // console.log(timerOutput);
+
+  // limit phone number input to numbers and auto format
+  $(function () {
+    $("#new-phone").keydown(function (e) {
+      var key = e.charCode || e.keyCode || 0;
+      $text = $(this);
+      if (key !== 8 && key !== 9) {
+        if ($text.val().length === 3) {
+          $text.val($text.val() + "-");
+        }
+        if ($text.val().length === 7) {
+          $text.val($text.val() + "-");
+        }
       }
-    }
-    return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
-  })
-});
+      return (
+        key == 8 ||
+        key == 9 ||
+        key == 46 ||
+        (key >= 48 && key <= 57) ||
+        (key >= 96 && key <= 105)
+      );
+    });
+  });
 });
