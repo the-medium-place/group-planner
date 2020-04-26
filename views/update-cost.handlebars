@@ -1,0 +1,24 @@
+<h2>Update cost: {{name}}</h2>
+<form class="update-cost" id={{id}}>
+  <div class="form-group">
+    <label for="update-cost-name">Rename your cost: </label>
+    <input type="text" id="update-cost-name" name="update-cost" rows="5" columns="40" placeholder={{name}}>
+  </div>
+  <div class="form-group">
+    <label for="update-cost-desc">Edit Cost Description: </label>
+    <textarea id="update-cost-desc" name="update-cost" rows="5" columns="40" placeholder="{{description}}"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="update-cost-amount">Edit Cost Amount: </label>
+    <input type="number" id="update-cost-amount" name="update-cost" placeholder="{{cost}}"></input>
+    <label for="update-purchased">Has the cost been purchased? (currently {{purchased}})</label>
+    <input type="radio" name="update-purchased" value="1">
+    <label for="1">Yes</label>
+    <br>
+    <input type="radio" name="update-purchased" value="0">
+    <label for="0">No</label>
+    <br>
+  </div>
+  <button class="button" id={{id}} type="submit">Update cost</button>
+</form>
+<br>

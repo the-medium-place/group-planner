@@ -147,7 +147,7 @@ $(function () {
     const eventLocation = $("#event-location").val().trim();
     const eventDate = $("#event-date").val().trim();
     const eventTime = $("#event-time").val().trim();
-    console.log(eventDate + eventTime);
+    // console.log(eventDate + eventTime);
 
     const newEvent = {
       name: eventName,
@@ -242,25 +242,33 @@ $(function () {
 
   // edit tasks
   $(".edit-task-button").on("click", function () {
+    const taskId = $(this).attr("id");
+    location.href = `/update-task/${taskId}`
+  });
+
+  // update tasks submit
+  $(".update-task").on("submit", function(event) {
+    event.preventDefault();
     console.log("edit this task bitch");
     const taskId = $(this).attr("id");
-    // event.preventDefault();
-    // const eventId = $(this).attr("id")
-    // const taskObj = {};
-    // const updateTaskTitle = $("#update-task-title").val().trim();
-    // const updateTaskBody = $("#update-task-body").val().trim();
-    // if (updateTaskTitle && updateTaskBody) {
-    //   taskObj.name = updateTaskTitle;
-    //   taskObj.description = updateTaskBody;
-    // }
-    // taskObj.event_id = eventId
-    // $.ajax({
-    //   url: `/api/tasks/`,
-    //   method: "POST",
-    //   data: taskObj,
-    // }).then((response) => {
-    //   location.href = "/view-events"
-    // });
+    const taskObj = {};
+    const updateTaskName = $("#update-task-name").val().trim();
+    const updateTaskDesc = $("#update-task-desc").val().trim();
+    const updateTaskComplete = $("[name=update-completed]:checked")
+      .val()
+      .trim();
+    if (updateTaskName && updateTaskDesc && updateTaskComplete) {
+      taskObj.name = updateTaskName;
+      taskObj.description = updateTaskDesc;
+      taskObj.completed = updateTaskComplete;
+    }
+    $.ajax({
+      url: `/api/tasks/${taskId}`,
+      method: "PUT",
+      data: taskObj,
+    }).then((response) => {
+      location.href = "/view-events"
+    });
   });
 
   // delete tasks
@@ -305,6 +313,40 @@ $(function () {
       data: costObj,
     }).then((response) => {
       location.href = "/view-events";
+    });
+  });
+
+  // edit costs
+  $(".edit-cost-button").on("click", function () {
+    const costId = $(this).attr("id");
+    // console.log(costId)
+    location.href = `/update-cost/${costId}`
+  });
+
+  // update costs submit
+  $(".update-cost").on("submit", function(event) {
+    event.preventDefault();
+    console.log("edit this cost bitch");
+    const costId = $(this).attr("id");
+    const costObj = {};
+    const updateCostName = $("#update-cost-name").val().trim();
+    const updateCostDesc = $("#update-cost-desc").val().trim();
+    const updateCostAmount = $("#update-cost-amount").val().trim();
+    const updateCostPurchased = $("[name=update-purchased]:checked")
+      .val()
+      .trim();
+    if (updateCostName && updateCostDesc && updateCostAmount && updateCostPurchased) {
+      costObj.name = updateCostName;
+      costObj.description = updateCostDesc;
+      costObj.cost = updateCostAmount;
+      costObj.purchased = updateCostPurchased;
+    }
+    $.ajax({
+      url: `/api/costs/${costId}`,
+      method: "PUT",
+      data: costObj,
+    }).then((response) => {
+      location.href = "/view-events"
     });
   });
 
