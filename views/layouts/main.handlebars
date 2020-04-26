@@ -25,18 +25,22 @@
 					<li><a class="topbarItens" href="../about-us">About Us</a></li>
 				</ul>
 			</div>
+			{{#if username}}
 			<div class="top-bar-right">
 				<ul class="dropdown menu" data-dropdown-menu>
 					<h6 id="welcomeUser">Welcome, </h6>
 					<li>
-						<a href="#">User</a>
+						<a href="#">{{username}}</a>
 						<ul class="menu">
-							<li><a href="#">Log out</a></li>
+							<li><a href="../edit-account">Edit account</a></li>
+							<li><a id="logout-link" href="#">Log out</a></li>
 							<!-- ... -->
 						</ul>
 					</li>
 				</ul>
 			</div>
+			{{else}}
+			{{/if}}
 		</div>
 	</div>
 
