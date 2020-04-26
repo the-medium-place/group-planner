@@ -29,43 +29,43 @@ module.exports = function (app) {
   });
 
   app.get("/view-events", function (req, res) {
-    db.event.findAll({
-      include: [db.cost, db.task, db.collab]
-    }).then((dbEvent) => {
+    if (req.session.username) {
       const eventArr = [];
-      console.log(readyToInsert);
-      for (i = 0; i < dbEvent.length; i++) {
-        const newObj = {};
-        // const eventListObj = {};
-        // filter display to only logged in user's events
-        // works, but not efficient for large database?
-        for (j = 0; j < dbEvent[i].collabs.length; j++) {
-          if (req.session.username.id === dbEvent[i].collabs[j].id) {
-            var momentDate = moment(dbEvent[i].date_time);
-            var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
-            var readyToInsertSplit = moment(readyToInsert).format("lll").split(" ");
-            // create handlebars object for display card
-            newObj.host = dbEvent[i].collabs[0].username;
-            newObj.name = dbEvent[i].name;
-            newObj.event_id = dbEvent[i].id;
-            newObj.location = dbEvent[i].location;
-            newObj.date_time = moment(readyToInsert).format("lll"); //dbEvent[i].date_time; //
-            newObj.date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`
-            newObj.time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`
-            newObj.description = dbEvent[i].description;
-            eventArr.push(newObj);
+      db.event.findAll({
+        include: [db.cost, db.task, db.collab]
+      }).then((dbEvent) => {
+        console.log(readyToInsert);
+        for (i = 0; i < dbEvent.length; i++) {
+          const newObj = {};
+          // const eventListObj = {};
+          // filter display to only logged in user's events
+          // works, but not efficient for large database?
+          for (j = 0; j < dbEvent[i].collabs.length; j++) {
+            if (req.session.username.id === dbEvent[i].collabs[j].id) {
+              var momentDate = moment(dbEvent[i].date_time);
+              var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
+              var readyToInsertSplit = moment(readyToInsert).format("lll").split(" ");
+              // create handlebars object for display card
+              newObj.host = dbEvent[i].collabs[0].username;
+              newObj.name = dbEvent[i].name;
+              newObj.event_id = dbEvent[i].id;
+              newObj.location = dbEvent[i].location;
+              newObj.date_time = moment(readyToInsert).format("lll"); //dbEvent[i].date_time; //
+              newObj.date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`
+              newObj.time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`
+              newObj.description = dbEvent[i].description;
+              eventArr.push(newObj);
+            }
           }
         }
-      }
-      if (req.session.username) {
+    })
         res.render("view-events", {
           events: eventArr,
         });
       } else {
-        res.render("index");
+        res.redirect("/");
       }
     });
-  });
 
   // redirects to create-event page
   app.get("/new-event", function (req, res) {

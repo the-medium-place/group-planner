@@ -1,5 +1,5 @@
 <h2>Update {{name}}</h2>
-<form class="create-form" id="update-event">
+<form class="update-form" id={{id}}>
   <div class="form-group">
     <label for="update-name">Rename your event: </label>
     <input type="text" id="update-name" name="update-event" placeholder="{{name}}">
@@ -22,7 +22,27 @@
       <input type="time" id="update-time" name="update-event">
     </div>
   </div>
-  <button class="button" type="submit" id={{id}}>Update event</button>
+  <div class="form-group" style="display: flex; justify-content: start;">
+    <div style="width: 40%; margin-right: 5%;">
+      <label for="update-task-title">Add a task: </label>
+      <input type="text" id="update-task-title" name="update-event" placeholder="Task Title, e.g. purchase paper plates">
+    </div>
+    <div style="width: 40%;">
+      <label for="update-task-body">Task description: </label>
+      <input type="text" id="update-task-body" name="update-event" placeholder="Task description, e.g. 40 large paper plates, 20 small paper plates">
+    </div>
+  </div>
+  <div class="form-group" style="display: flex; justify-content: start;">
+    <div style="width: 40%; margin-right: 5%;">
+      <label for="update-cost-title">Add a cost: </label>
+      <input type="text" id="update-cost-title" name="update-event" placeholder="Cost Title, e.g. purchase paper plates">
+    </div>
+    <div style="width: 40%;">
+      <label for="update-cost-amount">Cost amount: </label>
+      <input type="number" id="update-cost-amount" name="update-event" placeholder="Actual cost, e.g. 15">
+    </div>
+  </div>
+  <button class="button" id={{id}} type="submit">Update event</button>
 </form>
 <br>
 
