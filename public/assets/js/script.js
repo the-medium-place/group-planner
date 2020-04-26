@@ -1,4 +1,5 @@
 $(function () {
+  console.log("connected")
   // Initiates post request to database to login
   // Attaches submit listener to the login form (not the button click)
   $("#login").on("submit", function (event) {
