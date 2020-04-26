@@ -1,0 +1,90 @@
+body {
+  background-color: #03396c;
+  color: white;
+}
+
+#resetBTN {
+  float: right;
+}
+
+#title-text a {
+  color: white;
+}
+
+#title-text a:hover {
+  color: #1468a0;
+}
+
+label {
+  color: white;
+}
+
+#newAccount {
+  display: none;
+}
+
+#newaccBTN {
+  /* float: right; */
+}
+
+#events-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.thumbnail {
+    width: 250px;
+    height: 250px;
+}
+
+.maincards {
+  width: fit-content;
+  max-height: 250px;
+}
+
+/* #main-background-img {
+  height: fit-content;
+  background-image: url("./stock photos/mainbackground.jpg");
+  background-size: 1000px;
+  background-position: center;
+  background-repeat: no-repeat;
+} */
+
+.card {
+  border-radius: 15px;
+  background: #FAFAFA;
+  border-color: #03396c;
+}
+
+.card-divider {
+    background-color: #E3F2FD;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.topbarItens {
+  margin-top: 5px;
+  color: white;
+}
+
+#welcomeUser {
+  margin-right: 5px;
+  margin-top: 8px;
+}
+
+.title-bar {
+  background-color: #011f4b;
+  /* opacity: 0.8; */
+}
+
+.top-bar-right {
+  margin-right: 30px;
+}
+
+footer {
+  height: 100px;
+  background-color: black;
+  /* position: fixed; */
+  width: 100%;
+  text-align: center;
+}

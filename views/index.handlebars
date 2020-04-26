@@ -1,0 +1,114 @@
+<br>
+<br>
+{{ welcome }}
+
+
+<!-- INTRO -->
+<div class="grid-x grid-padding-x align-spaced">
+  <!-- <div class="cell small-2 medium-2 large-2"></div> -->
+  <div class="cell small-8 medium-8 large-4 text-center">
+    <h2>Gather people <br />set tasks <br />make it happen!</h2>
+  </div>
+  <div class="cell small-11 medium-8 large-4 text-center">
+    <h3>Here at To-Gather, you can create an event, add collabs, set tasks and split costs! The perfect hub for
+      organizing events.</h3>
+  </div>
+  <!-- <div class="cell small-2 medium-2 large-2"></div> -->
+</div>
+
+<hr>
+
+<!-- LOGIN -->
+<div class="grid-x">
+  <div class="cell small-2 medium-1 large-2"></div>
+  <div class="cell small-8 medium-6 large-5 text-left">
+    <form id="login">
+      <div class="medium-6 cell">
+        <label for="username">Username</label>
+          <input type="text" id="username" placeholder="username">
+      </div>
+      <div class="medium-6 cell">
+        <label for="password">Password</label>
+          <input type="password" id="password" placeholder="your password">
+      </div>
+      <button class="button submit" id="loginBTN">Login</button>
+    </form>
+  </div>
+  <div class="cell small-12 medium-4 large-3 text-center"><br>
+    <h4>New user? Create an account</h4><button class="button" id="newaccBTN">New Account</button>
+  </div>
+  <div class="cell small-2 medium-1 large-2"></div>
+</div>
+<div class="grid-x">
+  <div class="cell small-1 medium-3 large-3"></div>
+  <div class="cell small-10 medium-6 large-6">
+    <form id="newAccount">
+      <div class="form-group">
+        <label for="new-user">New Username:</label>
+          <input type="text" id="new-user" name="create-account" placeholder="new username" required>
+      </div>
+      <div class="form-group">
+        <label for="new-first">First Name:</label>
+          <input type="text" id="new-first" name="create-account" placeholder="first name" required>
+      </div>
+      <div class="form-group">
+        <label for="new-last">Last Name:</label>
+          <input type="text" id="new-last" name="create-account" placeholder="last name" required>
+      </div>
+      <div class="form-group">
+        <label for="new-pass">Create a password:</label>
+          <input type="password" id="new-pass" name="create-account" placeholder="new password" required>
+      </div>
+      <div class="form-group">
+        <label for="new-pass-confirm">Confirm your password:</label>
+          <input type="password" id="new-pass-confirm" name="create-account" placeholder="confirm your password"
+            required>
+      </div>
+      <div class="form-group">
+        <label for="new-email">Enter your email:</label>
+          <input type="email" id="new-email" name="create-account" placeholder="something@somewhere.com" required>
+      </div>
+      <div class="form-group">
+        <label for="new-phone">Enter your phone number xxx-xxx-xxxx (optional)</label>
+          <input type="tel" placeholder="555-123-6789" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="new-phone">
+      </div>
+      <button class="button submit" id="createACC">Create Account</button>
+      <button class="button" type="reset" id="resetBTN">Clear all fields</button>
+    </form>
+
+    <br>
+
+    <!-- actual stuff -->
+    <div class="grid-container">
+      <div class="grid-x grid-margin-x">
+        <div class="cell medium-4 large-4 text-center">
+          <div class="card">
+            <img src="./stock photos/meeting.jpg" class="maincards" alt="bowie">
+            <div class="card-section">
+              <h4>Your personal hub to organize events. </h4>
+            </div>
+          </div>
+        </div>
+        <div class="cell medium-4 large-4 text-center">
+          <div class="card">
+            <img src="/stock photos/italianeee.jpg" class="maincards" alt="bowie">
+            <div class="card-section">
+              <h4>All your collabs will receive a notification email!</h4>
+            </div>
+          </div>
+        </div>
+        <div class="cell medium-4 large-4 text-center">
+          <div class="card">
+            <img src="./stock photos/doge.jpg" class="maincards" alt="bowie">
+            <div class="card-section">
+              <h4>Do everything you need, wherever you are.</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+
+    <footer>FOOTER</footer>
