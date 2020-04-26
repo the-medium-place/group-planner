@@ -4,7 +4,8 @@
     "password": "password",
     "database": "eventplanning_db",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "start": "node server.js"
   },
   "test": {
     "username": "root",
@@ -21,6 +22,7 @@
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false,
-    "start": "node server.js"
+    "start": "node server.js",
+    "use_env_variable:": "JAWSDB_URL"
   }
 }
