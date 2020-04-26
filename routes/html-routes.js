@@ -1,7 +1,3 @@
-// *********************************************************************************
-// html-routes.js - this file offers a set of routes for sending users to the various html pages
-// *********************************************************************************
-
 // Dependencies
 // =============================================================
 var db = require("../models");
@@ -28,6 +24,7 @@ module.exports = function (app) {
     res.render("index", { welcome: `Welcome, ${username}!` });
   });
 
+  // view events page load
   app.get("/view-events", function (req, res) {
     if (req.session.username) {
       const eventArr = [];
@@ -190,7 +187,6 @@ module.exports = function (app) {
 
   app.get("/about-us", function (req, res) {
     if (req.session.username) {
-      // console.log(req.session.username.username)
       res.render("about-us", req.session.username);
     } else {
       res.redirect("/");

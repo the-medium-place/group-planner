@@ -1,5 +1,3 @@
-// console.log("connected");
-// Make sure we wait to attach our handlers until the DOM is fully loaded.
 
 $(function () {
   // Initiates post request to database to login
@@ -217,6 +215,25 @@ $(function () {
     }).then((response) => {
       location.href = "/view-events";
     });
+
+    // add collab submit
+    $("#add-collab").on("submit", (event) => {
+      event.preventDefault();
+      const collabObj = {};
+
+      const newName = $("#new-name").val().trim();
+      const newEmail = $("#new-email").val().trim();
+
+      collabObj.new_name = newName;
+      collabObj.email = newEmail;
+
+      $.ajax({
+        url: "/add-collab",
+        method: "POST",
+        data: collabObj,
+      }).then((response) => { });
+    });
+
   });
 
   // create tasks
@@ -350,24 +367,17 @@ $(function () {
     });
   });
 
-  // add collab submit
-  $("#add-collab").on("submit", (event) => {
-    event.preventDefault();
-    const collabObj = {};
+// <<<<<<< zgs-bug-checks
+$('.timerSpan').each(function () {
+  // capture event time
+  const eventTime = $(this).data("countdown");
+  var countDownDate = new Date(eventTime).getTime()
+  console.log(eventTime);
 
-    const newName = $("#new-name").val().trim();
-    const newEmail = $("#new-email").val().trim();
+  const countdownTimer = setInterval(() => {
+    const now = new Date().getTime();
 
-    collabObj.new_name = newName;
-    collabObj.email = newEmail;
-
-    $.ajax({
-      url: "/add-collab",
-      method: "POST",
-      data: collabObj,
-    }).then((response) => {});
-  });
-
+<<<<<<< HEAD
   $(".timerSpan").each(function () {
     // capture event time
     const eventTime = $(this).data("countdown");
@@ -456,14 +466,55 @@ $(function () {
 //   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 //   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 //   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+=======
+    // Find the distance between now and the count down date
+    let distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    if (distance >= 0) {
+      $(this).text(days + "Days " + hours + "Hours "
+        + minutes + "m " + seconds + "s ");
+    } else {
+      clearInterval(countdownTimer);
+      $(this).text("PARTY TIME!!");
+    }
+
+  }, 1000)
+});
+
+>>>>>>> development
 
 //   if (distance >= 0){
 //     document.getElementById("timer-span").innerHTML = days + "d " + hours + "h "
 //       + minutes + "m " + seconds + "s ";
 //       // console.log(timerOutput);
 
+<<<<<<< HEAD
 //   } else {
 //     clearInterval(timerFunc);
 //     document.getElementById("timer-span").innerHTML = "PARTY TIME!!";
 //   }
 // }, 1000);
+=======
+// limit phone number input to numbers and auto format
+$(function () {
+  $('#new-phone').keydown(function (e) {
+    var key = e.charCode || e.keyCode || 0;
+    $text = $(this);
+    if (key !== 8 && key !== 9) {
+      if ($text.val().length === 3) {
+        $text.val($text.val() + '-');
+      }
+      if ($text.val().length === 7) {
+        $text.val($text.val() + '-');
+      }
+    }
+    return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+  })
+});
+>>>>>>> development
