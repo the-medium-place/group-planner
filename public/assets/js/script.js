@@ -184,27 +184,35 @@ $(function () {
   })
 
   // update events submit
-  $("#update-event").on("submit", (event) => {
+  $(".update-form").on("submit", function(event) {
     event.preventDefault();
-
+    const eventId = $(this).attr("id")
     const updateObj = {};
-    const newName = $("#new-name").val().trim();
-    const newDesc = $("#new-desc").val().trim();
-    const newLocation = $("#new-location").val().trim();
-    const newDate = $("#new-date").val().trim();
-    const newTime = $("#new-time").val().trim();
-    updateObj.name = newName;
-    updateObj.description = newDesc;
-    updateObj.location = newLocation;
-    if (newDate && newTime) {
-      updateObj.date_time = `${newDate} ${newTime}`;
+    const updateName = $("#update-name").val().trim();
+    const updateDesc = $("#update-desc").val().trim();
+    const updateLocation = $("#update-location").val().trim();
+    const updateDate = $("#update-date").val().trim();
+    const updateTime = $("#update-time").val().trim();
+    if (updateName) {
+      updateObj.name = updateName;
     }
-
+    if (updateDesc) {
+      updateObj.description = updateDesc;
+    }
+    if (updateLocation) {
+      updateObj.location = updateLocation;
+    }
+    if (updateDate && updateTime) {
+      updateObj.date_time = `${updateDate} ${updateTime}`;
+    } 
+    
     $.ajax({
-      url: "/api/events/:id",
+      url: `/api/events/${eventId}`,
       method: "PUT",
       data: updateObj,
-    }).then((response) => {});
+    }).then((response) => {
+      location.href = "/view-events"
+    });
 
     // add collab submit
     $("#add-collab").on("submit", (event) => {
@@ -224,6 +232,23 @@ $(function () {
       }).then((response) => {});
     });
   });
+
+  // create tasks
+  // $(".update-form").on("submit", function(event) {
+  //   event.preventDefault();
+  //   const updateTaskTitle = $("#update-task-title").val().trim();
+  //   const updateTaskBody = $("#update-task-body").val().trim();
+  //   const updateCostTitle = $("#update-cost-title").val().trim();
+  //   const updateCostAmount = $("#update-cost-amount").val().trim();
+  //   if (updateTaskTitle && updateTaskBody) {
+  //     updateObj.task_title = updateTaskTitle;
+  //     updateObj.task_body = updateTaskBody;
+  //   } 
+  //   if (updateCostTitle && updateCostAmount) {
+  //     updateObj.cost_title = updateCostTitle;
+  //     updateObj.cost_amount = updateCostAmount;
+  //   } 
+  // })
 });
 
 
