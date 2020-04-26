@@ -1,0 +1,22 @@
+<h2>Update task: {{name}}</h2>
+<form class="update-task" id={{id}}>
+  <div class="form-group">
+    <label for="update-task-name">Rename your task: </label>
+    <input type="text" id="update-task-name" name="update-task" placeholder={{name}}>
+  </div>
+  <div class="form-group">
+    <label for="update-task-desc">Edit Task Description: </label>
+    <textarea id="update-task-desc" name="update-task" rows="5" columns="40" placeholder="{{description}}"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="update-completed">Is the task completed? (currently {{completed}})</label>
+    <input type="radio" name="update-completed" value="1">
+    <label for="1">Yes</label>
+    <br>
+    <input type="radio" name="update-completed" value="0">
+    <label for="0">No</label>
+    <br>
+  </div>
+  <button class="button" id={{id}} type="submit">Update event</button>
+</form>
+<br>

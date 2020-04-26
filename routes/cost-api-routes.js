@@ -43,6 +43,9 @@ module.exports = function (app) {
     // PUT route for updating costs
     app.put("/api/costs/:id", function (req, res) {
         db.cost.update({
+            name: req.body.name,
+            description: req.body.description,
+            cost: req.body.cost,
             purchased: req.body.purchased
         }, {
             where: {

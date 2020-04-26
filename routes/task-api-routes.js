@@ -51,6 +51,8 @@ module.exports = function (app) {
     // PUT route for updating tasks
     app.put("/api/tasks/:id", function (req, res) {
         db.task.update({
+            name: req.body.name,
+            description: req.body.description,
             completed: req.body.completed
         }, {
             where: {
