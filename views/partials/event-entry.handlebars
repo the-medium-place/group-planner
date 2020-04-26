@@ -47,7 +47,9 @@
       </div>
       <br>
       <div class="grid-x">
-        <div class="cell auto" class="eventCosts">Costs: {{costs}}
+        <div class="cell auto" class="eventCosts">Costs: {{#each costs}}
+          {{> costs-display}}
+          {{/each}}
         </div>
       </div>
       <br>

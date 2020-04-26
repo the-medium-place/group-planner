@@ -68,13 +68,30 @@ module.exports = function (app) {
                 newObj.tasks = "No tasks associated yet"
               }
               if (dbEvent[i].costs.length > 0){
-                console.log(dbEvent[i].costs)
-              //   const costsObj = {}
-              //   const costsArr = dbEvent[i].costs
-              //   costsArr.forEach(cost => {
-              //     cost.costName = c
-              //   });
-              //   newObj.costs = costsObj;
+                // console.log(dbEvent[i].costs)
+                // const taskListArr = [];
+                // const tasksArr = dbEvent[i].tasks
+                // tasksArr.forEach(task => {
+                //   const individTask = {
+                //     taskName: task.name,
+                //     taskDescription: task.description,
+                //     taskCompleted: task.completed,
+                //   }
+                //   taskListArr.push(individTask)
+                // });
+                // newObj.tasks = taskListArr;
+                const costListArr = []
+                const costsArr = dbEvent[i].costs
+                costsArr.forEach(cost => {
+                  const individCost = {
+                    costName: cost.name,
+                    costDescription: cost.description,
+                    costCost: cost.cost,
+                    costPurchased: cost.purchased,
+                  }
+                  costListArr.push(individCost)
+                });
+                newObj.costs = costListArr;
               } else {
                 newObj.costs = "No costs associated yet"
               }
