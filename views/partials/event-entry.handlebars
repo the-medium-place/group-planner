@@ -39,10 +39,15 @@
       </div>
       <br>
       <div class="grid-x">
-        <div class="cell auto" class="eventDescription">Tasks: {{description}}
-          {{#each task}}
-          {{> tasks}}
+        <div class="cell auto" class="eventTasks">Tasks:
+          {{#each tasks}}
+          {{> tasks-display}}
           {{/each}}
+        </div>
+      </div>
+      <br>
+      <div class="grid-x">
+        <div class="cell auto" class="eventCosts">Costs: {{costs}}
         </div>
       </div>
       <br>
