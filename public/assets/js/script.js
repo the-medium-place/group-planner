@@ -14,6 +14,7 @@ $(function () {
       method: "POST",
       data: userLogin,
     }).then(function (results) {
+      console.log(results);
       window.location.href = "/view-events";
     });
   });
@@ -63,7 +64,8 @@ $(function () {
       url: "/signup",
       method: "POST",
       data: newAccount,
-    }).then(() => {
+    }).then(function(res, status) {
+      console.log(status)
       // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
       const newObj = {
         username: newUser,
@@ -74,8 +76,9 @@ $(function () {
         url: "/login",
         method: "POST",
         data: newObj,
-      }).then(() => {
+      }).then(function(data, status) {
         location.href = "/view-events";
+        console.log(status);
       });
     });
   });
@@ -129,8 +132,9 @@ $(function () {
         url: "/login",
         method: "POST",
         data: newObj,
-      }).then(() => {
+      }).then(function(data, status) {
         location.href = "/view-events";
+        console.log(status);
       });
     });
   });
@@ -181,7 +185,8 @@ $(function () {
       url: "/signup",
       method: "PUT",
       data: editedAccount,
-    }).then(() => {
+    }).then(function(data, status) {
+      console.log(status);
       // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
       const newObj = {
         username: editUser,
@@ -192,8 +197,9 @@ $(function () {
         url: "/login",
         method: "POST",
         data: newObj,
-      }).then(() => {
+      }).then(function(data, status) {
         location.href = "/view-events";
+        console.log(data);
       });
     });
   });
@@ -279,15 +285,18 @@ $(function () {
     });
 
     // add collab submit
-    $("#add-collab").on("submit", (event) => {
+    $("#add-collab").on("submit", function(event) {
+      console.log($(this).id);
       event.preventDefault();
+      console.log("button pressed");
       const collabObj = {};
 
-      const newName = $("#new-name").val().trim();
-      const newEmail = $("#new-email").val().trim();
+      const newName = $("#new-collab-name").val().trim();
+      const newEmail = $("#new-collab-email").val().trim();
 
       collabObj.new_name = newName;
       collabObj.email = newEmail;
+      console.log("collab Object after being built: ", collabObj);
 
       $.ajax({
         url: "/add-collab",
@@ -313,7 +322,8 @@ $(function () {
       url: `/api/tasks/`,
       method: "POST",
       data: taskObj,
-    }).then((response) => {
+    }).then((response, status) => {
+      console.log(status);
       location.href = "/view-events";
     });
   });

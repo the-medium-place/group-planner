@@ -60,9 +60,7 @@ module.exports = function (app) {
   });
 
   app.post("/login", (req, res) => {
-    console.log("start of login route");
-    console.log(req.body);
-    console.log(req.body.username);
+
     // console.log(req.body.password);
     db.collab
       .findOne({
@@ -85,7 +83,7 @@ module.exports = function (app) {
           // res.redirect('/');
         }
       });
-  });
+  })
 
   // creates a new user
   app.post("/signup", (req, res) => {
@@ -121,7 +119,7 @@ module.exports = function (app) {
         {
           where: {
             id: req.session.username.id,
-          },
+          }
         }
       )
       .then((dbCollab) => res.json(dbCollab));
@@ -196,6 +194,7 @@ module.exports = function (app) {
         email: req.body.email,
       })
       .then(function (dbCollab) {
+        console.log("after collab creation")
         // HERE IS WHERE THE EMAIL CLIENT WOULD PROBABLY DO ITS THING
       });
   });
