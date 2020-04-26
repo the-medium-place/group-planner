@@ -26,7 +26,9 @@ module.exports = function (app) {
 
   // view events page load
   app.get("/view-events", function (req, res) {
+
     if (req.session.username) {
+
       const eventArr = [];
       db.event
         .findAll({
@@ -122,11 +124,11 @@ module.exports = function (app) {
              // }
             //}
           }
+          res.render("view-events", {
+            events: eventArr,
+            username: req.session.username.username
+          });
         });
-      res.render("view-events", {
-        events: eventArr,
-        username: req.session.username.username
-      });
     } else {
       res.redirect("/");
     }
@@ -214,16 +216,17 @@ module.exports = function (app) {
         include: [db.cost, db.task, db.collab],
       })
       .then((dbEvent) => {
-        const dateTimeObj = dbEvent.dataValues.date_time;
-        var momentDate = moment(dateTimeObj);
-        var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
-        var readyToInsertSplit = moment(readyToInsert).format("lll").split(" ");
-        console.log(readyToInsertSplit);
-        dbEvent.dataValues.event_date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`;
-        dbEvent.dataValues.event_time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`;
-        const newEventObj = {...dbEvent.dataValues}
         if (req.session.username) {
-          res.render("update-event", {newEventObj, username: req.session.username.username});
+          const dateTimeObj = dbEvent.dataValues.date_time;
+          var momentDate = moment(dateTimeObj);
+          var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
+          var readyToInsertSplit = moment(readyToInsert).format("lll").split(" ");
+          console.log(readyToInsertSplit);
+          dbEvent.dataValues.event_date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`;
+          dbEvent.dataValues.event_time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`;
+          const newEventObj = {...dbEvent.dataValues}
+          newEventObj.username = req.session.username.usernam;
+          res.render("update-event", newEventObj);
         } else {
           res.redirect("/");
         }
