@@ -1,5 +1,4 @@
 $(function () {
-  console.log("connected")
   // Initiates post request to database to login
   // Attaches submit listener to the login form (not the button click)
   $("#login").on("submit", function (event) {
@@ -159,14 +158,23 @@ $(function () {
     // }
 
     // CREATE OBJECT OF USER INPUT
-    const editedAccount = {
-      username: editUser,
-      first_name: editFirst,
-      last_name: editLast,
-      // password: editPass,
-      email: editEmail,
-      phone: editPhone,
-    };
+    const editedAccount = {};
+    if (editUser){
+      editedAccount.username = editUser
+    }
+    if (editFirst){
+      editedAccount.first_name = editFirst
+    }
+    if (editLast){
+      editedAccount.last_name = editLast
+    }
+    if (editEmail){
+      editedAccount.email = editEmail
+    }
+    if (editPhone){
+      editedAccount.phone = editPhone
+    }
+    // password: editPass,
 
     // SEND POST REQUEST TO API-ROUTES PAGE
     $.ajax({
@@ -424,6 +432,16 @@ $(function () {
       location.href = "/view-events";
     });
   });
+
+  // logout button
+  $("#logout-link").on("click", function(){
+    $.ajax({
+      url: `/logout`,
+      method: "DELETE"
+    }).then((response) => {
+      location.reload();
+    })
+  })
 
   // <<<<<<< zgs-bug-checks
   $(".timerSpan").each(function () {

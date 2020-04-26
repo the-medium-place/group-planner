@@ -167,6 +167,7 @@ module.exports = function (app) {
       res.send("successful logout");
     });
   });
+
   //enable session storage
   app.get("/readsessions", (req, res) => {
     res.json(req.session);
@@ -176,7 +177,7 @@ module.exports = function (app) {
   app.delete("/logout", (req, res) => {
     req.session.destroy(function (err) {
       if (err) throw err;
-      res.send("successful logout");
+      res.render("successful logout");
     });
   });
 
