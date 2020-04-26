@@ -1,17 +1,7 @@
-{{!-- <tr>
-  <td>{{{name}}}</td>
-  <td>{{location}}</td>
-  <td>{{date}}</td>
-  <td>{{host}}</td>
-</tr> --}}
-
-
-
-
 <div class="card" id={{event_id}}>
   <div class="card-divider" class="eventName">
     {{name}}
-    <button class="button edit-event-button" id="{{event_id}}">Edit Event</button>
+    <button class="button edit-event-button" id={{event_id}}>Edit Event</button><button class="button delete-event-button" id={{event_id}}>Delete event</button>
   </div>
   <div class="grid-x">
     <div class="cell small-3 medium-3 large-3">
@@ -38,7 +28,20 @@
         <div class="cell auto" class="eventDescription">Description: {{description}}</div>
       </div>
       <br>
+      <div class="grid-x">
+        <div class="cell auto" class="eventTasks">Tasks:
+          {{#each tasks}}
+          {{> tasks-display}}
+          {{/each}}
+        </div>
+      </div>
       <br>
+      <div class="grid-x">
+        <div class="cell auto" class="eventCosts">Costs: {{#each costs}}
+          {{> costs-display}}
+          {{/each}}
+        </div>
+      </div>
       <br>
       <br>
       <div class="grid-x">
