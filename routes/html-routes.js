@@ -32,10 +32,10 @@ module.exports = function (app) {
         .findAll({
           include: [{
             model: db.cost
-          }, 
+          },
           {
             model: db.task
-          }, 
+          },
           {
             model: db.collab,
             where: db.collab.id = req.session.username.id
@@ -47,79 +47,79 @@ module.exports = function (app) {
             // filter display to only logged in user's events
             // works, but not efficient for large database?
             //for (j = 0; j < dbEvent[i].collabs.length; j++) {
-             // if (req.session.username.id === dbEvent[i].collabs[j].id) {
-                var momentDate = moment(dbEvent[i].date_time);
-                var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
-                var readyToInsertSplit = moment(readyToInsert)
-                  .format("lll")
-                  .split(" ");
-                // create handlebars object for display card
-                newObj.host = dbEvent[i].collabs[0].username;
-                newObj.name = dbEvent[i].name;
-                newObj.event_id = dbEvent[i].id;
-                newObj.location = dbEvent[i].location;
-                newObj.date_time = moment(readyToInsert).format("lll"); //dbEvent[i].date_time; //
-                newObj.date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`;
-                newObj.time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`;
-                newObj.description = dbEvent[i].description;
-                // If there are tasks associated with the event,
-                // Display them on the card
-                if (dbEvent[i].tasks.length > 0) {
-                  const taskListArr = [];
-                  const tasksArr = dbEvent[i].tasks;
-                  tasksArr.forEach((task) => {
-                    const individTask = {
-                      taskName: task.name,
-                      taskDescription: task.description,
-                      taskCompleted: task.completed,
-                      taskId: task.id,
-                    };
-                    taskListArr.push(individTask);
-                  });
-                  newObj.tasks = taskListArr;
-                } else {
-                  newObj.tasks = "No tasks associated yet";
-                }
-                // If there are costs associated with the event,
-                // display them on the card
-                if (dbEvent[i].costs.length > 0) {
-                  const costListArr = [];
-                  const costsArr = dbEvent[i].costs;
-                  costsArr.forEach((cost) => {
-                    const individCost = {
-                      costName: cost.name,
-                      costDescription: cost.description,
-                      costCost: cost.cost,
-                      costPurchased: cost.purchased,
-                      costId: cost.id,
-                    };
-                    costListArr.push(individCost);
-                  });
-                  newObj.costs = costListArr;
-                } else {
-                  newObj.costs = "No costs associated yet";
-                }
-                // If there are OTHER collabs associated with the event,
-                // display them on the card
-                if (dbEvent[i].collabs.length > 1) {
-                  // const costListArr = []
-                  // const costsArr = dbEvent[i].costs
-                  // costsArr.forEach(cost => {
-                  //   const individCost = {
-                  //     costName: cost.name,
-                  //     costDescription: cost.description,
-                  //     costCost: cost.cost,
-                  //     costPurchased: cost.purchased,
-                  //   }
-                  //   costListArr.push(individCost)
-                  // });
-                  newObj.collabs = collabsListArr;
-                } else {
-                  newObj.collabs =
-                    "You! Currently, there are no other collaborators yet.";
-                }
-                eventArr.push(newObj);
-             // }
+            // if (req.session.username.id === dbEvent[i].collabs[j].id) {
+            var momentDate = moment(dbEvent[i].date_time);
+            var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
+            var readyToInsertSplit = moment(readyToInsert)
+              .format("lll")
+              .split(" ");
+            // create handlebars object for display card
+            newObj.host = dbEvent[i].collabs[0].username;
+            newObj.name = dbEvent[i].name;
+            newObj.event_id = dbEvent[i].id;
+            newObj.location = dbEvent[i].location;
+            newObj.date_time = moment(readyToInsert).format("lll"); //dbEvent[i].date_time; //
+            newObj.date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`;
+            newObj.time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`;
+            newObj.description = dbEvent[i].description;
+            // If there are tasks associated with the event,
+            // Display them on the card
+            if (dbEvent[i].tasks.length > 0) {
+              const taskListArr = [];
+              const tasksArr = dbEvent[i].tasks;
+              tasksArr.forEach((task) => {
+                const individTask = {
+                  taskName: task.name,
+                  taskDescription: task.description,
+                  taskCompleted: task.completed,
+                  taskId: task.id,
+                };
+                taskListArr.push(individTask);
+              });
+              newObj.tasks = taskListArr;
+            } else {
+              newObj.tasks = "No tasks associated yet";
+            }
+            // If there are costs associated with the event,
+            // display them on the card
+            if (dbEvent[i].costs.length > 0) {
+              const costListArr = [];
+              const costsArr = dbEvent[i].costs;
+              costsArr.forEach((cost) => {
+                const individCost = {
+                  costName: cost.name,
+                  costDescription: cost.description,
+                  costCost: cost.cost,
+                  costPurchased: cost.purchased,
+                  costId: cost.id,
+                };
+                costListArr.push(individCost);
+              });
+              newObj.costs = costListArr;
+            } else {
+              newObj.costs = "No costs associated yet";
+            }
+            // If there are OTHER collabs associated with the event,
+            // display them on the card
+            if (dbEvent[i].collabs.length > 1) {
+              // const costListArr = []
+              // const costsArr = dbEvent[i].costs
+              // costsArr.forEach(cost => {
+              //   const individCost = {
+              //     costName: cost.name,
+              //     costDescription: cost.description,
+              //     costCost: cost.cost,
+              //     costPurchased: cost.purchased,
+              //   }
+              //   costListArr.push(individCost)
+              // });
+              newObj.collabs = collabsListArr;
+            } else {
+              newObj.collabs =
+                "You! Currently, there are no other collaborators yet.";
+            }
+            eventArr.push(newObj);
+            // }
             //}
           }
         });
