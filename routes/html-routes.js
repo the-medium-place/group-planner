@@ -30,15 +30,24 @@ module.exports = function (app) {
       const eventArr = [];
       db.event
         .findAll({
-          include: [db.cost, db.task, db.collab],
+          include: [{
+            model: db.cost
+          }, 
+          {
+            model: db.task
+          }, 
+          {
+            model: db.collab,
+            where: db.collab.id = req.session.username.id
+          }],
         })
         .then((dbEvent) => {
           for (i = 0; i < dbEvent.length; i++) {
             const newObj = {};
             // filter display to only logged in user's events
             // works, but not efficient for large database?
-            for (j = 0; j < dbEvent[i].collabs.length; j++) {
-              if (req.session.username.id === dbEvent[i].collabs[j].id) {
+            //for (j = 0; j < dbEvent[i].collabs.length; j++) {
+             // if (req.session.username.id === dbEvent[i].collabs[j].id) {
                 var momentDate = moment(dbEvent[i].date_time);
                 var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
                 var readyToInsertSplit = moment(readyToInsert)
@@ -110,8 +119,8 @@ module.exports = function (app) {
                     "You! Currently, there are no other collaborators yet.";
                 }
                 eventArr.push(newObj);
-              }
-            }
+             // }
+            //}
           }
         });
       res.render("view-events", {
@@ -133,6 +142,7 @@ module.exports = function (app) {
 
   // redirects to edit-task page
   app.get("/update-task/:id", function (req, res) {
+    console.log(req.session.username.id);
     if (req.session.username) {
       // ajax query for all event info from user id
       db.task

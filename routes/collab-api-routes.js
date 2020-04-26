@@ -183,6 +183,7 @@ module.exports = function (app) {
 
   // add collab form submit route - add random info
   app.post("/add-collab", (req, res) => {
+    console.log("api route log");
     const tempPass = passGen.generate({ length: 10 });
     const tempUsername = rug.generate();
 
