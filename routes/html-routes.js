@@ -62,6 +62,7 @@ module.exports = function (app) {
                     taskName: task.name,
                     taskDescription: task.description,
                     taskCompleted: task.completed,
+                    taskId: task.id
                   }
                   taskListArr.push(individTask)
                 });
@@ -103,7 +104,7 @@ module.exports = function (app) {
                 // });
                 newObj.collabs = collabsListArr;
               } else {
-                newObj.collabs = "No other collaborators yet"
+                newObj.collabs = "You! Currently, there are no other collaborators yet."
               }
               eventArr.push(newObj);
             }

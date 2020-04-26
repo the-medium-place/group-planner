@@ -170,9 +170,9 @@ $(function () {
     });
   });
 
-  $(".edit-event-button").on("click", function(){
+  $(".edit-event-button").on("click", function () {
     const eventToUpdate = $(this).attr("id");
-    location.href = `/update-event/${eventToUpdate}`
+    location.href = `/update-event/${eventToUpdate}`;
     // $.ajax({
     //   url: `/api/events/${eventToUpdate}`,
     //   method: "GET"
@@ -181,12 +181,12 @@ $(function () {
     //   console.log(data)
     //   render("update-event",data)
     // })
-  })
+  });
 
   // update events submit
-  $(".update-form").on("submit", function(event) {
+  $(".update-form").on("submit", function (event) {
     event.preventDefault();
-    const eventId = $(this).attr("id")
+    const eventId = $(this).attr("id");
     const updateObj = {};
     const updateName = $("#update-name").val().trim();
     const updateDesc = $("#update-desc").val().trim();
@@ -204,65 +204,105 @@ $(function () {
     }
     if (updateDate && updateTime) {
       updateObj.date_time = `${updateDate} ${updateTime}`;
-    } 
-    
+    }
+
     $.ajax({
       url: `/api/events/${eventId}`,
       method: "PUT",
       data: updateObj,
     }).then((response) => {
-      location.href = "/view-events"
+      location.href = "/view-events";
     });
   });
-  
+
   // create tasks
-  $(".create-tasks").on("submit", function(event) {
+  $(".create-tasks").on("submit", function (event) {
     event.preventDefault();
-    const eventId = $(this).attr("id")
+    const eventId = $(this).attr("id");
     const taskObj = {};
     const updateTaskTitle = $("#update-task-title").val().trim();
     const updateTaskBody = $("#update-task-body").val().trim();
     if (updateTaskTitle && updateTaskBody) {
       taskObj.name = updateTaskTitle;
       taskObj.description = updateTaskBody;
-    } 
-    taskObj.event_id = eventId
-    // console.log(taskObj)
+    }
+    taskObj.event_id = eventId;
     $.ajax({
       url: `/api/tasks/`,
       method: "POST",
       data: taskObj,
     }).then((response) => {
-      location.href = "/view-events"
+      location.href = "/view-events";
     });
-  })
-  
+  });
+
+  // edit tasks
+  $(".edit-task-button").on("click", function () {
+    console.log("edit this task bitch");
+    console.log($(this).attr("id"));
+    // event.preventDefault();
+    // const eventId = $(this).attr("id")
+    // const taskObj = {};
+    // const updateTaskTitle = $("#update-task-title").val().trim();
+    // const updateTaskBody = $("#update-task-body").val().trim();
+    // if (updateTaskTitle && updateTaskBody) {
+    //   taskObj.name = updateTaskTitle;
+    //   taskObj.description = updateTaskBody;
+    // }
+    // taskObj.event_id = eventId
+    // $.ajax({
+    //   url: `/api/tasks/`,
+    //   method: "POST",
+    //   data: taskObj,
+    // }).then((response) => {
+    //   location.href = "/view-events"
+    // });
+  });
+
+  // delete tasks
+  $(".delete-task-button").on("click", function () {
+    const taskId = $(this).attr("id");
+    $.ajax({
+      url: `/api/tasks/${taskId}`,
+      method: "delete",
+    }).then((response) => {
+      location.href = "/view-events";
+    });
+  });
+
   // create costs
-  $(".create-costs").on("submit", function(event) {
+  $(".create-costs").on("submit", function (event) {
     event.preventDefault();
-    const eventId = $(this).attr("id")
-    console.log(eventId)
+    const eventId = $(this).attr("id");
+    console.log(eventId);
     const costObj = {};
     const updateCostTitle = $("#update-cost-title").val().trim();
     const updateCostDesc = $("#update-cost-desc").val().trim();
     const updateCostAmount = $("#update-cost-amount").val().trim();
-    const updatePurchasedStatus = $("[name=update-cost-purchased]:checked").val().trim()
-    if (updateCostTitle && updateCostDesc && updateCostAmount && updatePurchasedStatus) {
+    const updatePurchasedStatus = $("[name=update-cost-purchased]:checked")
+      .val()
+      .trim();
+    if (
+      updateCostTitle &&
+      updateCostDesc &&
+      updateCostAmount &&
+      updatePurchasedStatus
+    ) {
       costObj.name = updateCostTitle;
       costObj.description = updateCostDesc;
       costObj.cost = updateCostAmount;
-      costObj.purchased = updatePurchasedStatus
-      costObj.event_id = eventId
-    } 
+      costObj.purchased = updatePurchasedStatus;
+      costObj.event_id = eventId;
+    }
     // console.log(costObj)
     $.ajax({
       url: `/api/costs/`,
       method: "POST",
       data: costObj,
     }).then((response) => {
-      location.href = "/view-events"
+      location.href = "/view-events";
     });
-  })
+  });
 
   // add collab submit
   $("#add-collab").on("submit", (event) => {
@@ -282,51 +322,41 @@ $(function () {
     }).then((response) => {});
   });
 
-
-
-
-
-  
-  $('.timerSpan').each(function () {
-  
-  
+  $(".timerSpan").each(function () {
     // capture event time
     const eventTime = $(this).data("countdown");
-    var countDownDate = new Date(eventTime).getTime()
+    var countDownDate = new Date(eventTime).getTime();
     console.log(eventTime);
-  
+
     const countdownTimer = setInterval(() => {
       const now = new Date().getTime();
-    
+
       // Find the distance between now and the count down date
       let distance = countDownDate - now;
-    
+
       // Time calculations for days, hours, minutes and seconds
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  
-    if (distance >= 0){
-      $(this).text(days + "Days " + hours + "Hours "
-      + minutes + "m " + seconds + "s ");
-  
-      // $(this).text(`${days} Days, `)
-  
-    } else {
-      clearInterval(countdownTimer);
-      $(this).text("PARTY TIME!!");   
-    }
-  
-  
-    }, 1000)
-  
+
+      if (distance >= 0) {
+        $(this).text(
+          days + "Days " + hours + "Hours " + minutes + "m " + seconds + "s "
+        );
+
+        // $(this).text(`${days} Days, `)
+      } else {
+        clearInterval(countdownTimer);
+        $(this).text("PARTY TIME!!");
+      }
+    }, 1000);
+
     // Nov 11, 2111 11:11 AM
   });
 });
-
-
-
 
 // $('[data-countdown]').each(function() {
 //   var $this = $(this), finalDate = $(this).data('countdown');
@@ -335,11 +365,8 @@ $(function () {
 //   });
 // });
 
-
-
-
 // $('[data-countdown]').each(setInterval(function () {
-//   // const countdown = 
+//   // const countdown =
 //   // Get today's date and time
 
 //   console.log($("#timerSpan").data("countdown"))
@@ -361,39 +388,36 @@ $(function () {
 
 //   } else {
 //     clearInterval(timerFunc);
-//     $this.html = "PARTY TIME!!";   
+//     $this.html = "PARTY TIME!!";
 //   }
 //   console.log(distance);
 // }, 1000));
 
+// // Set the date we're counting down to
+// const countDownDate = new Date(document.getElementById("date-time").innerText).getTime();
 
+// // Update the count down every 1 second
+// const timerFunc = setInterval(function () {
 
-            // // Set the date we're counting down to
-            // const countDownDate = new Date(document.getElementById("date-time").innerText).getTime();
+//   // Get today's date and time
+//   const now = new Date().getTime();
 
-            // // Update the count down every 1 second
-            // const timerFunc = setInterval(function () {
+//   // Find the distance between now and the count down date
+//   const distance = countDownDate - now;
 
-            //   // Get today's date and time
-            //   const now = new Date().getTime();
+//   // Time calculations for days, hours, minutes and seconds
+//   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+//   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+//   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            //   // Find the distance between now and the count down date
-            //   const distance = countDownDate - now;
+//   if (distance >= 0){
+//     document.getElementById("timer-span").innerHTML = days + "d " + hours + "h "
+//       + minutes + "m " + seconds + "s ";
+//       // console.log(timerOutput);
 
-            //   // Time calculations for days, hours, minutes and seconds
-            //   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            //   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            //   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            //   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            //   if (distance >= 0){
-            //     document.getElementById("timer-span").innerHTML = days + "d " + hours + "h "
-            //       + minutes + "m " + seconds + "s ";
-            //       // console.log(timerOutput);
-
-
-            //   } else {
-            //     clearInterval(timerFunc);
-            //     document.getElementById("timer-span").innerHTML = "PARTY TIME!!";   
-            //   }
-            // }, 1000); 
+//   } else {
+//     clearInterval(timerFunc);
+//     document.getElementById("timer-span").innerHTML = "PARTY TIME!!";
+//   }
+// }, 1000);
