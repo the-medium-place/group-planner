@@ -124,11 +124,11 @@ module.exports = function (app) {
              // }
             //}
           }
+          res.render("view-events", {
+            events: eventArr,
+            username: req.session.username.username
+          });
         });
-      res.render("view-events", {
-        events: eventArr,
-        username: req.session.username.username
-      });
     } else {
       res.redirect("/");
     }
