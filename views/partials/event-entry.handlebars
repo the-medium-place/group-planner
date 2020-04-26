@@ -38,6 +38,14 @@
         <div class="cell auto" class="eventDescription">Description: {{description}}</div>
       </div>
       <br>
+      <div class="grid-x">
+        <div class="cell auto" class="eventDescription">Tasks: {{description}}
+          {{#each task}}
+          {{> tasks}}
+          {{/each}}
+        </div>
+      </div>
+      <br>
       <br>
       <br>
       <br>

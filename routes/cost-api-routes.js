@@ -25,6 +25,8 @@ module.exports = function (app) {
             name: req.body.name,
             description: req.body.description,
             cost: req.body.cost,
+            purchased: req.body.purchased,
+            eventId: req.body.event_id
         }).then(dbCost => res.json(dbCost));
     });
 
