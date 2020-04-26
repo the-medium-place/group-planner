@@ -245,4 +245,19 @@ module.exports = function (app) {
     //   res.render("index");
     // }
   });
+
+  app.get("/edit-account", function (req, res) {
+    if (req.session.username) {
+      const userObj = {
+        username: req.session.username.username,
+        firstname: req.session.username.first_name,
+        lastname: req.session.username.last_name,
+        email: req.session.username.email,
+        phone: req.session.username.phone,
+      };
+      res.render("edit-account",userObj);
+    } else {
+      res.redirect("/");
+    }
+  });
 };

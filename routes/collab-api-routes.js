@@ -168,6 +168,19 @@ module.exports = function (app) {
     });
   });
 
+  //enable session storage
+  app.get("/readsessions", (req, res) => {
+    res.json(req.session);
+  });
+
+  // Logout route for user info
+  app.delete("/logout", (req, res) => {
+    req.session.destroy(function (err) {
+      if (err) throw err;
+      res.render("successful logout");
+    });
+  });
+
   // add collab form submit route - add random info
   app.post("/add-collab", (req, res) => {
     console.log("api route log");
