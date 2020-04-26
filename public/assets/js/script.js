@@ -1,5 +1,3 @@
-// console.log("connected");
-// Make sure we wait to attach our handlers until the DOM is fully loaded.
 
 $(function () {
   // Initiates post request to database to login
@@ -170,7 +168,7 @@ $(function () {
     });
   });
 
-  $(".edit-event-button").on("click", function(){
+  $(".edit-event-button").on("click", function () {
     const eventToUpdate = $(this).attr("id");
     location.href = `/update-event/${eventToUpdate}`
     // $.ajax({
@@ -184,7 +182,7 @@ $(function () {
   })
 
   // update events submit
-  $(".update-form").on("submit", function(event) {
+  $(".update-form").on("submit", function (event) {
     event.preventDefault();
     const eventId = $(this).attr("id")
     const updateObj = {};
@@ -204,8 +202,8 @@ $(function () {
     }
     if (updateDate && updateTime) {
       updateObj.date_time = `${updateDate} ${updateTime}`;
-    } 
-    
+    }
+
     $.ajax({
       url: `/api/events/${eventId}`,
       method: "PUT",
@@ -213,6 +211,25 @@ $(function () {
     }).then((response) => {
       location.href = "/view-events"
     });
+
+    // add collab submit
+    $("#add-collab").on("submit", (event) => {
+      event.preventDefault();
+      const collabObj = {};
+
+      const newName = $("#new-name").val().trim();
+      const newEmail = $("#new-email").val().trim();
+
+      collabObj.new_name = newName;
+      collabObj.email = newEmail;
+
+      $.ajax({
+        url: "/add-collab",
+        method: "POST",
+        data: collabObj,
+      }).then((response) => { });
+    });
+
   });
   
   // create tasks
@@ -264,136 +281,51 @@ $(function () {
     });
   })
 
-  // add collab submit
-  $("#add-collab").on("submit", (event) => {
-    event.preventDefault();
-    const collabObj = {};
+// <<<<<<< zgs-bug-checks
+$('.timerSpan').each(function () {
+  // capture event time
+  const eventTime = $(this).data("countdown");
+  var countDownDate = new Date(eventTime).getTime()
+  console.log(eventTime);
 
-    const newName = $("#new-name").val().trim();
-    const newEmail = $("#new-email").val().trim();
+  const countdownTimer = setInterval(() => {
+    const now = new Date().getTime();
 
-    collabObj.new_name = newName;
-    collabObj.email = newEmail;
+    // Find the distance between now and the count down date
+    let distance = countDownDate - now;
 
-    $.ajax({
-      url: "/add-collab",
-      method: "POST",
-      data: collabObj,
-    }).then((response) => {});
-  });
+    // Time calculations for days, hours, minutes and seconds
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-
-
-
-
-  
-  $('.timerSpan').each(function () {
-  
-  
-    // capture event time
-    const eventTime = $(this).data("countdown");
-    var countDownDate = new Date(eventTime).getTime()
-    console.log(eventTime);
-  
-    const countdownTimer = setInterval(() => {
-      const now = new Date().getTime();
-    
-      // Find the distance between now and the count down date
-      let distance = countDownDate - now;
-    
-      // Time calculations for days, hours, minutes and seconds
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  
-    if (distance >= 0){
+    if (distance >= 0) {
       $(this).text(days + "Days " + hours + "Hours "
-      + minutes + "m " + seconds + "s ");
-  
-      // $(this).text(`${days} Days, `)
-  
+        + minutes + "m " + seconds + "s ");
     } else {
       clearInterval(countdownTimer);
-      $(this).text("PARTY TIME!!");   
+      $(this).text("PARTY TIME!!");
     }
-  
-  
-    }, 1000)
-  
-    // Nov 11, 2111 11:11 AM
-  });
+
+  }, 1000)
 });
 
 
 
-
-// $('[data-countdown]').each(function() {
-//   var $this = $(this), finalDate = $(this).data('countdown');
-//   $this.countdown(finalDate, function(event) {
-//     $this.html(event.strftime('%D days %H:%M:%S'));
-//   });
-// });
-
-
-
-
-// $('[data-countdown]').each(setInterval(function () {
-//   // const countdown = 
-//   // Get today's date and time
-
-//   console.log($("#timerSpan").data("countdown"))
-//   // console.log($(this).data("countdown"));
-//   const now = new Date().getTime();
-
-//   // Find the distance between now and the count down date
-//   const distance = countDownDate - now;
-
-//   // Time calculations for days, hours, minutes and seconds
-//   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-//   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-//   if (distance >= 0){
-//     $this.html = days + "d " + hours + "h "
-//       + minutes + "m " + seconds + "s ";
-
-//   } else {
-//     clearInterval(timerFunc);
-//     $this.html = "PARTY TIME!!";   
-//   }
-//   console.log(distance);
-// }, 1000));
-
-
-
-            // // Set the date we're counting down to
-            // const countDownDate = new Date(document.getElementById("date-time").innerText).getTime();
-
-            // // Update the count down every 1 second
-            // const timerFunc = setInterval(function () {
-
-            //   // Get today's date and time
-            //   const now = new Date().getTime();
-
-            //   // Find the distance between now and the count down date
-            //   const distance = countDownDate - now;
-
-            //   // Time calculations for days, hours, minutes and seconds
-            //   const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            //   const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            //   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            //   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            //   if (distance >= 0){
-            //     document.getElementById("timer-span").innerHTML = days + "d " + hours + "h "
-            //       + minutes + "m " + seconds + "s ";
-            //       // console.log(timerOutput);
-
-
-            //   } else {
-            //     clearInterval(timerFunc);
-            //     document.getElementById("timer-span").innerHTML = "PARTY TIME!!";   
-            //   }
-            // }, 1000); 
+// limit phone number input to numbers and auto format
+$(function () {
+  $('#new-phone').keydown(function (e) {
+    var key = e.charCode || e.keyCode || 0;
+    $text = $(this);
+    if (key !== 8 && key !== 9) {
+      if ($text.val().length === 3) {
+        $text.val($text.val() + '-');
+      }
+      if ($text.val().length === 7) {
+        $text.val($text.val() + '-');
+      }
+    }
+    return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+  })
+});
