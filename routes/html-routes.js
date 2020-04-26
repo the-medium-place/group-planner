@@ -12,7 +12,7 @@ module.exports = function (app) {
   app.get("/", function (req, res) {
     if (req.session.username) {
       const username = req.session.username.username;
-      res.render("index", { welcome: `Welcome, ${username}!` });
+      res.render("index", { username: req.session.username.username});
     } else {
       res.render("index");
     }
@@ -21,7 +21,7 @@ module.exports = function (app) {
   app.get("/login-success", function (req, res) {
     const username = req.session.username.username;
 
-    res.render("index", { welcome: `Welcome, ${username}!` });
+    res.render("index", { username: req.session.username.username});
   });
 
   // view events page load
@@ -125,6 +125,7 @@ module.exports = function (app) {
         });
       res.render("view-events", {
         events: eventArr,
+        username: req.session.username.username
       });
     } else {
       res.redirect("/");
@@ -134,7 +135,7 @@ module.exports = function (app) {
   // redirects to create-event page
   app.get("/new-event", function (req, res) {
     if (req.session.username) {
-      res.render("new-event");
+      res.render("new-event", { username: req.session.username.username });
     } else {
       res.redirect("/");
     }
@@ -160,7 +161,7 @@ module.exports = function (app) {
             completed: dbTask.dataValues.completed,
             eventId: dbTask.dataValues.eventId,
           };
-          res.render("update-task", taskEditObj);
+          res.render("update-task", {taskEditObj, username: req.session.username.username });
         });
     } else {
       res.redirect("/");
@@ -188,7 +189,7 @@ module.exports = function (app) {
             purchased: dbCost.dataValues.purchased,
             eventId: dbCost.dataValues.eventId,
           };
-          res.render("update-cost", costEditObj);
+          res.render("update-cost", {costEditObj, username: req.session.username.username});
         });
     } else {
       res.redirect("/");
@@ -220,8 +221,9 @@ module.exports = function (app) {
         console.log(readyToInsertSplit);
         dbEvent.dataValues.event_date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`;
         dbEvent.dataValues.event_time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`;
+        const newEventObj = {...dbEvent.dataValues}
         if (req.session.username) {
-          res.render("update-event", dbEvent.dataValues);
+          res.render("update-event", {newEventObj, username: req.session.username.username});
         } else {
           res.redirect("/");
         }
