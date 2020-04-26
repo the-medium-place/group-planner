@@ -1,48 +1,66 @@
 <h2>Update {{name}}</h2>
-<form class="create-form" id="update-event">
+<form class="update-form" id={{id}}>
   <div class="form-group">
-    <label for="new-name">Rename your event: </label>
-    <input type="text" id="new-name" name="new-name" placeholder="{{name}}">
+    <label for="update-name">Rename your event: </label>
+    <input type="text" id="update-name" name="update-event" placeholder="{{name}}">
   </div>
-    <div class="form-group">
-    <label for="new-desc">Edit Event Description: </label>
-    <textarea id="new-desc" name="new-desc" rows="5" columns="40" placeholder="{{description}}"></textarea>
+  <div class="form-group">
+    <label for="update-desc">Edit Event Description: </label>
+    <textarea id="update-desc" name="update-event" rows="5" columns="40" placeholder="{{description}}"></textarea>
   </div>
-    <div class="form-group">
-    <label for="new-location">Edit Event Location: </label>
-    <input type="text" id="new-location" name="new-location" placeholder="{{location}}">
+  <div class="form-group">
+    <label for="update-location">Edit Event Location: </label>
+    <input type="text" id="update-location" name="update-event" placeholder="{{location}}">
   </div>
-   <div class="form-group" style="display: flex; justify-content: start;">
+  <div class="form-group" style="display: flex; justify-content: start;">
     <div style="width: 40%; margin-right: 5%;">
-    <label for="event-date">Change Event Date (currently on {{date}}):  </label>
-    <input type="date" id="event-date" name="event-date">
+      <label for="update-date">Change Event Date (currently on {{event_date}}): </label>
+      <input type="date" id="update-date" name="update-event">
     </div>
     <div style="width: 40%;">
-    <label for="event-time">Change Event Time (currently at {{time}}): </label>
-    <input type="time" id="event-time" name="event-time">
+      <label for="update-time">Change Event Time (currently at {{event_time}}): </label>
+      <input type="time" id="update-time" name="update-event">
     </div>
   </div>
-  
-  <button class="button" type="submit">Update event</button>
+  <div class="form-group" style="display: flex; justify-content: start;">
+    <div style="width: 40%; margin-right: 5%;">
+      <label for="update-task-title">Add a task: </label>
+      <input type="text" id="update-task-title" name="update-event" placeholder="Task Title, e.g. purchase paper plates">
+    </div>
+    <div style="width: 40%;">
+      <label for="update-task-body">Task description: </label>
+      <input type="text" id="update-task-body" name="update-event" placeholder="Task description, e.g. 40 large paper plates, 20 small paper plates">
+    </div>
+  </div>
+  <div class="form-group" style="display: flex; justify-content: start;">
+    <div style="width: 40%; margin-right: 5%;">
+      <label for="update-cost-title">Add a cost: </label>
+      <input type="text" id="update-cost-title" name="update-event" placeholder="Cost Title, e.g. purchase paper plates">
+    </div>
+    <div style="width: 40%;">
+      <label for="update-cost-amount">Cost amount: </label>
+      <input type="number" id="update-cost-amount" name="update-event" placeholder="Actual cost, e.g. 15">
+    </div>
+  </div>
+  <button class="button" id={{id}} type="submit">Update event</button>
 </form>
 <br>
+
 {{!-- add collaborator --}}
 <form id="add-collab">
- <div class="form-group">
-    <label for="new-name">New Collaborator Name: </label>
-    <input type="text" id="new-name" name="new-name" placholder="">
+  <div class="form-group">
+    <label for="new-collab-name">New Collaborator Name: </label>
+    <input type="text" id="new-collab-name" name="add-collab" placholder="">
   </div>
-   <div class="form-group">
-    <label for="new-email">New Collaborator Email: </label>
-    <input type="email" id="new-email" name="new-email" placholder="">
+  <div class="form-group">
+    <label for="new-collab-email">New Collaborator Email: </label>
+    <input type="email" id="new-collab-email" name="add-collab" placholder="">
   </div>
- <button class="button" type="submit">Send Invitation!</button>
-
+  <button class="button" type="submit">Send Invitation!</button>
 </form>
 
 
 
-</form> 
 {{!-- <style media="screen">
   li {
     background-color: wheat;
