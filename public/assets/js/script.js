@@ -170,17 +170,21 @@ $(function () {
     });
   });
 
+  // Editing a specific event
   $(".edit-event-button").on("click", function () {
     const eventToUpdate = $(this).attr("id");
     location.href = `/update-event/${eventToUpdate}`;
-    // $.ajax({
-    //   url: `/api/events/${eventToUpdate}`,
-    //   method: "GET"
-    // }).then(function(err, data){
-    //   if (err) throw err;
-    //   console.log(data)
-    //   render("update-event",data)
-    // })
+  });
+
+  // Deleting a specific event
+  $(".delete-event-button").on("click", function () {
+    const eventToDelete = $(this).attr("id");
+    $.ajax({
+      url: `/api/events/${eventToDelete}`,
+      method: "delete",
+    }).then((response) => {
+      location.reload();
+    });
   });
 
   // update events submit
@@ -239,7 +243,7 @@ $(function () {
   // edit tasks
   $(".edit-task-button").on("click", function () {
     console.log("edit this task bitch");
-    console.log($(this).attr("id"));
+    const taskId = $(this).attr("id");
     // event.preventDefault();
     // const eventId = $(this).attr("id")
     // const taskObj = {};
@@ -266,7 +270,7 @@ $(function () {
       url: `/api/tasks/${taskId}`,
       method: "delete",
     }).then((response) => {
-      location.href = "/view-events";
+      location.reload();
     });
   });
 
