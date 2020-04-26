@@ -64,10 +64,10 @@ module.exports = function (app) {
                 newObj.description = dbEvent[i].description;
                 // If there are tasks associated with the event,
                 // Display them on the card
+                // console.log(dbEvent[1].tasks.length)
                 if (dbEvent[i].tasks.length > 0) {
                   const taskListArr = [];
-                  const tasksArr = dbEvent[i].tasks;
-                  tasksArr.forEach((task) => {
+                  dbEvent[i].tasks.forEach((task) => {
                     const individTask = {
                       taskName: task.name,
                       taskDescription: task.description,
@@ -82,10 +82,11 @@ module.exports = function (app) {
                 }
                 // If there are costs associated with the event,
                 // display them on the card
-                if (dbEvent[i].costs.length > 0) {
+                if (dbEvent[i].costs.length = 0) {
+                  newObj.costs = "No costs associated yet";
+                } else {
                   const costListArr = [];
-                  const costsArr = dbEvent[i].costs;
-                  costsArr.forEach((cost) => {
+                  dbEvent[i].costs.forEach((cost) => {
                     const individCost = {
                       costName: cost.name,
                       costDescription: cost.description,
@@ -96,8 +97,6 @@ module.exports = function (app) {
                     costListArr.push(individCost);
                   });
                   newObj.costs = costListArr;
-                } else {
-                  newObj.costs = "No costs associated yet";
                 }
                 // If there are OTHER collabs associated with the event,
                 // display them on the card
@@ -119,8 +118,6 @@ module.exports = function (app) {
                     "You! Currently, there are no other collaborators yet.";
                 }
                 eventArr.push(newObj);
-             // }
-            //}
           }
         });
       res.render("view-events", {

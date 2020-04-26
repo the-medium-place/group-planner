@@ -225,8 +225,8 @@ $(function () {
       url: "/api/events",
       method: "POST",
       data: newEvent,
-    }).then((callback) => {
-      location.href = "/view-events";
+    }).then(() => {
+      location.href = "view-events";
     });
   });
 
