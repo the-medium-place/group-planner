@@ -1,7 +1,4 @@
 
-
-
-
 $(function () {
   // Initiates post request to database to login
   // Attaches submit listener to the login form (not the button click)
