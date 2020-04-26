@@ -214,80 +214,127 @@ $(function () {
     }).then((response) => {
       location.href = "/view-events"
     });
-
-    // add collab submit
-    $("#add-collab").on("submit", (event) => {
-      event.preventDefault();
-      const collabObj = {};
-
-      
-      const newName = $("#new-name").val().trim();
-      const newEmail = $("#new-email").val().trim();
-
-      collabObj.new_name = newName;
-      collabObj.email = newEmail;
-
-      $.ajax({
-        url: "/add-collab",
-        method: "POST",
-        data: collabObj,
-      }).then((response) => {});
+  });
+  
+  // create tasks
+  $(".create-tasks").on("submit", function(event) {
+    event.preventDefault();
+    const eventId = $(this).attr("id")
+    const taskObj = {};
+    const updateTaskTitle = $("#update-task-title").val().trim();
+    const updateTaskBody = $("#update-task-body").val().trim();
+    if (updateTaskTitle && updateTaskBody) {
+      taskObj.name = updateTaskTitle;
+      taskObj.description = updateTaskBody;
+    } 
+    taskObj.event_id = eventId
+    // console.log(taskObj)
+    $.ajax({
+      url: `/api/tasks/`,
+      method: "POST",
+      data: taskObj,
+    }).then((response) => {
+      location.href = "/view-events"
     });
+  })
+  
+  // create costs
+  $(".create-costs").on("submit", function(event) {
+    event.preventDefault();
+    const eventId = $(this).attr("id")
+    console.log(eventId)
+    const costObj = {};
+    const updateCostTitle = $("#update-cost-title").val().trim();
+    const updateCostDesc = $("#update-cost-desc").val().trim();
+    const updateCostAmount = $("#update-cost-amount").val().trim();
+    const updatePurchasedStatus = $("[name=update-cost-purchased]:checked").val().trim()
+    if (updateCostTitle && updateCostDesc && updateCostAmount && updatePurchasedStatus) {
+      costObj.name = updateCostTitle;
+      costObj.description = updateCostDesc;
+      costObj.cost = updateCostAmount;
+      costObj.purchased = updatePurchasedStatus
+      costObj.event_id = eventId
+    } 
+    // console.log(costObj)
+    $.ajax({
+      url: `/api/costs/`,
+      method: "POST",
+      data: costObj,
+    }).then((response) => {
+      location.href = "/view-events"
+    });
+  })
+
+  // add collab submit
+  $("#add-collab").on("submit", (event) => {
+    event.preventDefault();
+    const collabObj = {};
+
+    const newName = $("#new-name").val().trim();
+    const newEmail = $("#new-email").val().trim();
+
+    collabObj.new_name = newName;
+    collabObj.email = newEmail;
+
+    $.ajax({
+      url: "/add-collab",
+      method: "POST",
+      data: collabObj,
+    }).then((response) => {});
   });
 
-  // create tasks
-  // $(".update-form").on("submit", function(event) {
-  //   event.preventDefault();
-  //   const updateTaskTitle = $("#update-task-title").val().trim();
-  //   const updateTaskBody = $("#update-task-body").val().trim();
-  //   const updateCostTitle = $("#update-cost-title").val().trim();
-  //   const updateCostAmount = $("#update-cost-amount").val().trim();
-  //   if (updateTaskTitle && updateTaskBody) {
-  //     updateObj.task_title = updateTaskTitle;
-  //     updateObj.task_body = updateTaskBody;
-  //   } 
-  //   if (updateCostTitle && updateCostAmount) {
-  //     updateObj.cost_title = updateCostTitle;
-  //     updateObj.cost_amount = updateCostAmount;
-  //   } 
-  // })
+
+
+
+
+  
+  $('.timerSpan').each(function () {
+  
+  
+    // capture event time
+    const eventTime = $(this).data("countdown");
+    var countDownDate = new Date(eventTime).getTime()
+    console.log(eventTime);
+  
+    const countdownTimer = setInterval(() => {
+      const now = new Date().getTime();
+    
+      // Find the distance between now and the count down date
+      let distance = countDownDate - now;
+    
+      // Time calculations for days, hours, minutes and seconds
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  
+    if (distance >= 0){
+      $(this).text(days + "Days " + hours + "Hours "
+      + minutes + "m " + seconds + "s ");
+  
+      // $(this).text(`${days} Days, `)
+  
+    } else {
+      clearInterval(countdownTimer);
+      $(this).text("PARTY TIME!!");   
+    }
+  
+  
+    }, 1000)
+  
+    // Nov 11, 2111 11:11 AM
+  });
 });
 
 
-$('.timerSpan').each(function () {
 
 
-  // capture event time
-  const eventTime = $(this).data("countdown");
-  var countDownDate = new Date(eventTime).getTime()
-  console.log(eventTime);
-
-  const countdownTimer = setInterval(() => {
-    const now = new Date().getTime();
-  
-    // Find the distance between now and the count down date
-    let distance = countDownDate - now;
-  
-    // Time calculations for days, hours, minutes and seconds
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  if (distance >= 0){
-    $(this).text(days + "Days " + hours + "Hours "
-    + minutes + "m " + seconds + "s ");
-
-    // $(this).text(`${days} Days, `)
-
-  } else {
-    clearInterval(countdownTimer);
-    $(this).text("PARTY TIME!!");   
-  }
+// $('[data-countdown]').each(function() {
+//   var $this = $(this), finalDate = $(this).data('countdown');
+//   $this.countdown(finalDate, function(event) {
+//     $this.html(event.strftime('%D days %H:%M:%S'));
+//   });
+// });
 
 
-  }, 1000)
-
-  // Nov 11, 2111 11:11 AM
-});
 
