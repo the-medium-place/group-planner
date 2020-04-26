@@ -34,7 +34,6 @@ module.exports = function (app) {
       db.event.findAll({
         include: [db.cost, db.task, db.collab]
       }).then((dbEvent) => {
-        console.log(readyToInsert);
         for (i = 0; i < dbEvent.length; i++) {
           const newObj = {};
           // const eventListObj = {};
@@ -44,6 +43,7 @@ module.exports = function (app) {
             if (req.session.username.id === dbEvent[i].collabs[j].id) {
               var momentDate = moment(dbEvent[i].date_time);
               var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
+              console.log(readyToInsert);
               var readyToInsertSplit = moment(readyToInsert).format("lll").split(" ");
               // create handlebars object for display card
               newObj.host = dbEvent[i].collabs[0].username;
