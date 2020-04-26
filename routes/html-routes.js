@@ -26,7 +26,9 @@ module.exports = function (app) {
 
   // view events page load
   app.get("/view-events", function (req, res) {
+
     if (req.session.username) {
+
       const eventArr = [];
       db.event
         .findAll({
