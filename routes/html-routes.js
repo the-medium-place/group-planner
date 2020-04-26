@@ -34,10 +34,8 @@ module.exports = function (app) {
       db.event.findAll({
         include: [db.cost, db.task, db.collab]
       }).then((dbEvent) => {
-        console.log(readyToInsert);
         for (i = 0; i < dbEvent.length; i++) {
           const newObj = {};
-          // const eventListObj = {};
           // filter display to only logged in user's events
           // works, but not efficient for large database?
           for (j = 0; j < dbEvent[i].collabs.length; j++) {
@@ -54,6 +52,59 @@ module.exports = function (app) {
               newObj.date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`
               newObj.time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`
               newObj.description = dbEvent[i].description;
+              // If there are tasks associated with the event,
+              // Display them on the card
+              if (dbEvent[i].tasks.length > 0){
+                const taskListArr = [];
+                const tasksArr = dbEvent[i].tasks
+                tasksArr.forEach(task => {
+                  const individTask = {
+                    taskName: task.name,
+                    taskDescription: task.description,
+                    taskCompleted: task.completed,
+                  }
+                  taskListArr.push(individTask)
+                });
+                newObj.tasks = taskListArr;
+              } else {
+                newObj.tasks = "No tasks associated yet"
+              }
+              // If there are costs associated with the event,
+              // display them on the card
+              if (dbEvent[i].costs.length > 0){
+                const costListArr = []
+                const costsArr = dbEvent[i].costs
+                costsArr.forEach(cost => {
+                  const individCost = {
+                    costName: cost.name,
+                    costDescription: cost.description,
+                    costCost: cost.cost,
+                    costPurchased: cost.purchased,
+                  }
+                  costListArr.push(individCost)
+                });
+                newObj.costs = costListArr;
+              } else {
+                newObj.costs = "No costs associated yet"
+              }
+              // If there are OTHER collabs associated with the event,
+              // display them on the card
+              if (dbEvent[i].collabs.length > 1){
+                // const costListArr = []
+                // const costsArr = dbEvent[i].costs
+                // costsArr.forEach(cost => {
+                //   const individCost = {
+                //     costName: cost.name,
+                //     costDescription: cost.description,
+                //     costCost: cost.cost,
+                //     costPurchased: cost.purchased,
+                //   }
+                //   costListArr.push(individCost)
+                // });
+                newObj.collabs = collabsListArr;
+              } else {
+                newObj.collabs = "No other collaborators yet"
+              }
               eventArr.push(newObj);
             }
           }
