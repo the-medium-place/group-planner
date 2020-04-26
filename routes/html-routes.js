@@ -34,33 +34,35 @@ module.exports = function (app) {
     }).then((dbEvent) => {
       const eventArr = [];
       const eventNameList = [];
-      for (i = 0; i < dbEvent.length; i++) {
-        const newObj = {};
-     
-        // filter display to only logged in user's events
-        // works, but not efficient for large database?
-        for (j = 0; j < dbEvent[i].collabs.length; j++) {
-          if (req.session.username.id === dbEvent[i].collabs[j].id) {
-            var momentDate = moment(dbEvent[i].date_time);
-            var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
-            // create handlebars object for display card
-            newObj.host = dbEvent[i].collabs[0].username;
-            newObj.name = dbEvent[i].name;
-            newObj.location = dbEvent[i].location;
-            newObj.date_time = moment(readyToInsert).format("lll"); //dbEvent[i].date_time; //
-          
-            newObj.description = dbEvent[i].description;
-            eventArr.push(newObj);
 
-            // create handlebars object for event selection list
-            newObj.event_id = dbEvent[i].id;
-          }
-        }
-        console.log(newObj)
-      }
-      // console.log(eventArr);
-      // console.log(eventNameList);
       if (req.session.username) {
+
+        for (i = 0; i < dbEvent.length; i++) {
+          const newObj = {};
+
+          // filter display to only logged in user's events
+          // works, but not efficient for large database?
+          for (j = 0; j < dbEvent[i].collabs.length; j++) {
+            if (req.session.username.id === dbEvent[i].collabs[j].id) {
+              var momentDate = moment(dbEvent[i].date_time);
+              var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
+              // create handlebars object for display card
+              newObj.host = dbEvent[i].collabs[0].username;
+              newObj.name = dbEvent[i].name;
+              newObj.location = dbEvent[i].location;
+              newObj.date_time = moment(readyToInsert).format("lll"); //dbEvent[i].date_time; //
+
+              newObj.description = dbEvent[i].description;
+              eventArr.push(newObj);
+
+              // create handlebars object for event selection list
+              newObj.event_id = dbEvent[i].id;
+            }
+          }
+          console.log(newObj)
+        }
+
+
         res.render("view-events", {
           events: eventArr,
           eventList: eventNameList
@@ -101,23 +103,23 @@ module.exports = function (app) {
       })
       .then((dbEvent) => {
         console.log(dbEvent.dataValues)
-      // res.json(dbEvent)
-      // let date_time = "2020-04-30 19:12:00";
-      // let dateSplit = date_time.split(" ")[0];
-      // let timeSplit = date_time.split(" ")[1];
-      // let test = {
-      //   name: "Study hall",
-      //   description: "This is where I study",
-      //   location: "Homeroom",
-      //   date: dateSplit,
-      //   time: timeSplit,
-      // };
-      if (req.session.username) {
-        res.render("update-event", dbEvent.dataValues);
-      } else {
-        res.redirect("/");
-      }
-    })
+        // res.json(dbEvent)
+        // let date_time = "2020-04-30 19:12:00";
+        // let dateSplit = date_time.split(" ")[0];
+        // let timeSplit = date_time.split(" ")[1];
+        // let test = {
+        //   name: "Study hall",
+        //   description: "This is where I study",
+        //   location: "Homeroom",
+        //   date: dateSplit,
+        //   time: timeSplit,
+        // };
+        if (req.session.username) {
+          res.render("update-event", dbEvent.dataValues);
+        } else {
+          res.redirect("/");
+        }
+      })
   });
 
   app.get("/login-fail", function (req, res) {
