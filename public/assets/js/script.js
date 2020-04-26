@@ -229,26 +229,59 @@ $(function () {
         data: collabObj,
       }).then((response) => { });
     });
+
   });
-
+  
   // create tasks
-  // $(".update-form").on("submit", function(event) {
-  //   event.preventDefault();
-  //   const updateTaskTitle = $("#update-task-title").val().trim();
-  //   const updateTaskBody = $("#update-task-body").val().trim();
-  //   const updateCostTitle = $("#update-cost-title").val().trim();
-  //   const updateCostAmount = $("#update-cost-amount").val().trim();
-  //   if (updateTaskTitle && updateTaskBody) {
-  //     updateObj.task_title = updateTaskTitle;
-  //     updateObj.task_body = updateTaskBody;
-  //   } 
-  //   if (updateCostTitle && updateCostAmount) {
-  //     updateObj.cost_title = updateCostTitle;
-  //     updateObj.cost_amount = updateCostAmount;
-  //   } 
-  // })
-});
+  $(".create-tasks").on("submit", function(event) {
+    event.preventDefault();
+    const eventId = $(this).attr("id")
+    const taskObj = {};
+    const updateTaskTitle = $("#update-task-title").val().trim();
+    const updateTaskBody = $("#update-task-body").val().trim();
+    if (updateTaskTitle && updateTaskBody) {
+      taskObj.name = updateTaskTitle;
+      taskObj.description = updateTaskBody;
+    } 
+    taskObj.event_id = eventId
+    // console.log(taskObj)
+    $.ajax({
+      url: `/api/tasks/`,
+      method: "POST",
+      data: taskObj,
+    }).then((response) => {
+      location.href = "/view-events"
+    });
+  })
+  
+  // create costs
+  $(".create-costs").on("submit", function(event) {
+    event.preventDefault();
+    const eventId = $(this).attr("id")
+    console.log(eventId)
+    const costObj = {};
+    const updateCostTitle = $("#update-cost-title").val().trim();
+    const updateCostDesc = $("#update-cost-desc").val().trim();
+    const updateCostAmount = $("#update-cost-amount").val().trim();
+    const updatePurchasedStatus = $("[name=update-cost-purchased]:checked").val().trim()
+    if (updateCostTitle && updateCostDesc && updateCostAmount && updatePurchasedStatus) {
+      costObj.name = updateCostTitle;
+      costObj.description = updateCostDesc;
+      costObj.cost = updateCostAmount;
+      costObj.purchased = updatePurchasedStatus
+      costObj.event_id = eventId
+    } 
+    // console.log(costObj)
+    $.ajax({
+      url: `/api/costs/`,
+      method: "POST",
+      data: costObj,
+    }).then((response) => {
+      location.href = "/view-events"
+    });
+  })
 
+// <<<<<<< zgs-bug-checks
 $('.timerSpan').each(function () {
   // capture event time
   const eventTime = $(this).data("countdown");
@@ -275,9 +308,9 @@ $('.timerSpan').each(function () {
       $(this).text("PARTY TIME!!");
     }
 
-
   }, 1000)
 });
+
 
 
 // limit phone number input to numbers and auto format

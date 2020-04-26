@@ -31,10 +31,11 @@ module.exports = function (app) {
     // });
 
     // POST route for saving a new task
-    app.post("/api/tasks", function (req, res) {
+    app.post("/api/tasks/", function (req, res) {
         db.task.create({
             name: req.body.name,
             description: req.body.description,
+            eventId: req.body.event_id
         }).then(dbTask => res.json(dbTask));
     });
 
