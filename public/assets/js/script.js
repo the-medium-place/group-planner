@@ -64,7 +64,8 @@ $(function () {
       url: "/signup",
       method: "POST",
       data: newAccount,
-    }).then(() => {
+    }).then(function(res, status) {
+      console.log(status)
       // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
       const newObj = {
         username: newUser,
@@ -321,7 +322,8 @@ $(function () {
       url: `/api/tasks/`,
       method: "POST",
       data: taskObj,
-    }).then((response) => {
+    }).then((response, status) => {
+      console.log(status);
       location.href = "/view-events";
     });
   });

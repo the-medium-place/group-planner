@@ -119,7 +119,7 @@ module.exports = function (app) {
         {
           where: {
             id: req.session.username.id,
-          },
+          }
         }
       )
       .then((dbCollab) => res.json(dbCollab));
