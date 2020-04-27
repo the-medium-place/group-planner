@@ -11,20 +11,20 @@
 <div class="grid-x">
   <div class="cell small-1 medium-3 large-3"></div>
   <div class="cell small-10 medium-6 large-6">
-    <form id="editAccount">
+    <form class="editAccountForm" id="{{id}}">
       <div class="form-group">
         <label for="current-user">Username:
-          <input type="text" id="current-user" name="update-account" placeholder={{username}}>
+          <input type="text" id="current-user" name="update-account" value="{{username}}">
         </label>
       </div>
       <div class="form-group">
         <label for="update-first">First Name:
-          <input type="text" id="update-first" name="update-account" placeholder={{firstname}}>
+          <input type="text" id="update-first" name="update-account" value="{{firstname}}">
         </label>
       </div>
       <div class="form-group">
         <label for="update-last">Last Name:
-          <input type="text" id="update-last" name="update-account" placeholder={{lastname}}>
+          <input type="text" id="update-last" name="update-account" value="{{lastname}}">
         </label>
       </div>
       {{!-- <div class="form-group">
@@ -40,12 +40,12 @@
       </div> --}}
       <div class="form-group">
         <label for="update-email">Change your email:
-          <input type="email" id="update-email" name="update-account" placeholder={{email}}>
+          <input type="email" id="update-email" name="update-account" placeholder="{{email}}">
         </label>
       </div>
       <div class="form-group">
-        <label for="update-phone">Change your phone number xxx-xxx-xxxx (optional)
-          <input type="tel" placeholder={{phone}} pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="update-phone" maxlength="12">
+        <label for="update-phone">Change your phone number:
+          <input type="tel" placeholder="{{phone}}" id="update-phone" maxlength="12">
         </label>
       </div>
       <button class="button submit" id="editedACC">Submit changes</button>
