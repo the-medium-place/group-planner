@@ -1,22 +1,30 @@
-<h2>Update task: {{name}}</h2>
+
+
+<br>
+<div class="grid-x">
+  <div class="cell small-1 medium-2 large-2"></div>
+  <div class="cell small-10 medium-8 large-8">
+    <h2 style="text-align: center;">Update task: {{name}}</h2>
 <form class="update-task" id={{id}}>
   <div class="form-group">
-    <label for="update-task-name">Rename your task: </label>
+    <label for="update-task-name" class="form-stuff">Rename your task: </label>
     <input type="text" id="update-task-name" name="update-task" placeholder={{name}}>
   </div>
   <div class="form-group">
-    <label for="update-task-desc">Edit Task Description: </label>
+    <label for="update-task-desc" class="form-stuff">Edit Task Description: </label>
     <textarea id="update-task-desc" name="update-task" rows="5" columns="40" placeholder="{{description}}"></textarea>
   </div>
   <div class="form-group">
-    <label for="update-completed">Is the task completed? (currently {{completed}})</label>
+    <label for="update-completed" class="form-stuff">Is the task completed? (currently {{completed}})</label>
     <input type="radio" name="update-completed" value="1">
-    <label for="1">Yes</label>
+    <label for="1" class="form-stuff">Yes</label>
     <br>
     <input type="radio" name="update-completed" value="0">
-    <label for="0">No</label>
+    <label for="0" class="form-stuff">No</label>
     <br>
   </div>
   <button class="button" id={{id}} type="submit">Update event</button>
 </form>
-<br>
+  </div>
+  <div class="cell small-1 medium-2 large-2"></div>
+</div>
