@@ -4,7 +4,7 @@
 A group planning application allowing multiple users to collaborate on multiple events. From parties to Projects to Professional Event Planning - all relevant information for each user is organized and easily accessible. 
 
 ## Usage: 
-visit our deployed heroku app [here](#)!
+visit our deployed heroku app [here](http://awesome-group-planner.herokuapp.com/)!
 
 ## Build Tools:
 * Foundation CSS
@@ -28,7 +28,7 @@ visit our deployed heroku app [here](#)!
 
 * GitHub Profile:  [yuriohliveira](https://github.com/yuriohliveira)
 * Email: <needThisEmailAlso@email.web>
-* <img src="https://avatars0.githubusercontent.com/u/61686424?v=4&s=50" style="height: 50px;">
+* <img src="https://avatars0.githubusercontent.com/u/61686424?v=4&s=50" style="max-width: 50px;">
 
 * GitHub Profile:  [mgrinx](https://github.com/mgrinx)
 * Email: <needThisOneAlso@email.web>
