@@ -118,7 +118,6 @@ module.exports = function (app) {
             eventArr.push(newObj);
          }}
           }
-          console.log(eventArr)
           res.render("view-events", {
             events: eventArr,
             username: req.session.username.username
