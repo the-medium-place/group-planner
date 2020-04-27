@@ -1,24 +1,31 @@
-<h2>Update cost: {{name}}</h2>
+<br>
+<div class="grid-x">
+  <div class="cell small-1 medium-2 large-2"></div>
+  <div class="cell small-10 medium-8 large-8">
+    <h2 style="text-align: center;">Update cost: {{name}}</h2>
 <form class="update-cost" id={{id}}>
   <div class="form-group">
-    <label for="update-cost-name">Rename your cost: </label>
+    <label for="update-cost-name" class="form-stuff">Rename your cost: </label>
     <input type="text" id="update-cost-name" name="update-cost" rows="5" columns="40" placeholder={{name}}>
   </div>
   <div class="form-group">
-    <label for="update-cost-desc">Edit Cost Description: </label>
+    <label for="update-cost-desc" class="form-stuff">Edit Cost Description: </label>
     <textarea id="update-cost-desc" name="update-cost" rows="5" columns="40" placeholder="{{description}}"></textarea>
   </div>
   <div class="form-group">
-    <label for="update-cost-amount">Edit Cost Amount: </label>
+    <label for="update-cost-amount" class="form-stuff">Edit Cost Amount: </label>
     <input type="number" id="update-cost-amount" name="update-cost" placeholder="{{cost}}"></input>
-    <label for="update-purchased">Has the cost been purchased? (currently {{purchased}})</label>
+    <label for="update-purchased" class="form-stuff">Has the cost been purchased? (currently {{purchased}})</label>
     <input type="radio" name="update-purchased" value="1">
-    <label for="1">Yes</label>
+    <label for="1" class="form-stuff">Yes</label>
     <br>
     <input type="radio" name="update-purchased" value="0">
-    <label for="0">No</label>
+    <label for="0" class="form-stuff">No</label>
     <br>
   </div>
   <button class="button" id={{id}} type="submit">Update cost</button>
 </form>
 <br>
+  </div>
+  <div class="cell small-1 medium-2 large-2"></div>
+</div>

@@ -1,6 +1,7 @@
 body {
   background-color: #03396c;
   color: white;
+  font-family: 'Roboto Slab', serif;
 }
 
 #resetBTN {
@@ -15,16 +16,13 @@ body {
   color: #1468a0;
 }
 
-label {
-  color: white;
-}
+/* #newaccBTN {
+  /* float: right; */
+/* } */
 
 #newAccount {
-  display: none;
-}
 
-#newaccBTN {
-  /* float: right; */
+  display: none;
 }
 
 #events-container {
@@ -43,10 +41,6 @@ label {
   max-height: 250px;
 }
 
-.button {
-  margin: 5px;
-}
-
 /* #main-background-img {
   height: fit-content;
   background-image: url("./stock photos/mainbackground.jpg");
@@ -57,13 +51,22 @@ label {
 
 .card {
   border-radius: 15px;
-  background: #FAFAFA;
+  background: white;
   border-color: #03396c;
 }
 
 .card-divider {
-    background-color: #E3F2FD;
+    height: auto;
+    background-color: #98FB98;
     border-radius: 15px 15px 0px 0px;
+    padding: 0;
+    /* padding-top: 10px;   */
+    /* padding-left: 20px; */
+    /* padding-bottom: 10px; */
+}
+
+.name-event-buttons {
+  padding: 10px;
 }
 
 .topbarItens {
@@ -86,9 +89,50 @@ label {
 }
 
 footer {
-  height: 100px;
+  padding: 30px;
   background-color: black;
   /* position: fixed; */
   width: 100%;
   text-align: center;
+}
+
+.event-name-card {
+  padding-left: 5px;
+  font-size: 35px;
+  /* background: salmon; */
+}
+
+.button {
+  border-radius: 6px;
+}
+
+.edit-event-button, .delete-event-button {
+  float: right;
+  margin-right: 10px;
+  /* margin-bottom: 5px; */
+}
+.delete-task-button, .edit-task-button, .delete-cost-button, .edit-cost-button {
+  margin-left: 14px;
+}
+
+.card-content {
+font-size: 18px;
+padding-left: 24px;
+}
+
+.card-content-below {
+  padding-left: 24px;
+}
+
+.form-stuff {
+  color: white;
+}
+
+.countdown-timer {
+  font-size: 32px;
+  font-weight: bolder;
+}
+
+.aboutUS {
+  margin: 20px;
 }

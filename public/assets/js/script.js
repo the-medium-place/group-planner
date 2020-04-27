@@ -508,13 +508,13 @@ $(function () {
 
       if (distance >= 0) {
         $(this).text(
-          days + "Days " + hours + "Hours " + minutes + "m " + seconds + "s "
+          days + " Days, " + hours + ":" + minutes + ":" + seconds
         );
       } else {
         clearInterval(countdownTimer);
         $(this).text("PARTY TIME!!");
       }
-    }, 1000);
+    }, 1000);  
   });
 
   $(function () {

@@ -1,22 +1,30 @@
 <div class="card" id={{event_id}}>
   <div class="card-divider" class="eventName">
-    {{name}}
-    <button class="button secondary edit-event-button" id={{event_id}}>Edit Event</button><button
-      class="button alert delete-event-button" id={{event_id}}>Delete event</button>
+
+    <div class="grid-x name-event-buttons" style="width: 100%;">
+      <div class="cell small-8 medium-6 large-8 event-name-card">
+        {{name}}
+      </div>
+      <div class="cell small-4 medium-6 large-4">
+        <button class="button alert delete-event-button" id={{event_id}}>Delete</button>
+        <button class="button primary edit-event-button" id={{event_id}}>Edit</button>
+      </div>
+    </div>
+
   </div>
   <div class="grid-x">
-    <div class="cell small-3 medium-3 large-3">
+    <div class="cell small-12 medium-3 large-3">
       <div class="card-section">
         <img src="https://media.pitchfork.com/photos/5929b349b1335d7bf169a583/1:1/w_600/2a09604e.jpg" class="thumbnail"
           alt="bowie">
       </div>
     </div>
-    <div class="cell small-9 medium-9 large-9">
+    <div class="cell small-10 medium-9 large-9 card-content">
       <br>
       <div class="grid-x">
         <div class="cell small-6 medium-6 large-6" class="eventLocation">Location: {{location}}</div>
         <div class="cell small-2 medium-2 large-2"></div>
-        <div class="cell small-4 medium-4 large-4" class="eventDate">Date: {{date}}</div>
+        <div class="cell small-4 medium-4 large-4 float-right" class="eventDate">Date: {{date}}</div>
       </div>
       <br>
       <div class="grid-x">
@@ -29,55 +37,61 @@
         <div class="cell auto" class="eventDescription">Description: {{description}}</div>
       </div>
       <br>
-      <div class="grid-x">
-        <div class="cell auto" class="eventTasks">Tasks:
-          {{#if tasks}}
-          {{#each tasks}}
-          {{> tasks-display}}
-          {{/each}}
-          {{else}}
-          <p>No tasks associated yet. Click <a href="/update-event/{{event_id}}">here</a> to add a task to this event!</p>
-          {{/if}}
-        </div>
+
+    </div>
+    <div class="cell small-12 medium-6 large-6 card-content card-content-below">
+      <div class="cell auto" class="eventTasks">Tasks:
+        {{#if tasks}}
+        {{#each tasks}}
+        {{> tasks-display}}
+        {{/each}}
+        {{else}}
+        <p>No tasks associated yet. Click <a href="/update-event/{{event_id}}">here</a> to add a task to this event!
+        </p>
+        {{/if}}
       </div>
-      <br>
-      <div class="grid-x">
-        <div class="cell auto" class="eventCosts">Costs: 
-          {{#if costs}}
-          {{#each costs}}
-          {{> costs-display}}
-          {{/each}}
-          {{else}}
-          <p>No costs associated yet. Click <a href="/update-event/{{event_id}}">here</a> to add a cost to this event!</p>
-          {{/if}}
-        </div>
+    </div>
+    <br>
+    <div class="cell small-12 medium-6 large-6 card-content card-content-below">
+      <div class="cell auto" class="eventCosts">Costs:
+        {{#if costs}}
+        {{#each costs}}
+        {{> costs-display}}
+        {{/each}}
+        {{else}}
+        <p>No costs associated yet. Click <a href="/update-event/{{event_id}}">here</a> to add a cost to this event!
+        </p>
+        {{/if}}
       </div>
-      <br>
-      <br>
-      <div class="grid-x">
-        <div class="cell auto" class="eventCollabs">Collabs: 
-          <ul>
+    </div>
+    <br>
+    <div class="cell small-12 medium-6 large-6 card-content card-content-below">
+      <div class="cell auto" class="eventCollabs">Collabs:
+        <ul>
           {{#each collabs}}
-            <li>
-              <p><strong>Collaborator Name:</strong> {{collabUsername}}</p>
-            </li>
+          <li>
+            <p><strong>Collaborator Name:</strong> {{collabUsername}}</p>
+          </li>
           {{/each}}
-          </ul>
+        </ul>
 
 
-        </div>
       </div>
     </div>
-    <div class="grid-x countdown-timer">
-      <h3>Countdown: <span data-countdown="{{date_time}}" class="timerSpan"></span></h3>
+    <div class="cell small-12 medium-6 large-6 card-content card-content-below countdown-timer">
+      <br>
+      Countdown:<br> <span data-countdown="{{date_time}}" class="timerSpan"></span>
     </div>
-
-
 
   </div>
-  <br>
+
+
+
+        <br>
 
 </div>
+<br>
+
 <br>
 
 
