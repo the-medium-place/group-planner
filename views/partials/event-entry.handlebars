@@ -1,7 +1,8 @@
 <div class="card" id={{event_id}}>
   <div class="card-divider" class="eventName">
     {{name}}
-    <button class="button edit-event-button" id={{event_id}}>Edit Event</button><button class="button delete-event-button" id={{event_id}}>Delete event</button>
+    <button class="button edit-event-button" id={{event_id}}>Edit Event</button><button
+      class="button delete-event-button" id={{event_id}}>Delete event</button>
   </div>
   <div class="grid-x">
     <div class="cell small-3 medium-3 large-3">
@@ -45,11 +46,21 @@
       <br>
       <br>
       <div class="grid-x">
-        <div class="cell auto" class="eventCollabs">Collabs: {{collabs}}</div>
+        <div class="cell auto" class="eventCollabs">Collabs: 
+          <ul>
+          {{#each collabs}}
+            <li>
+              <p><strong>Collaborator Name:</strong> {{collabUsername}}</p>
+            </li>
+          {{/each}}
+          </ul>
+
+
+        </div>
       </div>
     </div>
     <div class="grid-x countdown-timer">
-    <h3>Countdown: <span data-countdown="{{date_time}}" class="timerSpan"></span></h3>
+      <h3>Countdown: <span data-countdown="{{date_time}}" class="timerSpan"></span></h3>
     </div>
 
 

@@ -71,15 +71,18 @@ module.exports = function (app) {
       .then((dbCollab) => {
         if (dbCollab.username === null) {
           console.log("could not find user");
+          res.status(404).end();
         }
         if (bcrypt.compareSync(req.body.password, dbCollab.password)) {
           req.session.username = dbCollab;
           console.log("success");
           // res.redirect('/view-events');
           res.redirect("/view-events");
+          res.status(200).end();
         } else {
           console.log("unsuccess");
           res.redirect("/login-fail");
+          res.status(404).end();
           // res.redirect('/');
         }
       });
@@ -192,8 +195,10 @@ module.exports = function (app) {
         first_name: req.body.new_name,
         last_name: "Update User Info!",
         email: req.body.email,
+        // eventId: req.body.eventId
       })
       .then(function (dbCollab) {
+        dbCollab.addEvent(req.body.eventId)
         console.log("after collab creation")
         // HERE IS WHERE THE EMAIL CLIENT WOULD PROBABLY DO ITS THING
       });

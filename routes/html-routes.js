@@ -31,25 +31,19 @@ module.exports = function (app) {
 
       const eventArr = [];
       db.event
-        .findAll({
-          include: [{
-            model: db.cost
-          },
-          {
-            model: db.task
-          },
-          {
-            model: db.collab,
-            where: db.collab.id = req.session.username.id
-          }],
+        .findAll({include: [db.cost, db.task, db.collab
+            // where: db.collab.id = req.session.username.id
+          ],
         })
         .then((dbEvent) => {
           for (i = 0; i < dbEvent.length; i++) {
+            
+
             const newObj = {};
             // filter display to only logged in user's events
             // works, but not efficient for large database?
-            //for (j = 0; j < dbEvent[i].collabs.length; j++) {
-            // if (req.session.username.id === dbEvent[i].collabs[j].id) {
+            for (j = 0; j < dbEvent[i].collabs.length; j++) {
+            if (req.session.username.id === dbEvent[i].collabs[j].id) {
             var momentDate = moment(dbEvent[i].date_time);
             var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
             var readyToInsertSplit = moment(readyToInsert)
@@ -85,6 +79,7 @@ module.exports = function (app) {
             // If there are costs associated with the event,
             // display them on the card
             if (dbEvent[i].costs.length > 0) {
+              
               const costListArr = [];
               const costsArr = dbEvent[i].costs;
               costsArr.forEach((cost) => {
@@ -101,28 +96,30 @@ module.exports = function (app) {
             } else {
               newObj.costs = "No costs associated yet";
             }
+
             // If there are OTHER collabs associated with the event,
             // display them on the card
             if (dbEvent[i].collabs.length > 1) {
-              // const costListArr = []
-              // const costsArr = dbEvent[i].costs
-              // costsArr.forEach(cost => {
-              //   const individCost = {
-              //     costName: cost.name,
-              //     costDescription: cost.description,
-              //     costCost: cost.cost,
-              //     costPurchased: cost.purchased,
-              //   }
-              //   costListArr.push(individCost)
-              // });
-              newObj.collabs = collabsListArr;
+              const collabListArr = []
+              const collabArr = dbEvent[i].collabs;
+          
+              collabArr.forEach((collab) => {
+                const individCollab = {
+                  collabUsername: collab.username
+                 }
+                collabListArr.push(individCollab)
+            
+              });
+              newObj.collabs = collabListArr;
             } else {
+         
+
               newObj.collabs =
-                "You! Currently, there are no other collaborators yet.";
+                [{collabUsername: "You! Currently, there are no other collaborators yet."}];
+  
             }
             eventArr.push(newObj);
-            // }
-            //}
+         }}
           }
           res.render("view-events", {
             events: eventArr,
@@ -145,7 +142,7 @@ module.exports = function (app) {
 
   // redirects to edit-task page
   app.get("/update-task/:id", function (req, res) {
-    console.log(req.session.username.id);
+    // console.log(req.session.username.id);
     if (req.session.username) {
       // ajax query for all event info from user id
       db.task
@@ -162,8 +159,9 @@ module.exports = function (app) {
             description: dbTask.dataValues.description,
             completed: dbTask.dataValues.completed,
             eventId: dbTask.dataValues.eventId,
+            username: req.session.username.username
           };
-          res.render("update-task", {taskEditObj, username: req.session.username.username });
+          res.render("update-task", taskEditObj);
         });
     } else {
       res.redirect("/");
@@ -172,6 +170,7 @@ module.exports = function (app) {
 
   // redirects to edit-cost page
   app.get("/update-cost/:id", function (req, res) {
+    // console.log("beginning of update cost route line 178");
     if (req.session.username) {
       // ajax query for all event info from user id
       db.cost
@@ -182,7 +181,7 @@ module.exports = function (app) {
           // include: [db.event, db.task, db.collab],
         })
         .then((dbCost) => {
-          console.log(dbCost.dataValues);
+          // console.log(dbCost.dataValues);
           const costEditObj = {
             name: dbCost.dataValues.name,
             id: dbCost.dataValues.id,
@@ -190,8 +189,9 @@ module.exports = function (app) {
             cost: dbCost.dataValues.cost,
             purchased: dbCost.dataValues.purchased,
             eventId: dbCost.dataValues.eventId,
+            username: req.session.username.username
           };
-          res.render("update-cost", {costEditObj, username: req.session.username.username});
+          res.render("update-cost", costEditObj);
         });
     } else {
       res.redirect("/");
@@ -221,7 +221,7 @@ module.exports = function (app) {
           var momentDate = moment(dateTimeObj);
           var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
           var readyToInsertSplit = moment(readyToInsert).format("lll").split(" ");
-          console.log(readyToInsertSplit);
+          // console.log(readyToInsertSplit);
           dbEvent.dataValues.event_date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`;
           dbEvent.dataValues.event_time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`;
           const newEventObj = {...dbEvent.dataValues}
