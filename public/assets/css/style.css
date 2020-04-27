@@ -43,6 +43,10 @@ label {
   max-height: 250px;
 }
 
+.button {
+  margin: 5px;
+}
+
 /* #main-background-img {
   height: fit-content;
   background-image: url("./stock photos/mainbackground.jpg");

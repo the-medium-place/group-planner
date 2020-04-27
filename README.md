@@ -16,7 +16,7 @@ visit our deployed heroku app [here](http://awesome-group-planner.herokuapp.com/
 * [JAWSDB](https://www.jawsdb.com/)
 * [Random Username Generator](https://www.npmjs.com/package/random-username-generator)
 * [Generate Password](https://www.npmjs.com/package/generate-password)
-
+* [Twilio](https://www.twilio.com/)
 
 
 ## Contributing:
@@ -30,7 +30,8 @@ visit our deployed heroku app [here](http://awesome-group-planner.herokuapp.com/
 
 * GitHub Profile:  [yuriohliveira](https://github.com/yuriohliveira)
 * Email: <needThisEmailAlso@email.web>
-* <img src="https://avatars0.githubusercontent.com/u/61686424?v=4&s=50" style="max-width: 50px;">
+* <img src="https://ca.slack-edge.com/TU29H7MRQ-UUBS4CCKC-9b38fa987cf1-48" style="width: 50px;">
+<!-- * <img src="https://avatars0.githubusercontent.com/u/61686424?v=4&s=50" style="max-width: 50px;"> -->
 
 * GitHub Profile:  [mgrinx](https://github.com/mgrinx)
 * Email: <needThisOneAlso@email.web>
