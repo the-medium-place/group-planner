@@ -31,23 +31,41 @@
       <br>
       <div class="grid-x">
         <div class="cell auto" class="eventTasks">Tasks:
+          {{#if tasks}}
           {{#each tasks}}
           {{> tasks-display}}
           {{/each}}
+          {{else}}
+          <p>No tasks associated yet. Click <a href="/update-event/{{event_id}}">here</a> to add a task to this event!</p>
+          {{/if}}
         </div>
       </div>
       <br>
       <div class="grid-x">
         <div class="cell auto" class="eventCosts">Costs: 
+          {{#if costs}}
           {{#each costs}}
           {{> costs-display}}
           {{/each}}
+          {{else}}
+          <p>No costs associated yet. Click <a href="/update-event/{{event_id}}">here</a> to add a cost to this event!</p>
+          {{/if}}
         </div>
       </div>
       <br>
       <br>
       <div class="grid-x">
-        <div class="cell auto" class="eventCollabs">Collabs: {{collabs}}</div>
+        <div class="cell auto" class="eventCollabs">Collabs: 
+          <ul>
+          {{#each collabs}}
+            <li>
+              <p><strong>Collaborator Name:</strong> {{collabUsername}}</p>
+            </li>
+          {{/each}}
+          </ul>
+
+
+        </div>
       </div>
     </div>
     <div class="grid-x countdown-timer">

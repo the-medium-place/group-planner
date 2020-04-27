@@ -31,96 +31,94 @@ module.exports = function (app) {
 
       const eventArr = [];
       db.event
-        .findAll({
-          include: [{
-            model: db.cost
-          }, 
-          {
-            model: db.task
-          }, 
-          {
-            model: db.collab,
-            where: db.collab.id = req.session.username.id
-          }],
+        .findAll({include: [db.cost, db.task, db.collab
+            // where: db.collab.id = req.session.username.id
+          ],
         })
         .then((dbEvent) => {
           for (i = 0; i < dbEvent.length; i++) {
             const newObj = {};
             // filter display to only logged in user's events
             // works, but not efficient for large database?
-            //for (j = 0; j < dbEvent[i].collabs.length; j++) {
-             // if (req.session.username.id === dbEvent[i].collabs[j].id) {
-                var momentDate = moment(dbEvent[i].date_time);
-                var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
-                var readyToInsertSplit = moment(readyToInsert)
-                  .format("lll")
-                  .split(" ");
-                // create handlebars object for display card
-                newObj.host = dbEvent[i].collabs[0].username;
-                newObj.name = dbEvent[i].name;
-                newObj.event_id = dbEvent[i].id;
-                newObj.location = dbEvent[i].location;
-                newObj.date_time = moment(readyToInsert).format("lll"); //dbEvent[i].date_time; //
-                newObj.date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`;
-                newObj.time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`;
-                newObj.description = dbEvent[i].description;
-                // If there are tasks associated with the event,
-                // Display them on the card
-                // console.log(dbEvent[1].tasks.length)
-                if (dbEvent[i].tasks.length > 0) {
-                  const taskListArr = [];
-                  dbEvent[i].tasks.forEach((task) => {
-                    const individTask = {
-                      taskName: task.name,
-                      taskDescription: task.description,
-                      taskCompleted: task.completed,
-                      taskId: task.id,
-                    };
-                    taskListArr.push(individTask);
-                  });
-                  newObj.tasks = taskListArr;
-                } else {
-                  newObj.tasks = "No tasks associated yet";
-                }
-                // If there are costs associated with the event,
-                // display them on the card
-                if (dbEvent[i].costs.length = 0) {
-                  newObj.costs = "No costs associated yet";
-                } else {
-                  const costListArr = [];
-                  dbEvent[i].costs.forEach((cost) => {
-                    const individCost = {
-                      costName: cost.name,
-                      costDescription: cost.description,
-                      costCost: cost.cost,
-                      costPurchased: cost.purchased,
-                      costId: cost.id,
-                    };
-                    costListArr.push(individCost);
-                  });
-                  newObj.costs = costListArr;
-                }
-                // If there are OTHER collabs associated with the event,
-                // display them on the card
-                if (dbEvent[i].collabs.length > 1) {
-                  // const costListArr = []
-                  // const costsArr = dbEvent[i].costs
-                  // costsArr.forEach(cost => {
-                  //   const individCost = {
-                  //     costName: cost.name,
-                  //     costDescription: cost.description,
-                  //     costCost: cost.cost,
-                  //     costPurchased: cost.purchased,
-                  //   }
-                  //   costListArr.push(individCost)
-                  // });
-                  newObj.collabs = collabsListArr;
-                } else {
-                  newObj.collabs =
-                    "You! Currently, there are no other collaborators yet.";
-                }
-                eventArr.push(newObj);
+            for (j = 0; j < dbEvent[i].collabs.length; j++) {
+            if (req.session.username.id === dbEvent[i].collabs[j].id) {
+            var momentDate = moment(dbEvent[i].date_time);
+            var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
+            var readyToInsertSplit = moment(readyToInsert)
+              .format("lll")
+              .split(" ");
+            // create handlebars object for display card
+            newObj.host = dbEvent[i].collabs[0].username;
+            newObj.name = dbEvent[i].name;
+            newObj.event_id = dbEvent[i].id;
+            newObj.location = dbEvent[i].location;
+            newObj.date_time = moment(readyToInsert).format("lll"); //dbEvent[i].date_time; //
+            newObj.date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`;
+            newObj.time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`;
+            newObj.description = dbEvent[i].description;
+            // If there are tasks associated with the event,
+            // Display them on the card
+            if (dbEvent[i].tasks.length > 0) {
+              const taskListArr = [];
+              const tasksArr = dbEvent[i].tasks;
+              tasksArr.forEach((task) => {
+                const individTask = {
+                  taskName: task.name,
+                  taskDescription: task.description,
+                  taskCompleted: task.completed,
+                  taskId: task.id,
+                };
+                taskListArr.push(individTask);
+              });
+              newObj.tasks = taskListArr;
+            } else {
+              newObj.tasks = [];
+            }
+            // If there are costs associated with the event,
+            // display them on the card
+            if (dbEvent[i].costs.length > 0) {
+              const costListArr = [];
+              const costsArr = dbEvent[i].costs;
+              costsArr.forEach((cost) => {
+                const individCost = {
+                  costName: cost.name,
+                  costDescription: cost.description,
+                  costCost: cost.cost,
+                  costPurchased: cost.purchased,
+                  costId: cost.id,
+                };
+                costListArr.push(individCost);
+              });
+              newObj.costs = costListArr;
+            } else {
+              newObj.costs = [];
+            }
+
+            // If there are OTHER collabs associated with the event,
+            // display them on the card
+            if (dbEvent[i].collabs.length > 1) {
+              const collabListArr = []
+              const collabArr = dbEvent[i].collabs;
+          
+              collabArr.forEach((collab) => {
+                const individCollab = {
+                  collabUsername: collab.username
+                 }
+                collabListArr.push(individCollab)
+            
+              });
+              newObj.collabs = collabListArr;
+            } else {
+         
+
+              newObj.collabs =
+                [{collabUsername: "You! Currently, there are no other collaborators yet."}];
+  
+            }
+            eventArr.push(newObj);
+         }}
           }
+          console.log(eventArr)
           res.render("view-events", {
             events: eventArr,
             username: req.session.username.username
@@ -142,7 +140,7 @@ module.exports = function (app) {
 
   // redirects to edit-task page
   app.get("/update-task/:id", function (req, res) {
-    console.log(req.session.username.id);
+    // console.log(req.session.username.id);
     if (req.session.username) {
       // ajax query for all event info from user id
       db.task
@@ -159,8 +157,9 @@ module.exports = function (app) {
             description: dbTask.dataValues.description,
             completed: dbTask.dataValues.completed,
             eventId: dbTask.dataValues.eventId,
+            username: req.session.username.username
           };
-          res.render("update-task", {taskEditObj, username: req.session.username.username });
+          res.render("update-task", taskEditObj);
         });
     } else {
       res.redirect("/");
@@ -169,6 +168,7 @@ module.exports = function (app) {
 
   // redirects to edit-cost page
   app.get("/update-cost/:id", function (req, res) {
+    // console.log("beginning of update cost route line 178");
     if (req.session.username) {
       // ajax query for all event info from user id
       db.cost
@@ -179,7 +179,7 @@ module.exports = function (app) {
           // include: [db.event, db.task, db.collab],
         })
         .then((dbCost) => {
-          console.log(dbCost.dataValues);
+          // console.log(dbCost.dataValues);
           const costEditObj = {
             name: dbCost.dataValues.name,
             id: dbCost.dataValues.id,
@@ -187,8 +187,9 @@ module.exports = function (app) {
             cost: dbCost.dataValues.cost,
             purchased: dbCost.dataValues.purchased,
             eventId: dbCost.dataValues.eventId,
+            username: req.session.username.username
           };
-          res.render("update-cost", {costEditObj, username: req.session.username.username});
+          res.render("update-cost", costEditObj);
         });
     } else {
       res.redirect("/");
@@ -218,7 +219,7 @@ module.exports = function (app) {
           var momentDate = moment(dateTimeObj);
           var readyToInsert = momentDate.format("YYYY-MM-DD HH:mm:ss");
           var readyToInsertSplit = moment(readyToInsert).format("lll").split(" ");
-          console.log(readyToInsertSplit);
+          // console.log(readyToInsertSplit);
           dbEvent.dataValues.event_date = `${readyToInsertSplit[0]} ${readyToInsertSplit[1]} ${readyToInsertSplit[2]}`;
           dbEvent.dataValues.event_time = `${readyToInsertSplit[3]} ${readyToInsertSplit[4]}`;
           const newEventObj = {...dbEvent.dataValues}
