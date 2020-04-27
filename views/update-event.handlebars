@@ -1,24 +1,28 @@
-<h2>Update {{name}}</h2>
+<br>
+<div class="grid-x">
+  <div class="cell small-1 medium-2 large-2"></div>
+  <div class="cell small-10 medium-8 large-8">
+    <h2 style="text-align: center;">Update {{name}}</h2>
 <form class="update-form" id="{{id}}">
   <div class="form-group">
-    <label for="update-name">Rename your event: </label>
+    <label for="update-name" class="form-stuff">Rename your event: </label>
     <input type="text" id="update-name" name="update-event" placeholder="{{name}}">
   </div>
   <div class="form-group">
-    <label for="update-desc">Edit Event Description: </label>
+    <label for="update-desc" class="form-stuff">Edit Event Description: </label>
     <textarea id="update-desc" name="update-event" rows="5" columns="40" placeholder="{{description}}"></textarea>
   </div>
   <div class="form-group">
-    <label for="update-location">Edit Event Location: </label>
+    <label for="update-location" class="form-stuff">Edit Event Location: </label>
     <input type="text" id="update-location" name="update-event" placeholder="{{location}}">
   </div>
   <div class="form-group" style="display: flex; justify-content: start;">
     <div style="width: 40%; margin-right: 5%;">
-      <label for="update-date">Change Event Date (currently on {{event_date}}): </label>
+      <label for="update-date" class="form-stuff">Change Event Date (currently on {{event_date}}): </label>
       <input type="date" id="update-date" name="update-event">
     </div>
     <div style="width: 40%;">
-      <label for="update-time">Change Event Time (currently at {{event_time}}): </label>
+      <label for="update-time" class="form-stuff">Change Event Time (currently at {{event_time}}): </label>
       <input type="time" id="update-time" name="update-event">
     </div>
   </div>
@@ -26,15 +30,32 @@
 </form>
 <br>
 
+<div class="grid-x">
+  <div class="cell small-1 medium-1 large-1"></div>
+  <div class="cell small-10 medium-10 large-10">
+    {{#if events}}
+    {{#each events}}
+    {{> event-entry}}
+    {{/each}}
+    {{else}}
+    <h3 class="cell small-10 medium-6 large-6 text-center">No events listed. Create one to see the magic!</h3>
+    {{/if}}
+    <br>
+
+  </div>
+
+  <div class="cell small-1 medium-1 large-1"></div>
+</div>
+
 <h4>Add a task for {{name}}</h4>
 <form class="create-tasks" id="{{id}}">
   <div class="form-group" style="display: flex; justify-content: start;">
     <div style="width: 40%; margin-right: 5%;">
-      <label for="update-task-title">Task name: </label>
+      <label for="update-task-title" class="form-stuff">Task name: </label>
       <input type="text" id="update-task-title" name="update-tasks" placeholder="Task Title, e.g. purchase paper plates">
     </div>
     <div style="width: 40%;">
-      <label for="update-task-body">Task description: </label>
+      <label for="update-task-body" class="form-stuff">Task description: </label>
       <input type="text" id="update-task-body" name="update-tasks" placeholder="Task description, e.g. 40 large paper plates, 20 small paper plates">
     </div>
   </div>
@@ -46,26 +67,26 @@
 <form class="create-costs" id="{{id}}">
   <div class="form-group" style="display: flex; justify-content: start;">
     <div style="width: 40%; margin-right: 5%;">
-      <label for="update-cost-title">Cost name: </label>
+      <label for="update-cost-title" class="form-stuff">Cost name: </label>
       <input type="text" id="update-cost-title" name="update-costs" placeholder="Cost Title, e.g. purchase paper plates">
     </div>
     <div style="width: 40%;">
-      <label for="update-cost-desc">Cost Description: </label>
+      <label for="update-cost-desc" class="form-stuff">Cost Description: </label>
       <input type="text" id="update-cost-desc" name="update-costs" placeholder="Actual cost, e.g. 15">
     </div>
   </div>
   <div class="form-group" style="display: flex; justify-content: start;">
     <div style="width: 40%; margin-right: 5%">
-      <label for="update-cost-amount">Cost amount: </label>
+      <label for="update-cost-amount" class="form-stuff">Cost amount: </label>
       <input type="number" id="update-cost-amount" name="update-costs" placeholder="Actual cost, e.g. 15">
     </div>
     <div style="width: 40%;">
-      <label for="update-cost-purchased">Purchased?</label>
+      <label for="update-cost-purchased" class="form-stuff">Purchased?</label>
       <input type="radio" name="update-cost-purchased" value="1">
-      <label for="1">Yes</label>
+      <label for="1" class="form-stuff">Yes</label>
       <br>
       <input type="radio" name="update-cost-purchased" value="0">
-      <label for="0">No</label>
+      <label for="0" class="form-stuff">No</label>
     </div>
   </div>
   <button class="button" id="{{id}}" type="submit">Submit costs</button>
@@ -75,20 +96,23 @@
 
 
 
+
 {{!-- add collaborator --}}
 <h4>Add a collaborator</h4>
 <form class="add-collab" id="{{id}}">
   <div class="form-group">
-    <label for="new-collab-name">New Collaborator Name: </label>
+    <label for="new-collab-name" class="form-stuff">New Collaborator Name: </label>
     <input type="text" id="new-collab-name" name="new-collab-name" placholder="">
   </div>
   <div class="form-group">
-    <label for="new-collab-email">New Collaborator Email: </label>
+    <label for="new-collab-email" class="form-stuff">New Collaborator Email: </label>
     <input type="email" id="new-collab-email" name="new-collab-email" placholder="">
   </div>
   <button class="button" type="submit" id="{{ id }}">Send Invitation!</button>
 </form>
-
+  </div>
+  <div class="cell small-1 medium-2 large-2"></div>
+</div>
 
 
 {{!-- <style media="screen">
