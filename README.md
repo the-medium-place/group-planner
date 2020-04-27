@@ -7,14 +7,16 @@ A group planning application allowing multiple users to collaborate on multiple 
 visit our deployed heroku app [here](http://awesome-group-planner.herokuapp.com/)!
 
 ## Build Tools:
-* Foundation CSS
-* Handlebars
-* Sequelize
-* Node JS
-* Express
-* MySQL
-* JAWSDB
-* Twilio? Node Mailer?
+* [Foundation CSS](https://get.foundation/)
+* [Handlebars](https://handlebarsjs.com/)
+* [Sequelize](https://sequelize.org/)
+* [Node JS](https://nodejs.org/en/)
+* [Express](https://expressjs.com/)
+* [MySQL](https://www.mysql.com/)
+* [JAWSDB](https://www.jawsdb.com/)
+* [Random Username Generator](https://www.npmjs.com/package/random-username-generator)
+* [Generate Password](https://www.npmjs.com/package/generate-password)
+
 
 
 ## Contributing:

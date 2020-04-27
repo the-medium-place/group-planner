@@ -251,6 +251,7 @@ module.exports = function (app) {
   app.get("/edit-account", function (req, res) {
     if (req.session.username) {
       const userObj = {
+        id: req.session.username.id,
         username: req.session.username.username,
         firstname: req.session.username.first_name,
         lastname: req.session.username.last_name,
@@ -263,3 +264,4 @@ module.exports = function (app) {
     }
   });
 };
+

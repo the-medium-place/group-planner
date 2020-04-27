@@ -12,6 +12,12 @@ const db = require("../models");
 const rug = require("random-username-generator");
 const passGen = require("generate-password");
 
+
+// twilio email api setup
+const sgMail = require('@sendgrid/mail');
+require('dotenv').config()
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 // Routes
 // =============================================================
 module.exports = function (app) {
@@ -65,8 +71,8 @@ module.exports = function (app) {
     db.collab
       .findOne({
         where: {
-          username: req.body.username,
-        },
+          username: req.body.username 
+        }
       })
       .then((dbCollab) => {
         if (dbCollab.username === null) {
@@ -201,6 +207,27 @@ module.exports = function (app) {
         dbCollab.addEvent(req.body.eventId)
         console.log("after collab creation")
         // HERE IS WHERE THE EMAIL CLIENT WOULD PROBABLY DO ITS THING
+
+        // using Twilio SendGrid's v3 Node.js Library
+const msg = {
+  to: req.body.email,
+  from: 'togatherinvite@gmail.com',
+  subject: 'Sending with Twilio SendGrid is Fun',
+  text:  "test test test", //`hello! Here is your temporary login info!\nUsername: ${tempUsername}\nPassword: ${tempPass}`,
+  html: `<H2>You've been invited To-Gather!</h2>
+  <br><p>You're receiving this email because your assistance has been requested to help plan an event using To-Gather!</p>
+  <br><strong>Hello!</strong> Here is your temporary login info!
+  <br><strong>Username:</strong> ${tempUsername}
+  <br><strong>Password:</strong> ${tempPass}
+  <br><p>Follow the link below and login using your new login credentials.  Once you login you can edit your username and password by clicking on 'Update Account' on the nav-bar pull down menu.</p>
+  <br>
+  <br><a href="https://awesome-group-planner.herokuapp.com/">https://awesome-group-planner.herokuapp.com/</a>
+  <h3>We hope you enjoy using To-Gather!</h3>
+  <br><p>- ToGather Team</p>` //'<strong>and easy to do anywhere, even with Node.js</strong>',
+};
+sgMail.send(msg);
+
+
       });
   });
 };
