@@ -232,7 +232,7 @@ $(function () {
       method: "POST",
       data: newEvent,
     }).then(() => {
-      location.href = "view-events";
+      location.href = "/view-events";
     });
   });
 
