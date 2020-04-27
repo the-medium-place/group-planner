@@ -20,6 +20,11 @@ body {
   /* float: right; */
 /* } */
 
+#newAccount {
+
+  display: none;
+}
+
 #events-container {
   display: flex;
   align-items: center;
