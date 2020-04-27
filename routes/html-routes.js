@@ -37,8 +37,6 @@ module.exports = function (app) {
         })
         .then((dbEvent) => {
           for (i = 0; i < dbEvent.length; i++) {
-            
-
             const newObj = {};
             // filter display to only logged in user's events
             // works, but not efficient for large database?
@@ -74,12 +72,11 @@ module.exports = function (app) {
               });
               newObj.tasks = taskListArr;
             } else {
-              newObj.tasks = "No tasks associated yet";
+              newObj.tasks = [];
             }
             // If there are costs associated with the event,
             // display them on the card
             if (dbEvent[i].costs.length > 0) {
-              
               const costListArr = [];
               const costsArr = dbEvent[i].costs;
               costsArr.forEach((cost) => {
@@ -94,7 +91,7 @@ module.exports = function (app) {
               });
               newObj.costs = costListArr;
             } else {
-              newObj.costs = "No costs associated yet";
+              newObj.costs = [];
             }
 
             // If there are OTHER collabs associated with the event,
@@ -121,6 +118,7 @@ module.exports = function (app) {
             eventArr.push(newObj);
          }}
           }
+          console.log(eventArr)
           res.render("view-events", {
             events: eventArr,
             username: req.session.username.username
