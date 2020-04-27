@@ -64,7 +64,7 @@ $(function () {
       url: "/signup",
       method: "POST",
       data: newAccount,
-    }).then(function(res, status) {
+    }).then(function (res, status) {
       console.log(status)
       // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
       const newObj = {
@@ -76,7 +76,7 @@ $(function () {
         url: "/login",
         method: "POST",
         data: newObj,
-      }).then(function(data, status) {
+      }).then(function (data, status) {
         location.href = "/view-events";
         console.log(status);
       });
@@ -132,7 +132,7 @@ $(function () {
         url: "/login",
         method: "POST",
         data: newObj,
-      }).then(function(data, status) {
+      }).then(function (data, status) {
         location.href = "/view-events";
         console.log(status);
       });
@@ -163,19 +163,19 @@ $(function () {
 
     // CREATE OBJECT OF USER INPUT
     const editedAccount = {};
-    if (editUser){
+    if (editUser) {
       editedAccount.username = editUser
     }
-    if (editFirst){
+    if (editFirst) {
       editedAccount.first_name = editFirst
     }
-    if (editLast){
+    if (editLast) {
       editedAccount.last_name = editLast
     }
-    if (editEmail){
+    if (editEmail) {
       editedAccount.email = editEmail
     }
-    if (editPhone){
+    if (editPhone) {
       editedAccount.phone = editPhone
     }
     // password: editPass,
@@ -185,7 +185,7 @@ $(function () {
       url: "/signup",
       method: "PUT",
       data: editedAccount,
-    }).then(function(data, status) {
+    }).then(function (data, status) {
       console.log(status);
       // CREATE OBJECT OF USERNAME/PASSWORD FOR LOGIN REQUEST
       const newObj = {
@@ -197,7 +197,7 @@ $(function () {
         url: "/login",
         method: "POST",
         data: newObj,
-      }).then(function(data, status) {
+      }).then(function (data, status) {
         location.href = "/view-events";
         console.log(data);
       });
@@ -284,9 +284,13 @@ $(function () {
       location.href = "/view-events";
     });
 
+  
+  });
+
     // add collab submit
-    $("#add-collab").on("submit", function(event) {
-      console.log($(this).id);
+    $(".add-collab").on("submit", function (event) {
+
+      console.log($(this).attr("id"));
       event.preventDefault();
       console.log("button pressed");
       const collabObj = {};
@@ -296,15 +300,18 @@ $(function () {
 
       collabObj.new_name = newName;
       collabObj.email = newEmail;
+      collabObj.eventId = $(this).attr("id");
       console.log("collab Object after being built: ", collabObj);
 
       $.ajax({
         url: "/add-collab",
         method: "POST",
         data: collabObj,
-      }).then((response) => {});
+      }).then((response) => {
+        res.status(200).end();
+        location.href = "/view-events";
+      });
     });
-  });
 
   // create tasks
   $(".create-tasks").on("submit", function (event) {
@@ -399,7 +406,8 @@ $(function () {
       url: `/api/costs/`,
       method: "POST",
       data: costObj,
-    }).then((response) => {
+    }).then((response, status) => {
+      console.log(status);
       location.href = "/view-events";
     });
   });
@@ -444,7 +452,7 @@ $(function () {
   });
 
   // logout button
-  $("#logout-link").on("click", function(){
+  $("#logout-link").on("click", function () {
     $.ajax({
       url: `/logout`,
       method: "DELETE"
@@ -492,7 +500,7 @@ $(function () {
 
   // limit phone number input to numbers and auto format
   $(function () {
-    $("#new-phone").keydown(function (e) {
+    $("#new-phone, #update-phone").keydown(function (e) {
       var key = e.charCode || e.keyCode || 0;
       $text = $(this);
       if (key !== 8 && key !== 9) {
@@ -513,3 +521,26 @@ $(function () {
     });
   });
 });
+
+// $(function () {
+//   $("#update-phone").keydown(function (e) {
+//     var key = e.charCode || e.keyCode || 0;
+//     $text = $(this);
+//     if (key !== 8 && key !== 9) {
+//       if ($text.val().length === 3) {
+//         $text.val($text.val() + "-");
+//       }
+//       if ($text.val().length === 7) {
+//         $text.val($text.val() + "-");
+//       }
+//     }
+//     return (
+//       key == 8 ||
+//       key == 9 ||
+//       key == 46 ||
+//       (key >= 48 && key <= 57) ||
+//       (key >= 96 && key <= 105)
+//     );
+//   });
+// });
+// });

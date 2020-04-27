@@ -85,6 +85,7 @@ module.exports = function (app) {
             // If there are costs associated with the event,
             // display them on the card
             if (dbEvent[i].costs.length > 0) {
+              
               const costListArr = [];
               const costsArr = dbEvent[i].costs;
               costsArr.forEach((cost) => {
@@ -101,24 +102,31 @@ module.exports = function (app) {
             } else {
               newObj.costs = "No costs associated yet";
             }
+            console.log(dbEvent[0].collabs[0].username)
             // If there are OTHER collabs associated with the event,
             // display them on the card
             if (dbEvent[i].collabs.length > 1) {
-              // const costListArr = []
-              // const costsArr = dbEvent[i].costs
-              // costsArr.forEach(cost => {
-              //   const individCost = {
-              //     costName: cost.name,
-              //     costDescription: cost.description,
-              //     costCost: cost.cost,
-              //     costPurchased: cost.purchased,
-              //   }
-              //   costListArr.push(individCost)
-              // });
+              console.log("more than one collab");
+              // const collabListArr = []
+              const collabArr = dbEvent[i].collabs;
+              console.log(collabArr);
+              collabArr.forEach((collab) => {
+                const individCollab = {
+                  collabUsername: collab.username
+
+                  // costName: cost.name,
+                  // costDescription: cost.description,
+                  // costCost: cost.cost,
+                  // costPurchased: cost.purchased,
+                }
+                collabListArr.push(individCollab)
+                console.log(collabListArr.length)
+              });
               newObj.collabs = collabsListArr;
             } else {
               newObj.collabs =
                 "You! Currently, there are no other collaborators yet.";
+                console.log("no collabs");
             }
             eventArr.push(newObj);
             // }
@@ -162,8 +170,9 @@ module.exports = function (app) {
             description: dbTask.dataValues.description,
             completed: dbTask.dataValues.completed,
             eventId: dbTask.dataValues.eventId,
+            username: req.session.username.username
           };
-          res.render("update-task", {taskEditObj, username: req.session.username.username });
+          res.render("update-task", taskEditObj);
         });
     } else {
       res.redirect("/");
@@ -172,6 +181,7 @@ module.exports = function (app) {
 
   // redirects to edit-cost page
   app.get("/update-cost/:id", function (req, res) {
+    console.log("beginning of update cost route line 183");
     if (req.session.username) {
       // ajax query for all event info from user id
       db.cost
@@ -190,8 +200,9 @@ module.exports = function (app) {
             cost: dbCost.dataValues.cost,
             purchased: dbCost.dataValues.purchased,
             eventId: dbCost.dataValues.eventId,
+            username: req.session.username.username
           };
-          res.render("update-cost", {costEditObj, username: req.session.username.username});
+          res.render("update-cost", costEditObj);
         });
     } else {
       res.redirect("/");
