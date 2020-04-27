@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/the-medium-place/group-planner#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.0.1",
     "bcrypt": "^4.0.1",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^4.0.3",
     "express-session": "^1.17.1",
