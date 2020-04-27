@@ -231,8 +231,8 @@ $(function () {
       url: "/api/events",
       method: "POST",
       data: newEvent,
-    }).then((callback) => {
-      location.href = "/view-events";
+    }).then(() => {
+      location.href = "view-events";
     });
   });
 
@@ -448,6 +448,17 @@ $(function () {
       data: costObj,
     }).then((response) => {
       location.href = "/view-events";
+    });
+  });
+
+  // delete costs
+  $(".delete-cost-button").on("click", function () {
+    const taskId = $(this).attr("id");
+    $.ajax({
+      url: `/api/costs/${taskId}`,
+      method: "delete",
+    }).then((response) => {
+      location.reload();
     });
   });
 
