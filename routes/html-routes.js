@@ -96,9 +96,9 @@ module.exports = function (app) {
             } else {
               newObj.costs = "No costs associated yet";
             }
+
             // If there are OTHER collabs associated with the event,
             // display them on the card
-         
             if (dbEvent[i].collabs.length > 1) {
               const collabListArr = []
               const collabArr = dbEvent[i].collabs;
@@ -106,12 +106,7 @@ module.exports = function (app) {
               collabArr.forEach((collab) => {
                 const individCollab = {
                   collabUsername: collab.username
-                  
-                  // costName: cost.name,
-                  // costDescription: cost.description,
-                  // costCost: cost.cost,
-                  // costPurchased: cost.purchased,
-                }
+                 }
                 collabListArr.push(individCollab)
             
               });
@@ -120,7 +115,7 @@ module.exports = function (app) {
          
 
               newObj.collabs =
-                ["You! Currently, there are no other collaborators yet."];
+                [{collabUsername: "You! Currently, there are no other collaborators yet."}];
   
             }
             eventArr.push(newObj);
