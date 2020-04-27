@@ -29,7 +29,7 @@ visit our deployed heroku app [here](http://awesome-group-planner.herokuapp.com/
 * ![user image](https://avatars3.githubusercontent.com/u/59448302?v=4&s=50)
 
 * GitHub Profile:  [yuriohliveira](https://github.com/yuriohliveira)
-* Email: <needThisEmailAlso@email.web>
+* Email: <yurioliveira.pnw@gmail.com>
 * <img src="https://ca.slack-edge.com/TU29H7MRQ-UUBS4CCKC-9b38fa987cf1-48" style="width: 50px;">
 <!-- * <img src="https://avatars0.githubusercontent.com/u/61686424?v=4&s=50" style="max-width: 50px;"> -->
 
