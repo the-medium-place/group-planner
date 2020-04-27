@@ -140,9 +140,11 @@ $(function () {
   });
 
 
-  $("#editAccount").on("submit", function (event) {
+  $(".editAccountForm").on("submit", function (event) {
     event.preventDefault();
     // CAPTURE USER INPUT
+    const userID = $(this).attr("id");
+    console.log(userID);
     const editUser = $("#current-user").val().trim();
     const editFirst = $("#update-first").val().trim();
     const editLast = $("#update-last").val().trim();
@@ -163,6 +165,8 @@ $(function () {
 
     // CREATE OBJECT OF USER INPUT
     const editedAccount = {};
+  
+   
     if (editUser) {
       editedAccount.username = editUser
     }
@@ -178,6 +182,7 @@ $(function () {
     if (editPhone) {
       editedAccount.phone = editPhone
     }
+    console.log(editedAccount);
     // password: editPass,
 
     // SEND POST REQUEST TO API-ROUTES PAGE
@@ -193,14 +198,23 @@ $(function () {
         // password: editPass,
       };
       $.ajax({
-        // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT (GET CANNOT ACCEPT OBJECT - NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
-        url: "/login",
-        method: "POST",
-        data: newObj,
-      }).then(function (data, status) {
-        location.href = "/view-events";
-        console.log(data);
-      });
+        url: `/logout`,
+        method: "DELETE"
+      }).then((response) => {
+        location.reload();
+      })
+      alert("Please logout and back in to see changes.");
+      location.href("/");
+
+      // $.ajax({
+      //   // LOGIN SENT AS POST SO THAT OBJECT CAN BE SENT (GET CANNOT ACCEPT OBJECT - NOT SECURE AS IT WOULD NEED TO SEND THROUGH URL)
+      //   url: "/login",
+      //   method: "POST",
+      //   data: newObj,
+      // }).then(function (data, status) {
+      //   location.href = "/view-events";
+      //   console.log(data);
+      // });
     });
   });
 
@@ -525,4 +539,6 @@ $(function () {
     });
   });
 });
+
+
 
