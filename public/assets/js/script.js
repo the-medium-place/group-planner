@@ -137,6 +137,9 @@ $(function () {
         console.log(status);
       });
     });
+
+    setTimeout(function(){ location.reload(); }, 100);
+
   });
 
 
@@ -248,6 +251,8 @@ $(function () {
     }).then(() => {
       location.href = "/view-events";
     });
+    setTimeout(function(){ location.href = "/view-events"; }, 100);
+
   });
 
   // Editing a specific event
@@ -325,6 +330,8 @@ $(function () {
         res.status(200).end();
         location.href = "/view-events";
       });
+      setTimeout(function(){ location.href = "/view-events"; }, 100);
+
     });
 
   // create tasks
