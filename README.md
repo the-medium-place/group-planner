@@ -4,7 +4,17 @@
 A group planning application allowing multiple users to collaborate on multiple events. From parties to Projects to Professional Event Planning - all relevant information for each user is organized and easily accessible. 
 
 ## Usage: 
-visit our deployed heroku app [here](http://awesome-group-planner.herokuapp.com/)!
+Visit our deployed heroku app [here](http://awesome-group-planner.herokuapp.com/)!
+* Log in, or create a new account by clicking the "New Account" button and completing the account creation form
+* After loggin in, you can edit your account info by clicking on your username in the nav bar and selecting "Edit Account"
+* Create an event by clicking "New Event" in the nav bar and completing the form
+* On the "Events" page you can view all of the events you have created
+* Click the blue "Edit" button on the event card to update your event. On the update page you may: 
+  * Change any event details
+  * Add event specific tasks and costs
+  * Add collaborators to event, creating accounts for new collaborators
+    * New users receive an email with randomly generated account info and instructions to update
+* Plan your event!
 
 ## Build Tools:
 * [Foundation CSS](https://get.foundation/)
@@ -34,7 +44,7 @@ visit our deployed heroku app [here](http://awesome-group-planner.herokuapp.com/
 <!-- * <img src="https://avatars0.githubusercontent.com/u/61686424?v=4&s=50" style="max-width: 50px;"> -->
 
 * GitHub Profile:  [mgrinx](https://github.com/mgrinx)
-* Email: <needThisOneAlso@email.web>
+* Email: <mgringauze@gmail.com>
 * ![user image](https://avatars3.githubusercontent.com/u/61442848?v=4&s=50)
 
 * GitHub Profile:  [the-medium-place](https://github.com/the-medium-place)
